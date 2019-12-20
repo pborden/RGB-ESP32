@@ -10,10 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var redColor: Float = 0.33
-    var greenColor: Float = 0.33
-    var blueColor: Float = 0.33
+    var redColor: Float = 0.9
+    var greenColor: Float = 0.9
+    var blueColor: Float = 0.9
     var whiteColor: Float = 0.90
+    var colorMode: Bool = true
     
     @IBOutlet weak var textLarge: UITextView!
     @IBOutlet weak var textMedium: UITextView!
@@ -34,12 +35,12 @@ class ViewController: UIViewController {
         setBackgroundColor()
     }
     
-    @IBAction func whiteButton(_ button: UIButton) {
-        setBackgroundWhite()
-    }
-    
     @IBAction func colorButton(_ button: UIButton) {
-        setBackgroundColor()
+         if colorMode {
+            setBackgroundWhite()
+        } else {
+            setBackgroundColor()
+        }
     }
     
     func setBackgroundColor() {
@@ -51,6 +52,7 @@ class ViewController: UIViewController {
         )
         textMedium.backgroundColor = textLarge.backgroundColor
         textSmall.backgroundColor = textLarge.backgroundColor
+        colorMode = true
     }
     
     func setBackgroundWhite() {
@@ -62,6 +64,7 @@ class ViewController: UIViewController {
         )
         textMedium.backgroundColor = textLarge.backgroundColor
         textSmall.backgroundColor = textLarge.backgroundColor
+        colorMode = false
     }
 
     override func viewDidLoad() {
