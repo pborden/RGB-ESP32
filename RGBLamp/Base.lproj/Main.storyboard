@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XkG-BZ-IpB">
-                                <rect key="frame" x="20" y="40" width="374" height="386"/>
+                                <rect key="frame" x="20" y="20" width="374" height="375"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="0ZJ-4q-3pH" userLabel="TextLarge">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="125"/>
@@ -28,6 +28,11 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="gRS-rZ-3eQ" userLabel="TextMedium">
                                         <rect key="frame" x="0.0" y="125" width="374" height="125"/>
@@ -39,14 +44,27 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="OGp-yr-9bE" userLabel="TextSmall">
-                                        <rect key="frame" x="0.0" y="250" width="374" height="136"/>
+                                        <rect key="frame" x="0.0" y="250" width="374" height="125"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="125" id="cAs-ZL-BaP"/>
+                                        </constraints>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textView>
                                 </subviews>
                                 <constraints>
@@ -54,51 +72,83 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Xn3-oG-M2L">
-                                <rect key="frame" x="20" y="466" width="374" height="150"/>
+                                <rect key="frame" x="20" y="420" width="374" height="200"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.90000000000000002" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4CK-2V-e8o" userLabel="RedSlider">
                                         <rect key="frame" x="-2" y="0.0" width="378" height="51"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="0.66666668653488159" green="0.57210255426721768" blue="0.61450516565665037" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="R7l-n4-uM9"/>
                                         </constraints>
                                         <color key="minimumTrackTintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="maximumTrackTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="thumbTintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="redSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="BH9-7E-ugg"/>
                                         </connections>
                                     </slider>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.90000000000000002" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="cil-iQ-Udi" userLabel="GreenSlider">
                                         <rect key="frame" x="-2" y="50" width="378" height="51"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="0.62044600733788768" green="0.66666668653488159" blue="0.63422601640413845" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="meJ-X8-mIP"/>
                                         </constraints>
                                         <color key="minimumTrackTintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="maximumTrackTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="thumbTintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="greenSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="G1t-SW-rfd"/>
                                         </connections>
                                     </slider>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.90000000000000002" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Exx-Ox-SBt" userLabel="BlueSlider">
                                         <rect key="frame" x="-2" y="100" width="378" height="51"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="0.58189617083837819" green="0.55973534545667414" blue="0.66666668653488159" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="gDW-0z-bh9"/>
+                                        </constraints>
                                         <color key="minimumTrackTintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="maximumTrackTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="thumbTintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="blueSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="Aek-X4-FQo"/>
                                         </connections>
                                     </slider>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.90000000000000002" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="n06-PH-2Sf" userLabel="AlphaSlider">
+                                        <rect key="frame" x="-2" y="150" width="378" height="51"/>
+                                        <color key="backgroundColor" red="0.39069111546889179" green="0.39069111546889179" blue="0.39069111546889179" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="maximumTrackTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="alphaSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="QfJ-4K-huk"/>
+                                        </connections>
+                                    </slider>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="6rS-61-YHn"/>
+                                    <constraint firstAttribute="height" constant="200" id="6rS-61-YHn"/>
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bh4-OF-f3p">
-                                <rect key="frame" x="20" y="656" width="140" height="25"/>
+                                <rect key="frame" x="20" y="650" width="140" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="WAk-R7-X6z"/>
                                 </constraints>
@@ -109,19 +159,27 @@
                                     <action selector="colorButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t24-dw-BOX"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright Jasper Ridge Inc 2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2uQ-x5-N1v">
+                                <rect key="frame" x="20" y="709" width="210.66666666666666" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="XkG-BZ-IpB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="1mm-z4-ndD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2uQ-x5-N1v" secondAttribute="trailing" symbolic="YES" id="3CO-Bc-X3N"/>
+                            <constraint firstItem="2uQ-x5-N1v" firstAttribute="leading" secondItem="Bh4-OF-f3p" secondAttribute="leading" id="FrN-Rf-7Fm"/>
                             <constraint firstItem="Xn3-oG-M2L" firstAttribute="trailing" secondItem="XkG-BZ-IpB" secondAttribute="trailing" id="GIh-e2-qO3"/>
+                            <constraint firstItem="Bh4-OF-f3p" firstAttribute="top" secondItem="Xn3-oG-M2L" secondAttribute="bottom" constant="30" id="GXe-Kw-PNb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XkG-BZ-IpB" secondAttribute="trailing" constant="20" id="PKm-rk-ZEB"/>
                             <constraint firstItem="Xn3-oG-M2L" firstAttribute="leading" secondItem="XkG-BZ-IpB" secondAttribute="leading" id="TlE-Y4-8tJ"/>
-                            <constraint firstItem="XkG-BZ-IpB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="gsM-09-Ong"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2uQ-x5-N1v" secondAttribute="bottom" constant="10" id="fPL-ks-THz"/>
+                            <constraint firstItem="XkG-BZ-IpB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="gsM-09-Ong"/>
                             <constraint firstItem="Bh4-OF-f3p" firstAttribute="leading" secondItem="Xn3-oG-M2L" secondAttribute="leading" id="jLt-EZ-u3P"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Bh4-OF-f3p" secondAttribute="trailing" constant="254" id="mDh-aJ-Yah"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Bh4-OF-f3p" secondAttribute="bottom" constant="55" id="pXr-EN-Mug"/>
-                            <constraint firstItem="Xn3-oG-M2L" firstAttribute="top" secondItem="XkG-BZ-IpB" secondAttribute="bottom" constant="40" id="szz-uw-8FN"/>
-                            <constraint firstItem="Bh4-OF-f3p" firstAttribute="top" secondItem="Xn3-oG-M2L" secondAttribute="bottom" constant="40" id="tn0-Xd-w14"/>
+                            <constraint firstItem="Xn3-oG-M2L" firstAttribute="top" secondItem="XkG-BZ-IpB" secondAttribute="bottom" constant="25" id="szz-uw-8FN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

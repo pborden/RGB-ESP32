@@ -13,7 +13,8 @@ class ViewController: UIViewController {
     var redColor: Float = 0.9
     var greenColor: Float = 0.9
     var blueColor: Float = 0.9
-    var whiteColor: Float = 0.90
+    var whiteColor: Float = 0.9
+    var alpha: Float = 0.9
     var colorMode: Bool = true
     
     @IBOutlet weak var textLarge: UITextView!
@@ -35,6 +36,11 @@ class ViewController: UIViewController {
         setBackgroundColor()
     }
     
+    @IBAction func alphaSlider(_ slider: UISlider) {
+        alpha = slider.value
+        setBackgroundColor()
+    }
+    
     @IBAction func colorButton(_ button: UIButton) {
          if colorMode {
             setBackgroundWhite()
@@ -48,7 +54,7 @@ class ViewController: UIViewController {
             red: CGFloat(redColor),
             green: CGFloat(greenColor),
             blue: CGFloat(blueColor),
-            alpha: 1.0
+            alpha: CGFloat(alpha)
         )
         textMedium.backgroundColor = textLarge.backgroundColor
         textSmall.backgroundColor = textLarge.backgroundColor
@@ -60,7 +66,7 @@ class ViewController: UIViewController {
             red: CGFloat(whiteColor),
             green: CGFloat(whiteColor),
             blue: CGFloat(whiteColor),
-            alpha: 1.0
+            alpha: CGFloat(alpha)
         )
         textMedium.backgroundColor = textLarge.backgroundColor
         textSmall.backgroundColor = textLarge.backgroundColor
