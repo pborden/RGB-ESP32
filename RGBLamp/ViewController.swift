@@ -20,6 +20,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var textLarge: UITextView!
     @IBOutlet weak var textMedium: UITextView!
     @IBOutlet weak var textSmall: UITextView!
+    @IBOutlet weak var redValue: UILabel!
+    @IBOutlet weak var greenValue: UILabel!
+    @IBOutlet weak var blueValue: UILabel!
+    @IBOutlet weak var alphaValue: UILabel!
+    
     
     @IBAction func redSlider(_ slider: UISlider) {
         redColor = slider.value
@@ -59,6 +64,8 @@ class ViewController: UIViewController {
         textMedium.backgroundColor = textLarge.backgroundColor
         textSmall.backgroundColor = textLarge.backgroundColor
         colorMode = true
+        
+        setLabels()
     }
     
     func setBackgroundWhite() {
@@ -71,6 +78,19 @@ class ViewController: UIViewController {
         textMedium.backgroundColor = textLarge.backgroundColor
         textSmall.backgroundColor = textLarge.backgroundColor
         colorMode = false
+        
+    }
+    
+    func setLabels() {
+        let redColorInt = Int(100 * redColor)
+        let greenColorInt = Int(100 * greenColor)
+        let blueColorInt = Int(100 * blueColor)
+        let alphaInt = Int(100 * alpha)
+        
+        redValue.text = "\(redColorInt)"
+        greenValue.text = "\(greenColorInt)"
+        blueValue.text = "\(blueColorInt)"
+        alphaValue.text = "\(alphaInt)"
     }
 
     override func viewDidLoad() {
@@ -79,7 +99,5 @@ class ViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-
-
 }
 
