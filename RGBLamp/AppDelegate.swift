@@ -15,6 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let defaults = UserDefaults.standard
+        let defaultRed = ["red" : Float()]
+        let defaultGreen = ["green": Float()]
+        let defaultBlue = ["blue": Float()]
+        let defaultAlpha = ["alpha": Float()]
+        let defaultFirstTry = ["firstTry": String()]
+        defaults.register(defaults: defaultRed)
+        defaults.register(defaults: defaultGreen)
+        defaults.register(defaults: defaultBlue)
+        defaults.register(defaults: defaultAlpha)
+        defaults.register(defaults: defaultFirstTry)
         return true
     }
 

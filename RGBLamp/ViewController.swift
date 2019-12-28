@@ -10,11 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var redColor: Float = 0.9
-    var greenColor: Float = 0.9
-    var blueColor: Float = 0.9
+    var redColor: Float = UserDefaults.standard.float(forKey: "red")
+    var greenColor: Float = UserDefaults.standard.float(forKey: "green")
+    var blueColor: Float = UserDefaults.standard.float(forKey: "blue")
     var whiteColor: Float = 0.9
-    var alpha: Float = 0.9
+    var alpha: Float = UserDefaults.standard.float(forKey: "alpha")
     var colorMode: Bool = true
     
     @IBOutlet weak var textLarge: UITextView!
@@ -24,6 +24,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var greenValue: UILabel!
     @IBOutlet weak var blueValue: UILabel!
     @IBOutlet weak var alphaValue: UILabel!
+    @IBOutlet weak var setRedSlider: UISlider!
+    @IBOutlet weak var setGreenSlider: UISlider!
+    @IBOutlet weak var setBlueSlider: UISlider!
+    @IBOutlet weak var setAlphaSlider: UISlider!
     
     
     @IBAction func redSlider(_ slider: UISlider) {
@@ -91,13 +95,47 @@ class ViewController: UIViewController {
         greenValue.text = "\(greenColorInt)"
         blueValue.text = "\(blueColorInt)"
         alphaValue.text = "\(alphaInt)"
+        
+        UserDefaults.standard.set(redColor, forKey: "red")
+        UserDefaults.standard.set(greenColor, forKey: "green")
+        UserDefaults.standard.set(blueColor, forKey: "blue")
+        UserDefaults.standard.set(alpha, forKey: "alpha")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setBackgroundColor()
         
-        // Do any additional setup after loading the view.
+        print("Red = \(redColor)")
+        print("Green = \(greenColor)")
+        print("Blue = \(blueColor)")
+        print("Alpha = \(alpha)")
+        
+        //set start-up values of sliders
+        setRedSlider.value = UserDefaults.standard.float(forKey: "red")
+        setGreenSlider.value = UserDefaults.standard.float(forKey: "green")
+        setBlueSlider.value = UserDefaults.standard.float(forKey: "blue")
+        setAlphaSlider.value = UserDefaults.standard.float(forKey: "alpha")
+        
+        // on first run of program, need to set initial values
+        if UserDefaults.standard.string(forKey: "firstTry") != "no" {
+            UserDefaults.standard.set("no", forKey: "firstTry")
+            setRedSlider.value = 0.9
+            setGreenSlider.value = 0.9
+            setBlueSlider.value = 0.9
+            setAlphaSlider.value = 0.9
+            redColor = 0.9
+            greenColor = 0.9
+            blueColor = 0.9
+            alpha = 0.9
+        }
+        setBackgroundColor()
     }
+    
+   /* override func viewWillDisappear(_ animated: Bool) {
+        UserDefaults.standard.set(redColor, forKey: "red")
+        UserDefaults.standard.set(greenColor, forKey: "green")
+        UserDefaults.standard.set(blueColor, forKey: "blue")
+        UserDefaults.standard.set(alpha, forKey: "alpha")
+    } */
 }
 

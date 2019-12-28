@@ -227,6 +227,10 @@
                         <outlet property="blueValue" destination="f7U-cl-ixR" id="cfh-Lh-VQa"/>
                         <outlet property="greenValue" destination="EHE-Xa-INz" id="ecU-dn-eKp"/>
                         <outlet property="redValue" destination="w0G-0J-pEI" id="rmm-A6-n97"/>
+                        <outlet property="setAlphaSlider" destination="n06-PH-2Sf" id="TJT-ap-6bl"/>
+                        <outlet property="setBlueSlider" destination="Exx-Ox-SBt" id="6bq-iG-3ZQ"/>
+                        <outlet property="setGreenSlider" destination="cil-iQ-Udi" id="S3J-Wk-cHj"/>
+                        <outlet property="setRedSlider" destination="4CK-2V-e8o" id="ruE-V2-Yt6"/>
                         <outlet property="textLarge" destination="0ZJ-4q-3pH" id="BB6-mB-7A2"/>
                         <outlet property="textMedium" destination="gRS-rZ-3eQ" id="Nl8-VP-mPb"/>
                         <outlet property="textSmall" destination="OGp-yr-9bE" id="hhH-o2-neu"/>
