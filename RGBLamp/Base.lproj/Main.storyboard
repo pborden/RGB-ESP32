@@ -18,57 +18,184 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XkG-BZ-IpB">
                                 <rect key="frame" x="20" y="20" width="374" height="375"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ZJ-4q-3pH" userLabel="TextLarge">
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9UE-XQ-iSS">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="125"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="125" id="0uH-pa-Jod"/>
-                                        </constraints>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </string>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gRS-rZ-3eQ" userLabel="TextMedium">
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ZJ-4q-3pH" userLabel="TextLarge">
+                                                <rect key="frame" x="0.0" y="0.0" width="334" height="125"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="125" id="0uH-pa-Jod"/>
+                                                </constraints>
+                                                <mutableString key="text">What happened to the dinosaurs when an asteroid about six miles wide struck Earth some 66 million years ago in what is today Mexico is well known: It wiped them out. But the exact fate of our planet’s diverse ocean dwellers at the time — shelly ammonites, giant mosasaurs and other sea creatures — has not been as well understood.
+New research now makes the case that the same incident that helped bring an end to the reign of the dinosaurs also acidified the planet’s oceans, disrupted the food chain that sustained life underwater and resulted in a mass extinction. The study aims to shore up the hypothesis that the Chicxulub event’s destruction of marine life — the result of sulfur-rich rocks depositing acid rain into the oceans — was just as severe as the fire and fury it brought to land.</mutableString>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eQH-n2-5ZV">
+                                                <rect key="frame" x="334" y="0.0" width="40" height="125"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uo7-Nj-aUh">
+                                                        <rect key="frame" x="0.0" y="2.6666666666666643" width="40" height="41"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" backgroundImage="arrowtriangle.up" catalog="system">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="largeTextBigger:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VD7-r0-4yh"/>
+                                                        </connections>
+                                                    </button>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XSd-rK-xC3">
+                                                        <rect key="frame" x="0.0" y="45.666666666666671" width="40" height="34"/>
+                                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ao-NO-wZ8">
+                                                        <rect key="frame" x="0.0" y="82.333333333333343" width="40" height="40.666666666666671"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" backgroundImage="arrowtriangle.down" catalog="system">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="largeTextSmaller:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P53-Ue-uS0"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="a6u-bc-vRg"/>
+                                                    <constraint firstItem="7Ao-NO-wZ8" firstAttribute="height" secondItem="Uo7-Nj-aUh" secondAttribute="height" id="nBf-gq-8aD"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fP-uP-N89">
                                         <rect key="frame" x="0.0" y="125" width="374" height="125"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="125" id="WJn-Vg-vZZ"/>
-                                        </constraints>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat</string>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGp-yr-9bE" userLabel="TextSmall">
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gRS-rZ-3eQ" userLabel="TextMedium">
+                                                <rect key="frame" x="0.0" y="0.0" width="334" height="125"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="125" id="WJn-Vg-vZZ"/>
+                                                </constraints>
+                                                <string key="text">“It’s flash acidification, and it transformed ecosystems for millions of years,” said a biogeochemist at Yale and one of the study’s authors. “We were shocked that we actually found this.” The impact of the asteroid — named for the crater it carved out around the Gulf of Mexico — sent columns of rock into Earth’s atmosphere, incinerated the planet’s forests and drove tsunamis far across the oceans. But the connection between the crash and the marine extinction has been less solid.
+</string>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="LAj-Rw-D1D">
+                                                <rect key="frame" x="334" y="0.0" width="40" height="125"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoW-Or-YlE" userLabel="MediumMinus">
+                                                        <rect key="frame" x="0.0" y="2.6666666666666643" width="40" height="41"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" backgroundImage="arrowtriangle.up" catalog="system">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="mediumTextBigger:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AnA-Nw-bHf"/>
+                                                        </connections>
+                                                    </button>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BOr-8X-Gd4">
+                                                        <rect key="frame" x="0.0" y="45.666666666666657" width="40" height="34"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Co0-dv-Rmq">
+                                                        <rect key="frame" x="0.0" y="82.333333333333314" width="40" height="40.666666666666671"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" backgroundImage="arrowtriangle.down" catalog="system">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="mediumTextSmaller:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vEv-Na-TxA"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="Co0-dv-Rmq" firstAttribute="height" secondItem="KoW-Or-YlE" secondAttribute="height" id="Aph-zJ-YRD"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2V8-9D-rdX">
                                         <rect key="frame" x="0.0" y="250" width="374" height="125"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="125" id="cAs-ZL-BaP"/>
-                                        </constraints>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textView>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGp-yr-9bE" userLabel="TextSmall">
+                                                <rect key="frame" x="0.0" y="0.0" width="334" height="125"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="125" id="cAs-ZL-BaP"/>
+                                                </constraints>
+                                                <mutableString key="text">The study offers evidence of what sustained the marine extinction after the asteroid impact got things rolling. That, and it confirms that the asteroid triggered the extinction in the first place.
+Around the time that the asteroid struck, there was intense volcanic activity in what is today India, causing over 200,000 cubic miles of lava to be disgorged over the course of about a million years. For a long time, it was not clear if the marine mass extinction stemmed from changes wrought by the volcanism or by the asteroid. But because the boron shift happened exactly at the boundary, it is now obvious that the asteroid had the bigger effect. The flash acidification and mass extinction, though ancient events, are relevant to our modern world. According to reports from the United Nations Intergovernmental Panel on Climate Change, human emissions of carbon dioxide are not only warming the planet, but also acidifying the oceans. And that modern acidification is happening at a rate and scale comparable to the asteroid-triggered acidification. A similar result is on the extreme end of what we could get in the next 100 years.
+</mutableString>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BTA-6f-tKy">
+                                                <rect key="frame" x="334" y="0.0" width="40" height="125"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQy-Hf-yX9" userLabel="SmallPlus">
+                                                        <rect key="frame" x="0.0" y="2.6666666666666643" width="40" height="41"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" backgroundImage="arrowtriangle.up" catalog="system">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="smallTextBigger:" destination="BYZ-38-t0r" eventType="touchUpInside" id="haB-C9-DJP"/>
+                                                        </connections>
+                                                    </button>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8qD-22-PlA">
+                                                        <rect key="frame" x="0.0" y="45.666666666666686" width="40" height="34"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vnz-w4-1mf" userLabel="SmallMinus">
+                                                        <rect key="frame" x="0.0" y="82.333333333333343" width="40" height="40.666666666666671"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" backgroundImage="arrowtriangle.down" catalog="system">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="smallTextSmaller:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VMC-sK-Rxg"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="Vnz-w4-1mf" firstAttribute="height" secondItem="zQy-Hf-yX9" secondAttribute="height" id="Evc-Sh-Wa1"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="375" id="N6w-M1-0n0"/>
+                                    <constraint firstItem="BTA-6f-tKy" firstAttribute="width" secondItem="eQH-n2-5ZV" secondAttribute="width" id="Nod-kK-ziK"/>
+                                    <constraint firstItem="LAj-Rw-D1D" firstAttribute="width" secondItem="eQH-n2-5ZV" secondAttribute="width" id="NuQ-EU-wUU"/>
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Xn3-oG-M2L">
@@ -244,11 +371,14 @@
                         <outlet property="alphaValue" destination="JcV-Dw-QZO" id="xtZ-vP-Tdq"/>
                         <outlet property="blueValue" destination="f7U-cl-ixR" id="cfh-Lh-VQa"/>
                         <outlet property="greenValue" destination="EHE-Xa-INz" id="ecU-dn-eKp"/>
+                        <outlet property="largeFont" destination="XSd-rK-xC3" id="MHh-XW-LtO"/>
+                        <outlet property="mediumFont" destination="BOr-8X-Gd4" id="oLd-pa-j2L"/>
                         <outlet property="redValue" destination="w0G-0J-pEI" id="rmm-A6-n97"/>
                         <outlet property="setAlphaSlider" destination="n06-PH-2Sf" id="TJT-ap-6bl"/>
                         <outlet property="setBlueSlider" destination="Exx-Ox-SBt" id="6bq-iG-3ZQ"/>
                         <outlet property="setGreenSlider" destination="cil-iQ-Udi" id="S3J-Wk-cHj"/>
                         <outlet property="setRedSlider" destination="4CK-2V-e8o" id="ruE-V2-Yt6"/>
+                        <outlet property="smallFont" destination="8qD-22-PlA" id="IRI-tm-Wk2"/>
                         <outlet property="textLarge" destination="0ZJ-4q-3pH" id="BB6-mB-7A2"/>
                         <outlet property="textMedium" destination="gRS-rZ-3eQ" id="Nl8-VP-mPb"/>
                         <outlet property="textSmall" destination="OGp-yr-9bE" id="hhH-o2-neu"/>
@@ -256,7 +386,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.8840579710145" y="136.95652173913044"/>
+            <point key="canvasLocation" x="-306" y="122"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrowtriangle.down" catalog="system" width="64" height="62"/>
+        <image name="arrowtriangle.up" catalog="system" width="64" height="62"/>
+    </resources>
 </document>
