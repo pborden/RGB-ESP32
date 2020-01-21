@@ -28,16 +28,13 @@ class ViewController: UIViewController {
     var savedHues: [Hue] = []
     
     var largeFontSize = UserDefaults.standard.float(forKey: "largeFont")
-    var mediumFontSize = UserDefaults.standard.float(forKey: "mediumFont")
     var smallFontSize = UserDefaults.standard.float(forKey: "smallFont")
     
     let minSize: Float = 4.0 // minimum font size
     
     @IBOutlet weak var textLarge: UITextView!
-    @IBOutlet weak var textMedium: UITextView!
     @IBOutlet weak var textSmall: UITextView!
     @IBOutlet weak var largeFont: UITextField!
-    @IBOutlet weak var mediumFont: UITextField!
     @IBOutlet weak var smallFont: UITextField!
     @IBOutlet weak var redValue: UILabel!
     @IBOutlet weak var greenValue: UILabel!
@@ -84,23 +81,6 @@ class ViewController: UIViewController {
         textLarge.font = .systemFont(ofSize: CGFloat(largeFontSize))
         largeFont.text = "\(Int(largeFontSize))"
         UserDefaults.standard.set(largeFontSize, forKey: "largeFont")
-    }
-    
-    @IBAction func mediumTextBigger(_ button: UIButton) {
-        mediumFontSize = mediumFontSize + 1.0
-        textMedium.font = .systemFont(ofSize: CGFloat(mediumFontSize))
-        mediumFont.text = "\(Int(mediumFontSize))"
-        UserDefaults.standard.set(mediumFontSize, forKey: "mediumFont")
-    }
-    
-    @IBAction func mediumTextSmaller(_ button: UIButton) {
-        mediumFontSize = mediumFontSize - 1.0
-            if mediumFontSize < minSize {
-                mediumFontSize = minSize
-            }
-        textMedium.font = .systemFont(ofSize: CGFloat(mediumFontSize))
-        mediumFont.text = "\(Int(mediumFontSize))"
-        UserDefaults.standard.set(mediumFontSize, forKey: "mediumFont")
     }
     
     @IBAction func smallTextBigger(_ button: UIButton) {
@@ -155,7 +135,6 @@ class ViewController: UIViewController {
             blue: CGFloat(blueColor),
             alpha: CGFloat(alpha)
         )
-        textMedium.backgroundColor = textLarge.backgroundColor
         textSmall.backgroundColor = textLarge.backgroundColor
         colorMode = true
         
@@ -169,7 +148,6 @@ class ViewController: UIViewController {
             blue: CGFloat(whiteColor),
             alpha: CGFloat(alpha)
         )
-        textMedium.backgroundColor = textLarge.backgroundColor
         textSmall.backgroundColor = textLarge.backgroundColor
         colorMode = false
         
@@ -200,7 +178,6 @@ class ViewController: UIViewController {
         print("Blue = \(blueColor)")
         print("Alpha = \(alpha)")
         print("Large font size = \(largeFontSize)")
-        print("Medium font size = \(mediumFontSize)")
         print("Small font size = \(smallFontSize)")
         
         //set start-up values of sliders
@@ -209,7 +186,6 @@ class ViewController: UIViewController {
         setBlueSlider.value = UserDefaults.standard.float(forKey: "blue")
         
         largeFontSize = UserDefaults.standard.float(forKey: "largeFont")
-        mediumFontSize = UserDefaults.standard.float(forKey: "mediumFont")
         smallFontSize = UserDefaults.standard.float(forKey: "smallFont")
         
         // on first run of program, need to set initial values
@@ -224,17 +200,14 @@ class ViewController: UIViewController {
             blueColor = 0.9
             alpha = 0.9
             largeFontSize = 18.0
-            mediumFontSize = 14.0
             smallFontSize = 10.0
         }
         setBackgroundColor()
         
         textLarge.font = .systemFont(ofSize: CGFloat(largeFontSize))
-        textMedium.font = .systemFont(ofSize: CGFloat(mediumFontSize))
         textSmall.font = .systemFont(ofSize: CGFloat(smallFontSize))
         
         largeFont.text = "\(Int(largeFontSize))"
-        mediumFont.text = "\(Int(mediumFontSize))"
         smallFont.text = "\(Int(smallFontSize))"
     }
     
