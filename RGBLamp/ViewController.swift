@@ -8,6 +8,14 @@
 
 import UIKit
 
+struct Hue {
+    var name: String
+    var red: Float
+    var green: Float
+    var blue: Float
+    var alpha: Float
+}
+
 class ViewController: UIViewController {
     
     var redColor: Float = UserDefaults.standard.float(forKey: "red")
@@ -17,9 +25,11 @@ class ViewController: UIViewController {
     var alpha: Float = UserDefaults.standard.float(forKey: "alpha")
     var colorMode: Bool = true
     
-    var largeFontSize: Float = 18.0
-    var mediumFontSize: Float = 14.0
-    var smallFontSize: Float = 10.0
+    var savedHues: [Hue] = []
+    
+    var largeFontSize = UserDefaults.standard.float(forKey: "largeFont")
+    var mediumFontSize = UserDefaults.standard.float(forKey: "mediumFont")
+    var smallFontSize = UserDefaults.standard.float(forKey: "smallFont")
     
     let minSize: Float = 4.0 // minimum font size
     
@@ -37,6 +47,27 @@ class ViewController: UIViewController {
     @IBOutlet weak var setGreenSlider: UISlider!
     @IBOutlet weak var setBlueSlider: UISlider!
     @IBOutlet weak var setAlphaSlider: UISlider!
+    
+    @IBAction func saveHue(_ button: UIButton) {
+        var hueName = ""
+        let alert = UIAlertController(title: "Name of saved color?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Input name here..."
+        })
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+
+            if let name = alert.textFields?.first?.text {
+                hueName = name
+                print("Your name: \(hueName)")
+            }
+        }))
+
+        self.present(alert, animated: true)
+        savedHues.append(Hue(name: hueName, red: redColor, green: greenColor, blue: blueColor, alpha: alpha))
+    }
     
     @IBAction func largeTextBigger(_ button: UIButton) {
         largeFontSize = largeFontSize + 1.0
@@ -181,10 +212,6 @@ class ViewController: UIViewController {
         mediumFontSize = UserDefaults.standard.float(forKey: "mediumFont")
         smallFontSize = UserDefaults.standard.float(forKey: "smallFont")
         
-        textLarge.font = .systemFont(ofSize: CGFloat(largeFontSize))
-        textMedium.font = .systemFont(ofSize: CGFloat(mediumFontSize))
-        textSmall.font = .systemFont(ofSize: CGFloat(smallFontSize))
-        
         // on first run of program, need to set initial values
         if UserDefaults.standard.string(forKey: "firstTry") != "no" {
             UserDefaults.standard.set("no", forKey: "firstTry")
@@ -196,13 +223,15 @@ class ViewController: UIViewController {
             greenColor = 0.9
             blueColor = 0.9
             alpha = 0.9
-            
-            textLarge.font = .systemFont(ofSize: CGFloat(largeFontSize))
-            textMedium.font = .systemFont(ofSize: CGFloat(mediumFontSize))
-            textSmall.font = .systemFont(ofSize: CGFloat(smallFontSize))
-            
+            largeFontSize = 18.0
+            mediumFontSize = 14.0
+            smallFontSize = 10.0
         }
         setBackgroundColor()
+        
+        textLarge.font = .systemFont(ofSize: CGFloat(largeFontSize))
+        textMedium.font = .systemFont(ofSize: CGFloat(mediumFontSize))
+        textSmall.font = .systemFont(ofSize: CGFloat(smallFontSize))
         
         largeFont.text = "\(Int(largeFontSize))"
         mediumFont.text = "\(Int(mediumFontSize))"
