@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="laP-Tl-8p3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16095" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="laP-Tl-8p3">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16084.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -38,35 +38,37 @@ New research now makes the case that the same incident that helped bring an end 
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eQH-n2-5ZV">
                                                 <rect key="frame" x="344" y="0.0" width="30" height="180"/>
                                                 <subviews>
+                                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XSd-rK-xC3">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="110"/>
+                                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uo7-Nj-aUh">
-                                                        <rect key="frame" x="0.0" y="2.3333333333333321" width="30" height="25.666666666666668"/>
+                                                        <rect key="frame" x="0.0" y="110" width="30" height="40"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="30" id="Mmv-Tv-uJO"/>
+                                                            <constraint firstAttribute="height" constant="40" id="Mmv-Tv-uJO"/>
                                                             <constraint firstAttribute="width" constant="30" id="g3W-N7-3Cj"/>
                                                         </constraints>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" backgroundImage="plus" catalog="system">
+                                                        <state key="normal" title="+">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="largeTextBigger:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VD7-r0-4yh"/>
                                                         </connections>
                                                     </button>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XSd-rK-xC3">
-                                                        <rect key="frame" x="0.0" y="30" width="30" height="120"/>
-                                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ao-NO-wZ8">
-                                                        <rect key="frame" x="0.0" y="158.33333333333334" width="30" height="13.333333333333329"/>
+                                                        <rect key="frame" x="0.0" y="150" width="30" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="30" id="77c-Ek-hwk"/>
                                                             <constraint firstAttribute="height" constant="30" id="EZq-em-7Yi"/>
                                                         </constraints>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" backgroundImage="minus" catalog="system">
+                                                        <state key="normal" title="-">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
@@ -102,30 +104,32 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BTA-6f-tKy">
                                                 <rect key="frame" x="344" y="0.0" width="30" height="180"/>
                                                 <subviews>
+                                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8qD-22-PlA">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="100"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQy-Hf-yX9" userLabel="SmallPlus">
-                                                        <rect key="frame" x="0.0" y="2.3333333333333321" width="30" height="25.666666666666668"/>
+                                                        <rect key="frame" x="0.0" y="100" width="30" height="40"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="30" id="lpQ-WQ-OWm"/>
+                                                            <constraint firstAttribute="height" constant="40" id="lpQ-WQ-OWm"/>
                                                         </constraints>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" backgroundImage="plus" catalog="system">
+                                                        <state key="normal" title="+">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="smallTextBigger:" destination="BYZ-38-t0r" eventType="touchUpInside" id="haB-C9-DJP"/>
                                                         </connections>
                                                     </button>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8qD-22-PlA">
-                                                        <rect key="frame" x="0.0" y="30" width="30" height="120"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vnz-w4-1mf" userLabel="SmallMinus">
-                                                        <rect key="frame" x="0.0" y="158.33333333333334" width="30" height="13.333333333333329"/>
+                                                        <rect key="frame" x="0.0" y="140" width="30" height="40"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" backgroundImage="minus" catalog="system">
+                                                        <state key="normal" title="-">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
@@ -279,8 +283,8 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                                     <constraint firstItem="sfM-UA-y7E" firstAttribute="height" secondItem="ksO-q1-rho" secondAttribute="height" id="zCU-Ba-DXT"/>
                                 </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright 2020 Jasper Ridge Inc. Patent pending." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2uQ-x5-N1v">
-                                <rect key="frame" x="20" y="663.66666666666663" width="262" height="13.333333333333371"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="©2020 Jasper Ridge Inc. Pat. pending." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2uQ-x5-N1v">
+                                <rect key="frame" x="20" y="663.66666666666663" width="203.33333333333334" height="13.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -288,10 +292,10 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gX4-DM-VaC">
                                 <rect key="frame" x="20" y="598" width="374" height="40"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bh4-OF-f3p">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bh4-OF-f3p">
                                         <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="Color / White">
+                                        <state key="normal" title="Colors / White">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -301,17 +305,17 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rsc-TS-fqI">
                                         <rect key="frame" x="124.66666666666666" y="0.0" width="124.66666666666666" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="Save Hue">
+                                        <state key="normal" title="Save Colors">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
                                             <action selector="saveHue:" destination="BYZ-38-t0r" eventType="touchUpInside" id="opY-t5-wjl"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vYV-l6-ATg">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vYV-l6-ATg">
                                         <rect key="frame" x="249.33333333333329" y="0.0" width="124.66666666666666" height="40"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="ON/OFF">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="power" catalog="system">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                     </button>
@@ -360,10 +364,10 @@ Around the time that the asteroid struck, there was intense volcanic activity in
             </objects>
             <point key="canvasLocation" x="600" y="121.46739130434784"/>
         </scene>
-        <!--Presets-->
+        <!--Saved settings-->
         <scene sceneID="AKZ-8W-go8">
             <objects>
-                <tableViewController id="GtT-fi-uNo" sceneMemberID="viewController">
+                <tableViewController id="GtT-fi-uNo" customClass="PresetViewControllerTableViewController" customModule="RGBLamp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="nOR-We-RAS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -474,16 +478,16 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                             <outlet property="delegate" destination="GtT-fi-uNo" id="wc7-VT-2Df"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Presets" id="VVZ-UA-hu4"/>
+                    <navigationItem key="navigationItem" title="Saved settings" id="VVZ-UA-hu4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmn-s7-gMx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2389.8550724637685" y="116.57608695652175"/>
         </scene>
-        <!--Edit your preset's name-->
+        <!--Edit your setting's name-->
         <scene sceneID="FCl-UI-N94">
             <objects>
-                <tableViewController id="srz-gg-qhb" sceneMemberID="viewController">
+                <tableViewController id="srz-gg-qhb" customClass="EditViewController" customModule="RGBLamp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="EQb-7F-edq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -503,7 +507,7 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                             <outlet property="delegate" destination="srz-gg-qhb" id="gJO-LT-khI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Edit your preset's name" id="vhl-lO-3uP"/>
+                    <navigationItem key="navigationItem" title="Edit your setting's name" id="vhl-lO-3uP"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZAL-C2-mHj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -533,7 +537,53 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xEX-W4-gI0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="598.55072463768124" y="863.31521739130437"/>
+            <point key="canvasLocation" x="-307" y="869"/>
+        </scene>
+        <!--Presets-->
+        <scene sceneID="JHp-yn-EJD">
+            <objects>
+                <tableViewController title="Presets" id="dJi-jE-J6U" customClass="FixedPresetViewController" customModule="RGBLamp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="4MD-1G-QH8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PresetCell" id="4W4-cr-TgN">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44.333332061767578"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4W4-cr-TgN" id="Pju-83-FuV">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44.333332061767578"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7e-M4-Abt">
+                                            <rect key="frame" x="19.999999999999996" y="0.0" width="41.666666666666657" height="44.333333333333336"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="44" id="k4g-TD-G9d"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="h7e-M4-Abt" firstAttribute="leading" secondItem="Pju-83-FuV" secondAttribute="leading" constant="20" id="JfW-VL-QRU"/>
+                                        <constraint firstAttribute="bottom" secondItem="h7e-M4-Abt" secondAttribute="bottom" id="PzM-8E-AFG"/>
+                                        <constraint firstItem="h7e-M4-Abt" firstAttribute="top" secondItem="Pju-83-FuV" secondAttribute="top" id="f6n-9A-0Cq"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="h7e-M4-Abt" secondAttribute="trailing" symbolic="YES" id="rsR-wb-wy3"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="dJi-jE-J6U" id="nzd-gD-XD5"/>
+                            <outlet property="delegate" destination="dJi-jE-J6U" id="67N-39-gBR"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Presets" image="wand.and.rays" catalog="system" id="mDP-ry-ibD"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OGA-sx-ehV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="586.95652173913049" y="861.68478260869574"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="eZs-My-fXE">
@@ -547,19 +597,20 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="OiB-Gz-w7W"/>
-                        <segue destination="Rji-oH-R1O" kind="relationship" relationship="viewControllers" id="yuF-qj-k1K"/>
+                        <segue destination="dJi-jE-J6U" kind="relationship" relationship="viewControllers" id="EzL-gI-XNK"/>
                         <segue destination="kcR-9H-iN5" kind="relationship" relationship="viewControllers" id="YZI-p3-oNe"/>
+                        <segue destination="Rji-oH-R1O" kind="relationship" relationship="viewControllers" id="yuF-qj-k1K"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zZV-L3-KMY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-307.24637681159425" y="121.46739130434784"/>
         </scene>
-        <!--Presets-->
+        <!--Saved-->
         <scene sceneID="w63-zP-QXp">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kcR-9H-iN5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Presets" image="wand.and.rays" catalog="system" id="0hH-ks-s6J"/>
+                    <tabBarItem key="tabBarItem" title="Saved" image="folder.fill" catalog="system" id="0hH-ks-s6J"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dBS-mm-ozU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -576,10 +627,10 @@ Around the time that the asteroid struck, there was intense volcanic activity in
         </scene>
     </scenes>
     <resources>
-        <image name="house.fill" catalog="system" width="64" height="52"/>
-        <image name="info.circle" catalog="system" width="64" height="60"/>
-        <image name="minus" catalog="system" width="64" height="12"/>
-        <image name="plus" catalog="system" width="64" height="56"/>
-        <image name="wand.and.rays" catalog="system" width="64" height="60"/>
+        <image name="folder.fill" catalog="system" width="128" height="95"/>
+        <image name="house.fill" catalog="system" width="128" height="106"/>
+        <image name="info.circle" catalog="system" width="128" height="121"/>
+        <image name="power" catalog="system" width="128" height="124"/>
+        <image name="wand.and.rays" catalog="system" width="128" height="121"/>
     </resources>
 </document>

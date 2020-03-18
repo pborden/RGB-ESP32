@@ -25,7 +25,13 @@ class ViewController: UIViewController {
     var alpha: Float = UserDefaults.standard.float(forKey: "alpha")
     var colorMode: Bool = true
     
-    var savedHues: [Hue] = []
+    // arrays of user saved hues, used in PresetViewController
+    // needs to be separate arrays vs. Hue object for saving as user default
+    var userName: [String] = []
+    var userRed: [Float] = []
+    var userGreen: [Float] = []
+    var userBlue: [Float] = []
+    var userAlpha: [Float] = []
     
     var largeFontSize = UserDefaults.standard.float(forKey: "largeFont")
     var smallFontSize = UserDefaults.standard.float(forKey: "smallFont")
@@ -63,7 +69,19 @@ class ViewController: UIViewController {
         }))
 
         self.present(alert, animated: true)
-        savedHues.append(Hue(name: hueName, red: redColor, green: greenColor, blue: blueColor, alpha: alpha))
+        
+        userName.append(hueName)
+        userRed.append(redColor)
+        userBlue.append(blueColor)
+        userGreen.append(greenColor)
+        userAlpha.append(alpha)
+        
+        UserDefaults.standard.set(userName, forKey: "userName")
+        UserDefaults.standard.set(userRed, forKey: "userRed")
+        UserDefaults.standard.set(userGreen, forKey: "userGreen")
+        UserDefaults.standard.set(userBlue, forKey: "userBlue")
+        UserDefaults.standard.set(userAlpha, forKey: "userAlpha")
+        
     }
     
     @IBAction func largeTextBigger(_ button: UIButton) {
@@ -139,6 +157,7 @@ class ViewController: UIViewController {
         colorMode = true
         
         setLabels()
+        setLEDs()
     }
     
     func setBackgroundWhite() {
@@ -169,6 +188,23 @@ class ViewController: UIViewController {
         UserDefaults.standard.set(blueColor, forKey: "blue")
         UserDefaults.standard.set(alpha, forKey: "alpha")
     }
+    
+    func setLEDs() {
+        
+        let redLED = Int(ADCMaximumValue * redColor * alpha)
+        let greenLED = Int(ADCMaximumValue * greenColor * alpha)
+        let blueLED = Int(ADCMaximumValue * blueColor * alpha)
+        let whiteLED = Int(ADCMaximumValue * whiteColor * alpha)
+        
+        BTComm.shared().research.white = whiteLED
+        BTComm.shared().research.red = redLED
+        BTComm.shared().research.green = greenLED
+        BTComm.shared().research.blue = blueLED
+        
+        //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
+        valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -188,6 +224,12 @@ class ViewController: UIViewController {
         largeFontSize = UserDefaults.standard.float(forKey: "largeFont")
         smallFontSize = UserDefaults.standard.float(forKey: "smallFont")
         
+        userName = UserDefaults.standard.stringArray(forKey: "userName") ?? [String]()
+        userRed = UserDefaults.standard.array(forKey: "userRed") as? [Float] ?? [Float]()
+        userGreen = UserDefaults.standard.array(forKey: "userGreen") as? [Float] ?? [Float]()
+        userBlue = UserDefaults.standard.array(forKey: "userBlue") as? [Float] ?? [Float]()
+        userAlpha = UserDefaults.standard.array(forKey: "userAlpha") as? [Float] ?? [Float]()
+        
         // on first run of program, need to set initial values
         if UserDefaults.standard.string(forKey: "firstTry") != "no" {
             UserDefaults.standard.set("no", forKey: "firstTry")
@@ -201,7 +243,15 @@ class ViewController: UIViewController {
             alpha = 0.9
             largeFontSize = 18.0
             smallFontSize = 10.0
+            userName = []
+            userRed = []
+            userGreen = []
+            userBlue = []
+            userAlpha = []
+        } else {
+            
         }
+        
         setBackgroundColor()
         
         textLarge.font = .systemFont(ofSize: CGFloat(largeFontSize))
