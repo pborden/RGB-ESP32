@@ -46,6 +46,7 @@ class FixedPresetViewController: UITableViewController {
         // set accessories to none for all cells
         for i in 0 ... fixedPresetArray.count - 1 {
             fixedPresetArray[i].check = false
+            
         }
         // set checkmark at indexPath.row
         
@@ -101,10 +102,10 @@ class FixedPresetViewController: UITableViewController {
         let blueLED = Int(Double(ADCMaximumValue) * blueColor * alpha)
         let whiteLED = Int(Double(ADCMaximumValue) * 0.0 * alpha)
         
-        BTComm.shared().research.white = whiteLED
-        BTComm.shared().research.red = redLED
-        BTComm.shared().research.green = greenLED
-        BTComm.shared().research.blue = blueLED
+        BTComm.shared().research.alpha = Float(alpha)
+        BTComm.shared().research.red = Float(redColor)
+        BTComm.shared().research.green = Float(greenColor)
+        BTComm.shared().research.blue = Float(blueColor)
         
         UserDefaults.standard.set(redColor, forKey: "red")
         UserDefaults.standard.set(greenColor, forKey: "green")

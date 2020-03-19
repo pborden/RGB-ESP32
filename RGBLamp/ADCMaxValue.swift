@@ -66,7 +66,7 @@ func sendToBT(color: String, white: Int, red: Int, green: Int, blue: Int, freque
 func valueToString(white: Int, red: Int, green: Int, blue: Int) {
     var stringResult = ""
     
-    print("Flicker mode is " + "\(BTComm.shared().flickerMode)")
+    //print("Flicker mode is " + "\(BTComm.shared().flickerMode)")
     // find ASCII strings for each of the colors (white, red, green, blue)
     // then append to string, and add a comma as an end of string value.
     stringResult = stringConversion(number: white)

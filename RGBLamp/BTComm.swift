@@ -74,13 +74,13 @@ class BTComm: NSObject {
         var frequency: String?
         var dutyCycle: String?
         
-        var whiteSettings = WhiteLight()
+        //var whiteSettings = WhiteLight()
         var bulbLumens: String = ""
         var bulbDistance: String = "10"
         var lensDescriptions: [String] = [] // Array of keys for lenses found in ColorViewController; used in LensTableViewController
-        var research = ColoredLight()   // research view controller settings
-        var sensitivity = ColoredLight()
-        var flicker = FlickerLight()
+        var research = Hue(name: "Dummy", red: 0.9, green: 0.9, blue: 0.9, alpha: 0.9)   // research view controller settings
+        //var sensitivity = ColoredLight()
+        //var flicker = FlickerLight()
         var latestLens: String = "No Lens Chosen"  // last lens chosen in Simulate Tinted Lens Mode
         var practitionerName: String = "Practitioner"  // name on summary screen
         
