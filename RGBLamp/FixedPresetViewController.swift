@@ -43,20 +43,15 @@ class FixedPresetViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // set accessories to none for all cells
-        for i in 0 ... fixedPresetArray.count - 1 {
-            fixedPresetArray[i].check = false
-            
+        for cell in tableView.visibleCells {
+            cell.accessoryType = .none
         }
-        // set checkmark at indexPath.row
         
         if let cell = tableView.cellForRow(at: indexPath) {
-            if cell.accessoryType == .none {
                 cell.accessoryType = .checkmark
-            } else {
-                cell.accessoryType = .none
             }
-        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
         
         setLEDs(presetIndex: indexPath.row)
         

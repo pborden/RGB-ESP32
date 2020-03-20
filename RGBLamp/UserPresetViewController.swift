@@ -28,14 +28,7 @@ class UserPresetViewController: UITableViewController, EditViewControllerDelegat
         navigationController?.popViewController(animated: true)
     }
     
-    //Mark:-Presets. Create instance of the main View Controller, then transfer saved user array.
-    // Need to lazy initialize userArray to avoid initialization error.
-    var newViewController = ViewController()
-    lazy var names: [String] = newViewController.userName
-    lazy var reds: [Float] = newViewController.userRed
-    lazy var greens: [Float] = newViewController.userGreen
-    lazy var blues: [Float] = newViewController.userBlue
-    lazy var alphas: [Float] = newViewController.userAlpha
+    //Mark:-Presets.
     
     var userName: [String] = []
     var userGreen: [Float] = []
@@ -43,40 +36,40 @@ class UserPresetViewController: UITableViewController, EditViewControllerDelegat
      var userBlue: [Float] = []
      var userAlpha: [Float] = []
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // pass values through user defaults
-        userName = UserDefaults.standard.stringArray(forKey: "userName") ?? [String]()
-        userRed = UserDefaults.standard.array(forKey: "userRed") as? [Float] ?? [Float]()
-        userGreen = UserDefaults.standard.array(forKey: "userGreen") as? [Float] ?? [Float]()
-        userBlue = UserDefaults.standard.array(forKey: "userBlue") as? [Float] ?? [Float]()
-        userAlpha = UserDefaults.standard.array(forKey: "userAlpha") as? [Float] ?? [Float]()
-        // pass values directly
-        names = newViewController.userName
-        reds = newViewController.userRed
-        greens = newViewController.userGreen
-        blues = newViewController.userBlue
-        alphas = newViewController.userAlpha
-
-            print("Preset names: \(userName)")
-            print("Names passed: \(names)")
+       
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    // make view disappear so it reloads and refreshes list of user presets
+    override func viewWillDisappear(_ animated: Bool) {
+        self.presentingViewController?.dismiss(animated: false, completion: nil)
+    }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    /*override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 0
-    }
+    } */
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        
+        userName = UserDefaults.standard.stringArray(forKey: "userName") ?? [String]()
+        userRed = UserDefaults.standard.array(forKey: "userRed") as? [Float] ?? [Float]()
+        userGreen = UserDefaults.standard.array(forKey: "userGreen") as? [Float] ?? [Float]()
+        userBlue = UserDefaults.standard.array(forKey: "userBlue") as? [Float] ?? [Float]()
+        userAlpha = UserDefaults.standard.array(forKey: "userAlpha") as? [Float] ?? [Float]()
+
+        print("Preset names: \(userName)")
+        
         return userName.count
     }
 
@@ -84,24 +77,69 @@ class UserPresetViewController: UITableViewController, EditViewControllerDelegat
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserPreset", for: indexPath)
         
+        let label = cell.viewWithTag(1000) as! UILabel
+        
+        label.text = userName[indexPath.row]
+        
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, commit edititngStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        names.remove(at: indexPath.row)
-        reds.remove(at: indexPath.row)
-        greens.remove(at: indexPath.row)
-        blues.remove(at: indexPath.row)
-        alphas.remove(at: indexPath.row)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        for cell in tableView.visibleCells {
+            cell.accessoryType = .none
+        }
         
-        UserDefaults.standard.set(names, forKey: "userName")
-        UserDefaults.standard.set(reds, forKey: "userRed")
-        UserDefaults.standard.set(greens, forKey: "userGreen")
-        UserDefaults.standard.set(blues, forKey: "userBlue")
-        UserDefaults.standard.set(alphas, forKey: "userAlpha")
+        if let cell = tableView.cellForRow(at: indexPath) {
+                cell.accessoryType = .checkmark
+            }
+        
+        setLEDs(presetIndex: indexPath.row)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, commit edititngStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        userName.remove(at: indexPath.row)
+        userRed.remove(at: indexPath.row)
+        userGreen.remove(at: indexPath.row)
+        userBlue.remove(at: indexPath.row)
+        userAlpha.remove(at: indexPath.row)
+        
+        UserDefaults.standard.set(userName, forKey: "userName")
+        UserDefaults.standard.set(userRed, forKey: "userRed")
+        UserDefaults.standard.set(userGreen, forKey: "userGreen")
+        UserDefaults.standard.set(userBlue, forKey: "userBlue")
+        UserDefaults.standard.set(userAlpha, forKey: "userAlpha")
         
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
+    }
+    
+    func setLEDs(presetIndex: Int) {
+        
+        let redColor = userRed[presetIndex]
+        let greenColor = userGreen[presetIndex]
+        let blueColor = userBlue[presetIndex]
+        let alpha = userAlpha[presetIndex]
+        
+        let redLED = Int(ADCMaximumValue * redColor * alpha)
+        let greenLED = Int(ADCMaximumValue * greenColor * alpha)
+        let blueLED = Int(ADCMaximumValue * blueColor * alpha)
+        let whiteLED = Int(ADCMaximumValue * 0.0 * alpha)
+        
+        BTComm.shared().research.alpha = Float(alpha)
+        BTComm.shared().research.red = Float(redColor)
+        BTComm.shared().research.green = Float(greenColor)
+        BTComm.shared().research.blue = Float(blueColor)
+        
+        UserDefaults.standard.set(redColor, forKey: "red")
+        UserDefaults.standard.set(greenColor, forKey: "green")
+        UserDefaults.standard.set(blueColor, forKey: "blue")
+        UserDefaults.standard.set(alpha, forKey: "alpha")
+        
+        //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
+        valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
     }
 
 }

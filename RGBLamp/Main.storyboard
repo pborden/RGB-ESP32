@@ -368,37 +368,30 @@ Around the time that the asteroid struck, there was intense volcanic activity in
         <scene sceneID="AKZ-8W-go8">
             <objects>
                 <tableViewController id="GtT-fi-uNo" customClass="UserPresetViewController" customModule="RGBLamp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="nOR-We-RAS">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="nOR-We-RAS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserPreset" id="x3s-ey-GqU">
-                                <rect key="frame" x="0.0" y="28" width="414" height="40.333332061767578"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserPreset" id="x3s-ey-GqU">
+                                <rect key="frame" x="0.0" y="28" width="414" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x3s-ey-GqU" id="nA6-fc-CVl">
-                                    <rect key="frame" x="0.0" y="0.0" width="370" height="40.333332061767578"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Preset" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oei-MU-OWD">
-                                            <rect key="frame" x="20.000000000000007" y="0.0" width="89.666666666666686" height="40.333333333333336"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="6XJ-DZ-hKi"/>
-                                            </constraints>
+                                            <rect key="frame" x="20.000000000000007" y="0.0" width="89.666666666666686" height="50"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="oei-MU-OWD" secondAttribute="bottom" id="0qi-Eg-blE"/>
                                         <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="oei-MU-OWD" secondAttribute="trailing" id="3Tx-Au-1rI"/>
-                                        <constraint firstItem="oei-MU-OWD" firstAttribute="top" secondItem="nA6-fc-CVl" secondAttribute="top" id="ACG-lw-9Dq"/>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oei-MU-OWD" secondAttribute="trailing" constant="20" symbolic="YES" id="Al8-hG-H09"/>
-                                        <constraint firstAttribute="bottom" secondItem="oei-MU-OWD" secondAttribute="bottom" id="BhV-ae-4dC"/>
-                                        <constraint firstItem="oei-MU-OWD" firstAttribute="centerY" secondItem="nA6-fc-CVl" secondAttribute="centerY" id="HPA-ZL-do0"/>
-                                        <constraint firstItem="oei-MU-OWD" firstAttribute="top" secondItem="nA6-fc-CVl" secondAttribute="topMargin" constant="-11" id="RR6-1R-ZWa"/>
-                                        <constraint firstItem="oei-MU-OWD" firstAttribute="leading" secondItem="nA6-fc-CVl" secondAttribute="leadingMargin" id="afV-ef-rZN"/>
                                         <constraint firstItem="oei-MU-OWD" firstAttribute="leading" secondItem="nA6-fc-CVl" secondAttribute="leading" constant="20" id="jYg-G0-hhx"/>
+                                        <constraint firstItem="oei-MU-OWD" firstAttribute="top" secondItem="nA6-fc-CVl" secondAttribute="top" id="uYz-pe-fek"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
