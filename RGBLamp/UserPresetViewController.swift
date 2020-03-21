@@ -79,6 +79,14 @@ class UserPresetViewController: UITableViewController, EditViewControllerDelegat
         
         let label = cell.viewWithTag(1000) as! UILabel
         
+        let redBack = CGFloat(userRed[indexPath.row])
+        let greenBack = CGFloat(userGreen[indexPath.row])
+        let blueBack = CGFloat(userBlue[indexPath.row])
+        let alphaBack = CGFloat(userAlpha[indexPath.row])
+        print("IndexPath \(indexPath.row), red \(redBack), green \(greenBack), blue \(blueBack)")
+        cell.backgroundColor = UIColor(red: redBack, green: greenBack, blue: blueBack, alpha: alphaBack)
+        
+        label.textColor = UIColor.black
         label.text = userName[indexPath.row]
         
         return cell

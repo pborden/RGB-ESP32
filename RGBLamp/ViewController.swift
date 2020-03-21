@@ -212,6 +212,12 @@ class ViewController: UIViewController {
         //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
         valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadDefaults()
+        setBackgroundColor()
+        print("View controller appearing")
+    }
 
 
     override func viewDidLoad() {
@@ -271,8 +277,17 @@ class ViewController: UIViewController {
         userAlpha = UserDefaults.standard.array(forKey: "userAlpha") as? [Float] ?? [Float]()
     }
     
-    func setUserDefaultArrays() {
-        
+    func loadDefaults() {
+        redColor = UserDefaults.standard.float(forKey: "red")
+        greenColor = UserDefaults.standard.float(forKey: "green")
+        blueColor = UserDefaults.standard.float(forKey: "blue")
+        whiteColor = 0.9
+        alpha = UserDefaults.standard.float(forKey: "alpha")
+        colorMode = true
+        setRedSlider.value = redColor
+        setGreenSlider.value = greenColor
+        setBlueSlider.value = blueColor
+        setAlphaSlider.value = alpha
     }
     
    /* override func viewWillDisappear(_ animated: Bool) {
