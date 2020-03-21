@@ -486,32 +486,29 @@ Around the time that the asteroid struck, there was intense volcanic activity in
         <scene sceneID="JHp-yn-EJD">
             <objects>
                 <tableViewController title="Presets" id="dJi-jE-J6U" customClass="FixedPresetViewController" customModule="RGBLamp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="4MD-1G-QH8">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="4MD-1G-QH8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PresetCell" id="4W4-cr-TgN">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44.333332061767578"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4W4-cr-TgN" id="Pju-83-FuV">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44.333332061767578"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7e-M4-Abt">
-                                            <rect key="frame" x="19.999999999999996" y="0.0" width="41.666666666666657" height="44.333333333333336"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="44" id="k4g-TD-G9d"/>
-                                            </constraints>
+                                            <rect key="frame" x="19.999999999999996" y="0.0" width="41.666666666666657" height="50"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="h7e-M4-Abt" firstAttribute="top" secondItem="Pju-83-FuV" secondAttribute="top" id="5yJ-3Z-M78"/>
                                         <constraint firstItem="h7e-M4-Abt" firstAttribute="leading" secondItem="Pju-83-FuV" secondAttribute="leading" constant="20" id="JfW-VL-QRU"/>
-                                        <constraint firstAttribute="bottom" secondItem="h7e-M4-Abt" secondAttribute="bottom" id="PzM-8E-AFG"/>
-                                        <constraint firstItem="h7e-M4-Abt" firstAttribute="top" secondItem="Pju-83-FuV" secondAttribute="top" id="f6n-9A-0Cq"/>
+                                        <constraint firstAttribute="bottom" secondItem="h7e-M4-Abt" secondAttribute="bottom" id="ez1-Ls-fTz"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="h7e-M4-Abt" secondAttribute="trailing" constant="20" symbolic="YES" id="rsR-wb-wy3"/>
                                     </constraints>
                                 </tableViewCellContentView>

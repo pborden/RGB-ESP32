@@ -32,9 +32,9 @@ class UserPresetViewController: UITableViewController, EditViewControllerDelegat
     
     var userName: [String] = []
     var userGreen: [Float] = []
-     var userRed: [Float] = []
-     var userBlue: [Float] = []
-     var userAlpha: [Float] = []
+    var userRed: [Float] = []
+    var userBlue: [Float] = []
+    var userAlpha: [Float] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +47,16 @@ class UserPresetViewController: UITableViewController, EditViewControllerDelegat
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadUserDefaults()
+        self.tableView.reloadData()
+        print("View appearing")
+        print("Preset names from user defaults: \(userName)")
+    }
+    
     // make view disappear so it reloads and refreshes list of user presets
     override func viewWillDisappear(_ animated: Bool) {
+        print("View disappearing")
         self.presentingViewController?.dismiss(animated: false, completion: nil)
     }
 
@@ -62,19 +70,11 @@ class UserPresetViewController: UITableViewController, EditViewControllerDelegat
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
-        userName = UserDefaults.standard.stringArray(forKey: "userName") ?? [String]()
-        userRed = UserDefaults.standard.array(forKey: "userRed") as? [Float] ?? [Float]()
-        userGreen = UserDefaults.standard.array(forKey: "userGreen") as? [Float] ?? [Float]()
-        userBlue = UserDefaults.standard.array(forKey: "userBlue") as? [Float] ?? [Float]()
-        userAlpha = UserDefaults.standard.array(forKey: "userAlpha") as? [Float] ?? [Float]()
-
-        print("Preset names: \(userName)")
-        
         return userName.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        print("cell thinks data is \(userName)")
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserPreset", for: indexPath)
         
         let label = cell.viewWithTag(1000) as! UILabel
@@ -85,7 +85,7 @@ class UserPresetViewController: UITableViewController, EditViewControllerDelegat
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        
         for cell in tableView.visibleCells {
             cell.accessoryType = .none
         }
@@ -106,11 +106,7 @@ class UserPresetViewController: UITableViewController, EditViewControllerDelegat
         userBlue.remove(at: indexPath.row)
         userAlpha.remove(at: indexPath.row)
         
-        UserDefaults.standard.set(userName, forKey: "userName")
-        UserDefaults.standard.set(userRed, forKey: "userRed")
-        UserDefaults.standard.set(userGreen, forKey: "userGreen")
-        UserDefaults.standard.set(userBlue, forKey: "userBlue")
-        UserDefaults.standard.set(userAlpha, forKey: "userAlpha")
+        setUserDefaults()
         
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
@@ -140,6 +136,22 @@ class UserPresetViewController: UITableViewController, EditViewControllerDelegat
         
         //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
         valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
+    }
+    
+    func loadUserDefaults() {
+        userName = UserDefaults.standard.stringArray(forKey: "userName") ?? [String]()
+        userRed = UserDefaults.standard.array(forKey: "userRed") as? [Float] ?? [Float]()
+        userGreen = UserDefaults.standard.array(forKey: "userGreen") as? [Float] ?? [Float]()
+        userBlue = UserDefaults.standard.array(forKey: "userBlue") as? [Float] ?? [Float]()
+        userAlpha = UserDefaults.standard.array(forKey: "userAlpha") as? [Float] ?? [Float]()
+    }
+    
+    func setUserDefaults() {
+        UserDefaults.standard.set(userName, forKey: "userName")
+        UserDefaults.standard.set(userRed, forKey: "userRed")
+        UserDefaults.standard.set(userGreen, forKey: "userGreen")
+        UserDefaults.standard.set(userBlue, forKey: "userBlue")
+        UserDefaults.standard.set(userAlpha, forKey: "userAlpha")
     }
 
 }

@@ -27,11 +27,11 @@ class ViewController: UIViewController {
     
     // arrays of user saved hues, used in PresetViewController
     // needs to be separate arrays vs. Hue object for saving as user default
-    var userName: [String] = ["name1"]
-    var userRed: [Float] = [0.9, 0.9]
-    var userGreen: [Float] = [0.9, 0.9]
-    var userBlue: [Float] = [0.9, 0.9]
-    var userAlpha: [Float] = [1.0, 1.0]
+    var userName: [String] = []
+    var userRed: [Float] = []
+    var userGreen: [Float] = []
+    var userBlue: [Float] = []
+    var userAlpha: [Float] = []
     
     var largeFontSize = UserDefaults.standard.float(forKey: "largeFont")
     var smallFontSize = UserDefaults.standard.float(forKey: "smallFont")
@@ -59,6 +59,8 @@ class ViewController: UIViewController {
         alert.addTextField(configurationHandler: { textField in
             textField.placeholder = "Input name here..."
         })
+        
+        loadUserDefaultArrays()
 
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
 
@@ -230,12 +232,6 @@ class ViewController: UIViewController {
         largeFontSize = UserDefaults.standard.float(forKey: "largeFont")
         smallFontSize = UserDefaults.standard.float(forKey: "smallFont")
         
-        //userName = UserDefaults.standard.stringArray(forKey: "userName") ?? [String]()
-        //userRed = UserDefaults.standard.array(forKey: "userRed") as? [Float] ?? [Float]()
-        //userGreen = UserDefaults.standard.array(forKey: "userGreen") as? [Float] ?? [Float]()
-        //userBlue = UserDefaults.standard.array(forKey: "userBlue") as? [Float] ?? [Float]()
-        //userAlpha = UserDefaults.standard.array(forKey: "userAlpha") as? [Float] ?? [Float]()
-        
         // on first run of program, need to set initial values
         if UserDefaults.standard.string(forKey: "firstTry") != "no" {
             UserDefaults.standard.set("no", forKey: "firstTry")
@@ -255,7 +251,7 @@ class ViewController: UIViewController {
             userBlue = []
             userAlpha = []
         } else {
-            
+            loadUserDefaultArrays()
         }
         
         setBackgroundColor()
@@ -265,6 +261,18 @@ class ViewController: UIViewController {
         
         largeFont.text = "\(Int(largeFontSize))"
         smallFont.text = "\(Int(smallFontSize))"
+    }
+    
+    func loadUserDefaultArrays() {
+        userName = UserDefaults.standard.stringArray(forKey: "userName") ?? [String]()
+        userRed = UserDefaults.standard.array(forKey: "userRed") as? [Float] ?? [Float]()
+        userGreen = UserDefaults.standard.array(forKey: "userGreen") as? [Float] ?? [Float]()
+        userBlue = UserDefaults.standard.array(forKey: "userBlue") as? [Float] ?? [Float]()
+        userAlpha = UserDefaults.standard.array(forKey: "userAlpha") as? [Float] ?? [Float]()
+    }
+    
+    func setUserDefaultArrays() {
+        
     }
     
    /* override func viewWillDisappear(_ animated: Bool) {
