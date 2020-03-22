@@ -364,7 +364,7 @@ Around the time that the asteroid struck, there was intense volcanic activity in
             </objects>
             <point key="canvasLocation" x="600" y="121.46739130434784"/>
         </scene>
-        <!--Saved settings-->
+        <!--Saved Settings-->
         <scene sceneID="AKZ-8W-go8">
             <objects>
                 <tableViewController id="GtT-fi-uNo" customClass="UserPresetViewController" customModule="RGBLamp" customModuleProvider="target" sceneMemberID="viewController">
@@ -402,7 +402,7 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                             <outlet property="delegate" destination="GtT-fi-uNo" id="wc7-VT-2Df"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Saved settings" id="VVZ-UA-hu4">
+                    <navigationItem key="navigationItem" title="Saved Settings" id="VVZ-UA-hu4">
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="rQD-6p-L7N">
                             <connections>
                                 <segue destination="Pq8-4e-cN5" kind="show" id="sWn-gS-plI"/>
@@ -414,33 +414,33 @@ Around the time that the asteroid struck, there was intense volcanic activity in
             </objects>
             <point key="canvasLocation" x="2389.8550724637685" y="116.57608695652175"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Edit View Controller-->
         <scene sceneID="StL-Ck-hfi">
             <objects>
-                <tableViewController id="Pq8-4e-cN5" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hCp-ER-EkN">
+                <tableViewController id="Pq8-4e-cN5" customClass="EditViewController" customModule="RGBLamp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="28" id="hCp-ER-EkN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Edit" id="FpW-CJ-LJ4">
-                                <rect key="frame" x="0.0" y="28" width="414" height="34.333332061767578"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FpW-CJ-LJ4" id="2FD-pn-Vnm">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="34.333332061767578"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rtd-Ku-voA">
-                                            <rect key="frame" x="20" y="0.0" width="350" height="34.333333333333336"/>
+                                        <textField opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rtd-Ku-voA">
+                                            <rect key="frame" x="20" y="0.0" width="350" height="50"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                         </textField>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="rtd-Ku-voA" secondAttribute="bottom" id="Zwx-la-dXY"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="rtd-Ku-voA" secondAttribute="trailing" constant="24" id="dgl-Ym-YbO"/>
+                                        <constraint firstAttribute="bottom" secondItem="rtd-Ku-voA" secondAttribute="bottom" id="oTY-cr-DRB"/>
+                                        <constraint firstItem="rtd-Ku-voA" firstAttribute="top" secondItem="2FD-pn-Vnm" secondAttribute="top" id="qeE-gK-PZJ"/>
                                         <constraint firstItem="rtd-Ku-voA" firstAttribute="leading" secondItem="2FD-pn-Vnm" secondAttribute="leadingMargin" id="sw9-1X-vBd"/>
-                                        <constraint firstItem="rtd-Ku-voA" firstAttribute="top" secondItem="2FD-pn-Vnm" secondAttribute="top" id="ucU-2s-zSx"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -450,7 +450,13 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                             <outlet property="delegate" destination="Pq8-4e-cN5" id="eJg-SB-FMN"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="hL0-GW-vxF"/>
+                    <navigationItem key="navigationItem" id="hL0-GW-vxF">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="zGB-G9-8Tz">
+                            <connections>
+                                <action selector="done" destination="Pq8-4e-cN5" id="aFR-3x-Kdy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DYi-z8-M8w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -464,16 +470,41 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Help screen giving instructions on use" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3PY-6V-dXw">
-                                <rect key="frame" x="87" y="139" width="240" height="419"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3PY-6V-dXw">
+                                <rect key="frame" x="15" y="15" width="384" height="657"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <mutableString key="text">Home screen
+Move sliders to find best color in reading sections. Look for least eye strain, sharpest letters.
+
+Sliders
+Control brightness of their color (red, green, blue). White slider sets intensity.
+
+Colors/White
+Switches between colored screen and white. Use to compare your chosen color to white.
+
+Save Colors
+Give it a name in the dialog box and hit Save. Return to it with Saved button at bottom.
+
+On/Off
+Turns lamp on and off.
+
+Presets
+Colors recommended for certain conditions. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference
+
+Saved
+Colors you saved with the name you selected. Color of box matches color you saved. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference. Hit Edit at to left to edit name.</mutableString>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="3PY-6V-dXw" firstAttribute="top" secondItem="H6e-8K-vU7" secondAttribute="top" constant="15" id="9oo-Tw-QiG"/>
+                            <constraint firstItem="H6e-8K-vU7" firstAttribute="trailing" secondItem="3PY-6V-dXw" secondAttribute="trailing" constant="15" id="AO0-hk-qSE"/>
+                            <constraint firstItem="H6e-8K-vU7" firstAttribute="bottom" secondItem="3PY-6V-dXw" secondAttribute="bottom" constant="15" id="NXG-Bg-mxX"/>
+                            <constraint firstItem="3PY-6V-dXw" firstAttribute="leading" secondItem="H6e-8K-vU7" secondAttribute="leading" constant="15" id="SMk-ey-aBI"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="H6e-8K-vU7"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Help" image="info.circle" catalog="system" id="Q3c-WJ-guM"/>

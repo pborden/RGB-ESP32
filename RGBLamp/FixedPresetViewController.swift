@@ -10,13 +10,13 @@ import UIKit
 
 class FixedPresetViewController: UITableViewController {
     
-    var fixedPresetArray = [Preset(name: "AMD", red: 0.9, green: 0.9, blue: 0.9, alpha: 0.9, editable: false, check: false),
-    Preset(name: "Glaucoma", red: 0.9, green: 0.9, blue: 0.9, alpha: 0.9, editable: false, check: false),
-    Preset(name: "Retinitis Pigmentosa", red: 0.9, green: 0.9, blue: 0.9, alpha: 0.9, editable: false, check: false),
-    Preset(name: "Diabetic Retinopathy", red: 0.9, green: 0.9, blue: 0.9, alpha: 0.9, editable: false, check: false),
-    Preset(name: "Cold white", red: 0.9, green: 0.9, blue: 0.9, alpha: 0.9, editable: false, check: false),
-    Preset(name: "Neutral white", red: 0.9, green: 0.9, blue: 0.9, alpha: 0.9, editable: false, check: false),
-    Preset(name: "Warm white", red: 0.9, green: 0.9, blue: 0.9, alpha: 0.9, editable: false, check: false),
+    var fixedPresetArray = [Preset(name: "AMD", red: 0.3, green: 1.0, blue: 0.5, alpha: 1.0, editable: false, check: false),
+                            Preset(name: "Glaucoma", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false),
+    Preset(name: "Retinitis Pigmentosa", red: 0.9, green: 0.3, blue: 0.5, alpha: 0.9, editable: false, check: false),
+    Preset(name: "Diabetic Retinopathy", red: 0.5, green: 0.9, blue: 0.4, alpha: 0.9, editable: false, check: false),
+    Preset(name: "Cold white", red: 0.9, green: 0.9, blue: 1.0, alpha: 0.9, editable: false, check: false),
+    Preset(name: "Neutral white", red: 0.9, green: 0.9, blue: 0.8, alpha: 0.9, editable: false, check: false),
+    Preset(name: "Warm white", red: 0.9, green: 0.9, blue: 0.6, alpha: 0.9, editable: false, check: false),
      ]
 
     override func viewDidLoad() {
@@ -66,7 +66,16 @@ class FixedPresetViewController: UITableViewController {
         
         let label = cell.viewWithTag(1000) as! UILabel
         
-        if indexPath.row == 0 {
+        let redBack = CGFloat(fixedPresetArray[indexPath.row].red)
+        let greenBack = CGFloat(fixedPresetArray[indexPath.row].green)
+        let blueBack = CGFloat(fixedPresetArray[indexPath.row].blue)
+        let alphaBack = CGFloat(fixedPresetArray[indexPath.row].alpha)
+        print("IndexPath \(indexPath.row), red \(redBack), green \(greenBack), blue \(blueBack)")
+        cell.backgroundColor = UIColor(red: redBack, green: greenBack, blue: blueBack, alpha: alphaBack)
+        
+        label.textColor = UIColor.black
+        label.text = fixedPresetArray[indexPath.row].name
+       /* if indexPath.row == 0 {
             label.text = fixedPresetArray[0].name
         } else if indexPath.row == 1 {
             label.text =  fixedPresetArray[1].name
@@ -80,7 +89,7 @@ class FixedPresetViewController: UITableViewController {
             label.text =  fixedPresetArray[5].name
         } else if indexPath.row == 6 {
             label.text =  fixedPresetArray[6].name
-        }
+        } */
 
         return cell
     }
