@@ -18,15 +18,15 @@ struct Preset {
     var check: Bool = false
 }
 
-class UserPresetViewController: UITableViewController, EditViewControllerDelegate {
-    func EditViewControllerDidCancel(_ controller: EditViewController) {
+class UserPresetViewController: UITableViewController { // EditViewControllerDelegate {
+    /*func EditViewControllerDidCancel(_ controller: EditViewController) {
         navigationController?.popViewController(animated: true)
     }
     
     func EditViewController(_ controller: EditViewController, didFinishEditing item: Preset) {
         
         navigationController?.popViewController(animated: true)
-    }
+    } */
     
     //Mark:-Presets.
     
@@ -69,7 +69,6 @@ class UserPresetViewController: UITableViewController, EditViewControllerDelegat
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        
         return userName.count
     }
 

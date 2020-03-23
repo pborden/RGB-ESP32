@@ -412,7 +412,7 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmn-s7-gMx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2389.8550724637685" y="116.57608695652175"/>
+            <point key="canvasLocation" x="2409" y="104"/>
         </scene>
         <!--Edit View Controller-->
         <scene sceneID="StL-Ck-hfi">
@@ -430,7 +430,7 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rtd-Ku-voA">
+                                        <textField opaque="NO" tag="2000" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rtd-Ku-voA">
                                             <rect key="frame" x="20" y="0.0" width="350" height="50"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -450,17 +450,11 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                             <outlet property="delegate" destination="Pq8-4e-cN5" id="eJg-SB-FMN"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="hL0-GW-vxF">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="zGB-G9-8Tz">
-                            <connections>
-                                <action selector="done" destination="Pq8-4e-cN5" id="aFR-3x-Kdy"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="hL0-GW-vxF"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DYi-z8-M8w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3052.1739130434785" y="115.7608695652174"/>
+            <point key="canvasLocation" x="3248" y="104"/>
         </scene>
         <!--Help-->
         <scene sceneID="hiu-sR-WYf">
@@ -492,7 +486,7 @@ Presets
 Colors recommended for certain conditions. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference
 
 Saved
-Colors you saved with the name you selected. Color of box matches color you saved. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference. Hit Edit at to left to edit name.</mutableString>
+Colors you saved with the name you selected. Color of box matches color you saved. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference. Hit Edit at to left to edit name. Swipe left to delete an entry.</mutableString>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

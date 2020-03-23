@@ -8,53 +8,26 @@
 
 import UIKit
 
-protocol EditViewControllerDelegate: class {
-    func EditViewControllerDidCancel(
-        _ controller: EditViewController)
-    func EditViewController(_ controller: EditViewController, didFinishEditing item: Preset)
-}
-
 class EditViewController: UITableViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var doneBarButton: UIBarButtonItem!
-    
-    weak var delegate: EditViewControllerDelegate?
-    var itemToEdit: Preset?
-    
-    //MARK:-Actions
-    @IBAction func cancel() {
-        delegate?.EditViewControllerDidCancel(self)
-    }
-    
-    @IBAction func done() {
-        print("Contents of the text field: \(textField.text!)")
-        if var item = itemToEdit {
-            item.name = textField.text!
-            delegate?.EditViewController(self, didFinishEditing: item)
-        }
-    }
+    //Mark:-Presets.
+       
+       var userName: [String] = []
+       var userGreen: [Float] = []
+       var userRed: [Float] = []
+       var userBlue: [Float] = []
+       var userAlpha: [Float] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return userName.count
     }
     
     //MARK:- Table View Delegates
@@ -62,26 +35,68 @@ class EditViewController: UITableViewController, UITextFieldDelegate {
         return nil
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+           print("cell thinks data is \(userName)")
+           let cell = tableView.dequeueReusableCell(withIdentifier: "Edit", for: indexPath)
+           
+           let label = cell.viewWithTag(2000) as! UITextField
+           
+           let redBack = CGFloat(userRed[indexPath.row])
+           let greenBack = CGFloat(userGreen[indexPath.row])
+           let blueBack = CGFloat(userBlue[indexPath.row])
+           let alphaBack = CGFloat(userAlpha[indexPath.row])
+           print("IndexPath \(indexPath.row), red \(redBack), green \(greenBack), blue \(blueBack)")
+           cell.backgroundColor = UIColor(red: redBack, green: greenBack, blue: blueBack, alpha: alphaBack)
+           
+           label.textColor = UIColor.black
+           label.text = userName[indexPath.row]
+           
+           return cell
+       }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        textField.becomeFirstResponder()
+        //textField.becomeFirstResponder()
+        loadUserDefaults()
+        self.tableView.reloadData()
+        print("View appearing")
+        print("Preset names from user defaults: \(userName)")
     }
     
-    //MARK:- TextField Delegates
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    override func viewWillDisappear(_ animated: Bool) {
+        print("View disappearing")
         
-        let oldText = textField.text!
-        let stringRange = Range(range, in: oldText)!
-        let newText = oldText.replacingCharacters(in: stringRange, with: string)
+        for row in 0 ... userName.count - 1 {
+            let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0))
+            let label = cell?.viewWithTag(2000) as! UITextField
+            userName[row] = label.text ?? ""
+        }
         
-        doneBarButton.isEnabled = !newText.isEmpty
-        
-        return true
+        UserDefaults.standard.set(userName, forKey: "userName")
+        self.presentingViewController?.dismiss(animated: false, completion: nil)
     }
     
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        doneBarButton.isEnabled = false
-        return true
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
+    
+    func loadUserDefaults() {
+        userName = UserDefaults.standard.stringArray(forKey: "userName") ?? [String]()
+        userRed = UserDefaults.standard.array(forKey: "userRed") as? [Float] ?? [Float]()
+        userGreen = UserDefaults.standard.array(forKey: "userGreen") as? [Float] ?? [Float]()
+        userBlue = UserDefaults.standard.array(forKey: "userBlue") as? [Float] ?? [Float]()
+        userAlpha = UserDefaults.standard.array(forKey: "userAlpha") as? [Float] ?? [Float]()
+    }
+    
+    func setUserDefaults() {
+        UserDefaults.standard.set(userName, forKey: "userName")
+        UserDefaults.standard.set(userRed, forKey: "userRed")
+        UserDefaults.standard.set(userGreen, forKey: "userGreen")
+        UserDefaults.standard.set(userBlue, forKey: "userBlue")
+        UserDefaults.standard.set(userAlpha, forKey: "userAlpha")
+    }
+    
+//MARK:- TextField Delegates
 
 }
