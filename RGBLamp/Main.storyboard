@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16095" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="laP-Tl-8p3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="laP-Tl-8p3">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16084.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,7 +10,7 @@
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="RGBLamp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="RGBTaskLamp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,8 +24,9 @@
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ZJ-4q-3pH" userLabel="TextLarge">
                                                 <rect key="frame" x="0.0" y="0.0" width="344" height="180"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <string key="text">What happened to the dinosaurs when an asteroid about six miles wide struck Earth some 66 million years ago in what is today Mexico is well known: It wiped them out. But the exact fate of our planet’s diverse ocean dwellers at the time — shelly ammonites, giant mosasaurs and other sea creatures — has not been as well understood.
-New research now makes the case that the same incident that helped bring an end to the reign of the dinosaurs also acidified the planet’s oceans, disrupted the food chain that sustained life underwater and resulted in a mass extinction. The study aims to shore up the hypothesis that the Chicxulub event’s destruction of marine life — the result of sulfur-rich rocks depositing acid rain into the oceans — was just as severe as the fire and fury it brought to land.</string>
+                                                <mutableString key="text">Spring is the season when landscapes wake up from winter’s chill, and there are few more dramatic places to witness this spring awakening than on the west coast of Canada, when the snow-covered scenery transforms into a patchwork of green spaces and multicolored flowers, and animals venture out into the warmer temperatures.
+
+Experiencing British Columbia’s endlessly diverse natural landscapes, from pristine beaches and rugged mountains to abundant rainforests, can invigorate your outlook. Those who witness the season’s changes for themselves report feeling transformed as well. It’s not surprising, since studies have shown that spending even a brief amount of time — as little as three days — immersed in nature can greatly benefit your mental and physical health, bring down stress levels, and make you more creative and better at problem-solving. </mutableString>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
@@ -88,10 +89,9 @@ New research now makes the case that the same incident that helped bring an end 
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGp-yr-9bE" userLabel="TextSmall">
                                                 <rect key="frame" x="0.0" y="0.0" width="344" height="180"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <string key="text">Back in the lab at Yale University, Dr. Henehan, who is now a researcher at GFZ Helmholtz Center in Potsdam, Germany, cleaned the rocks and found the fossil shells of thousands of tiny marine plankton called foraminifera, or “forams.” Finding so many shells was fortunate, he explained, because they preserve trace amounts of boron, a chemical element that is sparse in such fossils, but offers clues to the ancient acid levels of the oceans when enough of it can be found.
-The study offers evidence of what sustained the marine extinction after the asteroid impact got things rolling. That, and it confirms that the asteroid triggered the extinction in the first place.
-Around the time that the asteroid struck, there was intense volcanic activity in what is today India, causing over 200,000 cubic miles of lava to be disgorged over the course of about a million years. For a long time, it was not clear if the marine mass extinction stemmed from changes wrought by the volcanism or by the asteroid. But because the boron shift happened exactly at the boundary, it is now obvious that the asteroid had the bigger effect. The flash acidification and mass extinction, though ancient events, are relevant to our modern world. According to reports from the United Nations Intergovernmental Panel on Climate Change, human emissions of carbon dioxide are not only warming the planet, but also acidifying the oceans. And that modern acidification is happening at a rate and scale comparable to the asteroid-triggered acidification. A similar result is on the extreme end of what we could get in the next 100 years.
-</string>
+                                                <mutableString key="text">Spring is the season when landscapes wake up from winter’s chill, and there are few more dramatic places to witness this spring awakening than on the west coast of Canada, when the snow-covered scenery transforms into a patchwork of green spaces and multicolored flowers, and animals venture out into the warmer temperatures.
+
+Experiencing British Columbia’s endlessly diverse natural landscapes, from pristine beaches and rugged mountains to abundant rainforests, can invigorate your outlook. Those who witness the season’s changes for themselves report feeling transformed as well. It’s not surprising, since studies have shown that spending even a brief amount of time — as little as three days — immersed in nature can greatly benefit your mental and physical health, bring down stress levels, and make you more creative and better at problem-solving. If an active, adrenaline-filled experience helps you connect with nature — and disconnect from technology — there’s no better time to visit British Columbia than spring, which marks the start of mountain biking season. There’s so much to explore on two wheels: Even if spring showers pop up, wet weather simply means more challenging and exciting trails. You might choose to embark on the top-rated Okanagan Valley singletrack, a mostly downhill trail that runs from Vernon to Penticton, through some of the region’s diverse landscapes, including lush vineyards and orchards, majestic mountains, and the shores of Okanagan Lake. Serious riders will want to add Retallack, in British Columbia’s Selkirk Mountains, to their bucket list. The area offers 2,278 square miles of biking in the wilderness, more than 62 miles of singletrack, and a 6,000-vertical-foot descent — one of the longest downhill tracks in the world. There are even packages available for those who want some professional guidance and logistics planning, such as lodging, transportation and meals, so they can focus on the adventure at hand and really tune into the present moment. </mutableString>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
@@ -367,7 +367,7 @@ Around the time that the asteroid struck, there was intense volcanic activity in
         <!--Saved Settings-->
         <scene sceneID="AKZ-8W-go8">
             <objects>
-                <tableViewController id="GtT-fi-uNo" customClass="UserPresetViewController" customModule="RGBLamp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="GtT-fi-uNo" customClass="UserPresetViewController" customModule="RGBTaskLamp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="nOR-We-RAS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -417,7 +417,7 @@ Around the time that the asteroid struck, there was intense volcanic activity in
         <!--Edit View Controller-->
         <scene sceneID="StL-Ck-hfi">
             <objects>
-                <tableViewController id="Pq8-4e-cN5" customClass="EditViewController" customModule="RGBLamp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Pq8-4e-cN5" customClass="EditViewController" customModule="RGBTaskLamp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="28" id="hCp-ER-EkN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -464,10 +464,10 @@ Around the time that the asteroid struck, there was intense volcanic activity in
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3PY-6V-dXw">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3PY-6V-dXw">
                                 <rect key="frame" x="15" y="15" width="384" height="657"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <mutableString key="text">Home screen
+                                <string key="text">Home screen
 Move sliders to find best color in reading sections. Look for least eye strain, sharpest letters.
 
 Sliders
@@ -486,7 +486,7 @@ Presets
 Colors recommended for certain conditions. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference
 
 Saved
-Colors you saved with the name you selected. Color of box matches color you saved. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference. Hit Edit at to left to edit name. Swipe left to delete an entry.</mutableString>
+Colors you saved with the name you selected. Color of box matches color you saved. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference. Hit Edit at to left to edit name. Swipe left to delete an entry.</string>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -510,7 +510,7 @@ Colors you saved with the name you selected. Color of box matches color you save
         <!--Presets-->
         <scene sceneID="JHp-yn-EJD">
             <objects>
-                <tableViewController title="Presets" id="dJi-jE-J6U" customClass="FixedPresetViewController" customModule="RGBLamp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Presets" id="dJi-jE-J6U" customClass="FixedPresetViewController" customModule="RGBTaskLamp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="4MD-1G-QH8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
