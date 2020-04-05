@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     var whiteColor: Float = 0.0
     var alpha: Float = UserDefaults.standard.float(forKey: "alpha")
     var colorMode: Bool = true
+    var alertPresented: Bool = false
     
     // arrays of user saved hues, used in PresetViewController
     // needs to be separate arrays vs. Hue object for saving as user default
@@ -267,6 +268,16 @@ class ViewController: UIViewController {
         
         largeFont.text = "\(Int(largeFontSize))"
         smallFont.text = "\(Int(smallFontSize))"
+        
+       /* if !alertPresented {
+            let alert = UIAlertController(title: "How to use", message: "For instructions, hit Help at lower right", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            NSLog("The \"OK\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
+            
+            alertPresented = true
+        } */
     }
     
     func loadUserDefaultArrays() {
