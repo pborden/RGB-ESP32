@@ -10,13 +10,13 @@ import UIKit
 
 class FixedPresetViewController: UITableViewController {
     
-    var fixedPresetArray = [Preset(name: "AMD", red: 0.3, green: 1.0, blue: 0.5, alpha: 1.0, editable: false, check: false),
+    var fixedPresetArray = [Preset(name: "Macular Degeneration", red: 0.3, green: 1.0, blue: 0.5, alpha: 1.0, editable: false, check: false),
                             Preset(name: "Glaucoma", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false),
     Preset(name: "Retinitis Pigmentosa", red: 0.9, green: 0.3, blue: 0.5, alpha: 0.9, editable: false, check: false),
     Preset(name: "Diabetic Retinopathy", red: 0.5, green: 0.9, blue: 0.4, alpha: 0.9, editable: false, check: false),
-    Preset(name: "Cold white", red: 0.9, green: 0.9, blue: 1.0, alpha: 0.9, editable: false, check: false),
+    Preset(name: "Cold white (most blue, daytime reading)", red: 0.9, green: 0.9, blue: 1.0, alpha: 0.9, editable: false, check: false),
     Preset(name: "Neutral white", red: 0.9, green: 0.9, blue: 0.8, alpha: 0.9, editable: false, check: false),
-    Preset(name: "Warm white", red: 0.9, green: 0.9, blue: 0.6, alpha: 0.9, editable: false, check: false),
+    Preset(name: "Warm white (least blue, nightime reading)", red: 0.9, green: 0.9, blue: 0.6, alpha: 0.9, editable: false, check: false),
      ]
 
     override func viewDidLoad() {

@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     var redColor: Float = UserDefaults.standard.float(forKey: "red")
     var greenColor: Float = UserDefaults.standard.float(forKey: "green")
     var blueColor: Float = UserDefaults.standard.float(forKey: "blue")
-    var whiteColor: Float = 0.9
+    var whiteColor: Float = 0.0
     var alpha: Float = UserDefaults.standard.float(forKey: "alpha")
     var colorMode: Bool = true
     

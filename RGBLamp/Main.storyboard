@@ -295,7 +295,7 @@ Experiencing British Columbia’s endlessly diverse natural landscapes, from pri
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bh4-OF-f3p">
                                         <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="Colors / White">
+                                        <state key="normal" title="RGB / White">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -305,7 +305,7 @@ Experiencing British Columbia’s endlessly diverse natural landscapes, from pri
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rsc-TS-fqI">
                                         <rect key="frame" x="124.66666666666666" y="0.0" width="124.66666666666666" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="Save Colors">
+                                        <state key="normal" title="Save this mix">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
