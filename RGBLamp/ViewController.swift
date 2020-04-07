@@ -21,10 +21,11 @@ class ViewController: UIViewController {
     var redColor: Float = UserDefaults.standard.float(forKey: "red")
     var greenColor: Float = UserDefaults.standard.float(forKey: "green")
     var blueColor: Float = UserDefaults.standard.float(forKey: "blue")
-    var whiteColor: Float = 0.0
+    var whiteColor: Float = 0.9
     var alpha: Float = UserDefaults.standard.float(forKey: "alpha")
     var colorMode: Bool = true
     var alertPresented: Bool = false
+    var minFontSize: Float = 4.0
     
     // arrays of user saved hues, used in PresetViewController
     // needs to be separate arrays vs. Hue object for saving as user default
@@ -155,6 +156,11 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func onOff (_ sender: AnyObject) {
+        // initiate bluetooth connection
+        BTComm.shared().centralManager.scanForPeripherals(withServices: [BLEService_UUID], options: nil)
+    }
+    
     func setBackgroundColor() {
         textLarge.backgroundColor = UIColor(
             red: CGFloat(redColor),
@@ -178,6 +184,9 @@ class ViewController: UIViewController {
         )
         textSmall.backgroundColor = textLarge.backgroundColor
         colorMode = false
+        
+        setLabels()
+        setLEDs()
         
     }
     
@@ -262,6 +271,14 @@ class ViewController: UIViewController {
         }
         
         setBackgroundColor()
+        
+        if largeFontSize < minFontSize {
+            largeFontSize = minFontSize
+        }
+        
+        if smallFontSize < minFontSize {
+            smallFontSize = minFontSize
+        }
         
         textLarge.font = .systemFont(ofSize: CGFloat(largeFontSize))
         textSmall.font = .systemFont(ofSize: CGFloat(smallFontSize))

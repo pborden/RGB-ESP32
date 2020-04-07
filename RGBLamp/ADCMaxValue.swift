@@ -69,7 +69,7 @@ func valueToString(white: Int, red: Int, green: Int, blue: Int) {
     //print("Flicker mode is " + "\(BTComm.shared().flickerMode)")
     // find ASCII strings for each of the colors (white, red, green, blue)
     // then append to string, and add a comma as an end of string value.
-    stringResult = stringConversion(number: white)
+    stringResult = stringConversion(number: 0) // normally white value; set to zero
     stringResult = stringResult + stringConversion(number: red)
     stringResult = stringResult + stringConversion(number: green)
     stringResult = stringResult + stringConversion(number: blue)

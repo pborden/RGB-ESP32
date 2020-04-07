@@ -318,6 +318,9 @@ Experiencing British Columbia’s endlessly diverse natural landscapes, from pri
                                         <state key="normal" image="power" catalog="system">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onOff:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JEZ-VE-o7d"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -467,8 +470,8 @@ Experiencing British Columbia’s endlessly diverse natural landscapes, from pri
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3PY-6V-dXw">
                                 <rect key="frame" x="15" y="15" width="384" height="657"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <mutableString key="text">Home screen
-Move sliders to find best color in reading sections. Look for least eye strain, sharpest letters. When you find a color you like, press Save to remember it. Hint: Choose a Preset (button at bottom) as a starting point, then return to home screen to adjust to find the color best for you.
+                                <string key="text">Home screen
+Move sliders to find best color in reading sections. Look for least eye strain, sharpest letters.
 
 Sliders
 Control brightness of their color (red, green, blue). White slider sets intensity.
@@ -486,7 +489,7 @@ Presets
 Colors recommended for certain conditions. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference
 
 Saved
-Colors you saved with the name you selected. Color of box matches color you saved. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference. Hit Edit at to left to edit name. Swipe left to delete an entry.</mutableString>
+Colors you saved with the name you selected. Color of box matches color you saved. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference. Hit Edit at to left to edit name. Swipe left to delete an entry.</string>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
