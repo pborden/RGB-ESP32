@@ -242,9 +242,15 @@ class ViewController: UIViewController {
     
     func setLEDs() {
         
-        let redLED = Int(ADCMaximumValue * redColor * alpha)
-        let greenLED = Int(ADCMaximumValue * greenColor * alpha)
-        let blueLED = Int(ADCMaximumValue * blueColor * alpha)
+        // normalize so output independent of mix of colors, only dependent on alpha
+        let colorSum = redColor + greenColor + blueColor
+        let newRed = redColor / colorSum
+        let newGreen = greenColor / colorSum
+        let newBlue = blueColor / colorSum
+        
+        let redLED = Int(ADCMaximumValue * newRed * alpha)
+        let greenLED = Int(ADCMaximumValue * newGreen * alpha)
+        let blueLED = Int(ADCMaximumValue * newBlue * alpha)
         let whiteLED = Int(ADCMaximumValue * whiteColor * alpha)
         
         BTComm.shared().research.alpha = alpha

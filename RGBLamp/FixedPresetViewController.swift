@@ -101,9 +101,15 @@ class FixedPresetViewController: UITableViewController {
         let blueColor = fixedPresetArray[presetIndex].blue
         let alpha = fixedPresetArray[presetIndex].alpha
         
-        let redLED = Int(Double(ADCMaximumValue) * redColor * alpha)
-        let greenLED = Int(Double(ADCMaximumValue) * greenColor * alpha)
-        let blueLED = Int(Double(ADCMaximumValue) * blueColor * alpha)
+        // normalize so output independent of mix of colors, only dependent on alpha
+        let colorSum = redColor + greenColor + blueColor
+        let newRed = redColor / colorSum
+        let newGreen = greenColor / colorSum
+        let newBlue = blueColor / colorSum
+        
+        let redLED = Int(Double(ADCMaximumValue) * newRed * alpha)
+        let greenLED = Int(Double(ADCMaximumValue) * newGreen * alpha)
+        let blueLED = Int(Double(ADCMaximumValue) * newBlue * alpha)
         let whiteLED = Int(Double(ADCMaximumValue) * 0.0 * alpha)
         
         BTComm.shared().research.alpha = Float(alpha)

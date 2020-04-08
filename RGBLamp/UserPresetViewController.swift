@@ -120,15 +120,21 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
     }
     
     func setLEDs(presetIndex: Int) {
+        // normalize so output independent of mix of colors, only dependent on alpha
         
         let redColor = userRed[presetIndex]
         let greenColor = userGreen[presetIndex]
         let blueColor = userBlue[presetIndex]
         let alpha = userAlpha[presetIndex]
         
-        let redLED = Int(ADCMaximumValue * redColor * alpha)
-        let greenLED = Int(ADCMaximumValue * greenColor * alpha)
-        let blueLED = Int(ADCMaximumValue * blueColor * alpha)
+        let colorSum = redColor + greenColor + blueColor
+        let newRed = redColor / colorSum
+        let newGreen = greenColor / colorSum
+        let newBlue = blueColor / colorSum
+        
+        let redLED = Int(ADCMaximumValue * newRed * alpha)
+        let greenLED = Int(ADCMaximumValue * newGreen * alpha)
+        let blueLED = Int(ADCMaximumValue * newBlue * alpha)
         let whiteLED = Int(ADCMaximumValue * 0.0 * alpha)
         
         BTComm.shared().research.alpha = Float(alpha)
