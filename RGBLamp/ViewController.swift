@@ -27,6 +27,15 @@ class ViewController: UIViewController {
     var alertPresented: Bool = false
     var minFontSize: Float = 4.0
     
+    // temporary values used to toggle white/color mode
+    var tempRed: Float = 0.0
+    var tempGreen: Float = 0.0
+    var tempBlue: Float = 0.0
+    var tempAlpha: Float = 0.0
+    var tempWhite: Float = 0.0
+    
+    var onState: Bool = true  // used to toggle on/off switch
+    
     // arrays of user saved hues, used in PresetViewController
     // needs to be separate arrays vs. Hue object for saving as user default
     var userName: [String] = []
@@ -150,18 +159,42 @@ class ViewController: UIViewController {
     
     @IBAction func colorButton(_ button: UIButton) {
          if colorMode {
+            tempRed = redColor
+            tempGreen = greenColor
+            tempBlue = blueColor
+            tempAlpha = alpha
+            
+            redColor = whiteColor
+            greenColor = whiteColor
+            blueColor = whiteColor
+            
             setBackgroundWhite()
         } else {
+            redColor = tempRed
+            greenColor = tempGreen
+            blueColor = tempBlue
+            
             setBackgroundColor()
         }
     }
     
     @IBAction func onOff (_ sender: AnyObject) {
         // initiate bluetooth connection
-        BTComm.shared().centralManager.scanForPeripherals(withServices: [BLEService_UUID], options: nil)
+        if onState {
+            tempAlpha = alpha
+            alpha = 0.0
+            setLEDs()
+            onState = false
+        } else {
+            alpha = tempAlpha
+            BTComm.shared().centralManager.scanForPeripherals(withServices: [BLEService_UUID], options: nil)
+            setLEDs()
+            onState = true
+        }
     }
     
     func setBackgroundColor() {
+        
         textLarge.backgroundColor = UIColor(
             red: CGFloat(redColor),
             green: CGFloat(greenColor),

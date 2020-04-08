@@ -470,7 +470,7 @@ Experiencing British Columbia’s endlessly diverse natural landscapes, from pri
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3PY-6V-dXw">
                                 <rect key="frame" x="15" y="15" width="384" height="657"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <string key="text">Home screen
+                                <mutableString key="text">Home screen
 Move sliders to find best color in reading sections. Look for least eye strain, sharpest letters.
 
 Sliders
@@ -483,13 +483,13 @@ Save Colors
 Give it a name in the dialog box and hit Save. Return to it with Saved button at bottom.
 
 On/Off
-Turns lamp on and off.
+Turns lamp on and off. If connection to light is lost, turning lamp off and on will reconnect.
 
 Presets
 Colors recommended for certain conditions. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference
 
 Saved
-Colors you saved with the name you selected. Color of box matches color you saved. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference. Hit Edit at to left to edit name. Swipe left to delete an entry.</string>
+Colors you saved with the name you selected. Color of box matches color you saved. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference. Hit Edit at to left to edit name. Swipe left to delete an entry.</mutableString>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
