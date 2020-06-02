@@ -243,15 +243,33 @@ class ViewController: UIViewController {
     func setLEDs() {
         
         // normalize so output independent of mix of colors, only dependent on alpha
-        let colorSum = redColor + greenColor + blueColor
+        /*let colorSum = redColor + greenColor + blueColor
         let newRed = redColor / colorSum
         let newGreen = greenColor / colorSum
-        let newBlue = blueColor / colorSum
+        let newBlue = blueColor / colorSum */
         
-        let redLED = Int(ADCMaximumValue * newRed * alpha)
-        let greenLED = Int(ADCMaximumValue * newGreen * alpha)
-        let blueLED = Int(ADCMaximumValue * newBlue * alpha)
-        let whiteLED = Int(ADCMaximumValue * whiteColor * alpha)
+        let newRed = redColor
+        let newGreen = greenColor
+        let newBlue = blueColor
+        
+        let redLEDunscaled = (ADCMaximumValue * newRed * alpha)
+        let greenLEDunscaled = (ADCMaximumValue * newGreen * alpha)
+        let blueLEDunscaled = (ADCMaximumValue * newBlue * alpha)
+        let whiteLEDunscaled = (ADCMaximumValue * whiteColor * alpha)
+        
+        // find the lowest maximum lux value between red, green blue
+        let maxLux = findMaxLux()
+        
+        // find scaling factors for each color
+        let redScale = maxLux / redMax
+        let greenScale = maxLux / greenMax
+        let blueScale = maxLux / blueMax
+        let whiteScale: Float  = 1.0
+        
+        let redLED = Int(redLEDunscaled * redScale)
+        let greenLED = Int(greenLEDunscaled * greenScale)
+        let blueLED = Int(blueLEDunscaled * blueScale)
+        let whiteLED = Int(whiteLEDunscaled * whiteScale)
         
         BTComm.shared().research.alpha = alpha
         BTComm.shared().research.red = redColor
@@ -260,6 +278,17 @@ class ViewController: UIViewController {
         
         //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
         valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
+    }
+    
+    func findMaxLux() -> Float {
+        var maximumLux = redMax
+        if greenMax < maximumLux {
+            maximumLux = greenMax
+        }
+        if blueMax < maximumLux {
+            maximumLux = blueMax
+        }
+        return maximumLux
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -278,6 +307,12 @@ class ViewController: UIViewController {
         print("Alpha = \(alpha)")
         print("Large font size = \(largeFontSize)")
         print("Small font size = \(smallFontSize)")
+        
+        if (redColor + greenColor + blueColor) == 0 {
+            redColor = 0.1
+            greenColor = 0.1
+            blueColor = 0.1
+        }
         
         //set start-up values of sliders
         setRedSlider.value = UserDefaults.standard.float(forKey: "red")

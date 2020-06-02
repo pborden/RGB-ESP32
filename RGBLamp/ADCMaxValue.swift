@@ -18,6 +18,16 @@ let maxFrequency: Int = 1000  // these values are tests to see if not in flicker
 let maxDutyCycle: Int = 2
 let base = 32  // for number conversion
 
+// fit coefficients for red, green, blue
+let redCoeff: [Float] = [-1482.0, 4204.0, -22.0]
+let greenCoeff: [Float] = [-553.6, 3649.0, 30.0]
+let blueCoeff: [Float] = [0.0, 4110.0, 72.0]
+
+// maximum values in lux for red, green, blue at 10"
+let redMax = redCoeff[0] + redCoeff[1] + redCoeff[2]
+let greenMax = greenCoeff[0] + greenCoeff[1] + greenCoeff[2]
+let blueMax = blueCoeff[0] + blueCoeff[1] + greenCoeff[2]
+
 // This function is used by all modules to send data to the bluetooth interface.
 // A color must be specified, followed by ADC values (0 to ADCMaximumValue above) for that color
 // The color is a single letter as seen in the if statements below

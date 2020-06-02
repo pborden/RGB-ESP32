@@ -127,10 +127,14 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
         let blueColor = userBlue[presetIndex]
         let alpha = userAlpha[presetIndex]
         
-        let colorSum = redColor + greenColor + blueColor
+        /*let colorSum = redColor + greenColor + blueColor
         let newRed = redColor / colorSum
         let newGreen = greenColor / colorSum
-        let newBlue = blueColor / colorSum
+        let newBlue = blueColor / colorSum */
+        
+        let newRed = redColor
+        let newGreen = greenColor
+        let newBlue = blueColor
         
         let redLED = Int(ADCMaximumValue * newRed * alpha)
         let greenLED = Int(ADCMaximumValue * newGreen * alpha)
