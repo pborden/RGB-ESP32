@@ -19,9 +19,9 @@ let maxDutyCycle: Int = 2
 let base = 32  // for number conversion
 
 // fit coefficients for red, green, blue
-let redCoeff: [Float] = [-1482.0, 4204.0, -22.0]
-let greenCoeff: [Float] = [-553.6, 3649.0, 30.0]
-let blueCoeff: [Float] = [0.0, 4110.0, 72.0]
+let redCoeff: [Float] = [0.071, 4139.0, -1433.0]
+let greenCoeff: [Float] = [5.357, 3738.0, -620.5]
+let blueCoeff: [Float] = [34.29, 4161.0, 0.0]
 
 // maximum values in lux for red, green, blue at 10"
 let redMax = redCoeff[0] + redCoeff[1] + redCoeff[2]

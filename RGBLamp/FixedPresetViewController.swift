@@ -96,30 +96,21 @@ class FixedPresetViewController: UITableViewController {
     
     func setLEDs(presetIndex: Int) {
         
-        let redColor = fixedPresetArray[presetIndex].red
-        let greenColor = fixedPresetArray[presetIndex].green
-        let blueColor = fixedPresetArray[presetIndex].blue
-        let alpha = fixedPresetArray[presetIndex].alpha
+        let redColor = Float(fixedPresetArray[presetIndex].red)
+        let greenColor = Float(fixedPresetArray[presetIndex].green)
+        let blueColor = Float(fixedPresetArray[presetIndex].blue)
+        let alpha = Float(fixedPresetArray[presetIndex].alpha)
         
-        // normalize so output independent of mix of colors, only dependent on alpha
-        /*let colorSum = redColor + greenColor + blueColor
-        let newRed = redColor / colorSum
-        let newGreen = greenColor / colorSum
-        let newBlue = blueColor / colorSum */
         
-        let newRed = redColor
-        let newGreen = greenColor
-        let newBlue = blueColor
+        let redLED = ledValue(color: "red", for: presetIndex, for: redColor)
+        let greenLED = ledValue(color: "green", for: presetIndex, for: greenColor)
+        let blueLED = ledValue(color: "blue", for: presetIndex, for: blueColor)
+        let whiteLED = 0
         
-        let redLED = Int(Double(ADCMaximumValue) * newRed * alpha)
-        let greenLED = Int(Double(ADCMaximumValue) * newGreen * alpha)
-        let blueLED = Int(Double(ADCMaximumValue) * newBlue * alpha)
-        let whiteLED = Int(Double(ADCMaximumValue) * 0.0 * alpha)
-        
-        BTComm.shared().research.alpha = Float(alpha)
-        BTComm.shared().research.red = Float(redColor)
-        BTComm.shared().research.green = Float(greenColor)
-        BTComm.shared().research.blue = Float(blueColor)
+        BTComm.shared().research.alpha = alpha
+        BTComm.shared().research.red = redColor
+        BTComm.shared().research.green = greenColor
+        BTComm.shared().research.blue = blueColor
         
         UserDefaults.standard.set(redColor, forKey: "red")
         UserDefaults.standard.set(greenColor, forKey: "green")
@@ -129,6 +120,45 @@ class FixedPresetViewController: UITableViewController {
         //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
         valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
     }
+    
+    func ledValue(color: String, for index: Int, for value: Float) -> Int {
+           var LED = 0
+           
+           let red = Float(fixedPresetArray[index].red)
+           let green = Float(fixedPresetArray[index].green)
+           let blue = Float(fixedPresetArray[index].blue)
+           let alpha = Float(fixedPresetArray[index].alpha)
+           
+           let intensity = alpha * value
+           
+           // find lux value for the color
+           let redLedLux = redCoeff[0] + intensity * (redCoeff[1] + intensity * redCoeff[2])
+           let greenLedLux = greenCoeff[0] + intensity * (greenCoeff[1] + intensity * greenCoeff[2])
+           let blueLedLux = blueCoeff[0] + intensity * (blueCoeff[1] + intensity * blueCoeff[2])
+           
+           // find scaling factors
+           var maxLux = redLedLux
+           if greenLedLux < maxLux {
+               maxLux = greenLedLux
+           }
+           if blueLedLux < maxLux {
+               maxLux = blueLedLux
+           }
+           
+           let redScale = redLedLux / maxLux
+           let greenScale = greenLedLux / maxLux
+           let blueScale = blueLedLux / maxLux
+           
+           if color == "red" {
+               LED = Int(ADCMaximumValue * redScale * red * alpha)
+           } else if color == "green" {
+               LED = Int(ADCMaximumValue * greenScale * green * alpha)
+           } else if color == "blue" {
+               LED = Int(ADCMaximumValue * blueScale * blue * alpha)
+           }
+           
+           return LED
+       }
     
 
     /*

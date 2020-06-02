@@ -127,19 +127,10 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
         let blueColor = userBlue[presetIndex]
         let alpha = userAlpha[presetIndex]
         
-        /*let colorSum = redColor + greenColor + blueColor
-        let newRed = redColor / colorSum
-        let newGreen = greenColor / colorSum
-        let newBlue = blueColor / colorSum */
-        
-        let newRed = redColor
-        let newGreen = greenColor
-        let newBlue = blueColor
-        
-        let redLED = Int(ADCMaximumValue * newRed * alpha)
-        let greenLED = Int(ADCMaximumValue * newGreen * alpha)
-        let blueLED = Int(ADCMaximumValue * newBlue * alpha)
-        let whiteLED = Int(ADCMaximumValue * 0.0 * alpha)
+        let redLED = ledValue(color: "red", for: presetIndex, for: redColor)
+        let greenLED = ledValue(color: "green", for: presetIndex, for: greenColor)
+        let blueLED = ledValue(color: "blue", for: presetIndex, for: blueColor)
+        let whiteLED = 0
         
         BTComm.shared().research.alpha = Float(alpha)
         BTComm.shared().research.red = Float(redColor)
@@ -153,6 +144,45 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
         
         //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
         valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
+    }
+    
+    func ledValue(color: String, for index: Int, for value: Float) -> Int {
+        var LED = 0
+        
+        let red = userRed[index]
+        let green = userGreen[index]
+        let blue = userBlue[index]
+        let alpha = userAlpha[index]
+        
+        let intensity = alpha * value
+        
+        // find lux value for the color
+        let redLedLux = redCoeff[0] + intensity * (redCoeff[1] + intensity * redCoeff[2])
+        let greenLedLux = greenCoeff[0] + intensity * (greenCoeff[1] + intensity * greenCoeff[2])
+        let blueLedLux = blueCoeff[0] + intensity * (blueCoeff[1] + intensity * blueCoeff[2])
+        
+        // find scaling factors
+        var maxLux = redLedLux
+        if greenLedLux < maxLux {
+            maxLux = greenLedLux
+        }
+        if blueLedLux < maxLux {
+            maxLux = blueLedLux
+        }
+        
+        let redScale = redLedLux / maxLux
+        let greenScale = greenLedLux / maxLux
+        let blueScale = blueLedLux / maxLux
+        
+        if color == "red" {
+            LED = Int(ADCMaximumValue * redScale * red * alpha)
+        } else if color == "green" {
+            LED = Int(ADCMaximumValue * greenScale * green * alpha)
+        } else if color == "blue" {
+            LED = Int(ADCMaximumValue * blueScale * blue * alpha)
+        }
+        
+        return LED
     }
     
     func loadUserDefaults() {

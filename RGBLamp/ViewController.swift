@@ -242,34 +242,10 @@ class ViewController: UIViewController {
     
     func setLEDs() {
         
-        // normalize so output independent of mix of colors, only dependent on alpha
-        /*let colorSum = redColor + greenColor + blueColor
-        let newRed = redColor / colorSum
-        let newGreen = greenColor / colorSum
-        let newBlue = blueColor / colorSum */
-        
-        let newRed = redColor
-        let newGreen = greenColor
-        let newBlue = blueColor
-        
-        let redLEDunscaled = (ADCMaximumValue * newRed * alpha)
-        let greenLEDunscaled = (ADCMaximumValue * newGreen * alpha)
-        let blueLEDunscaled = (ADCMaximumValue * newBlue * alpha)
-        let whiteLEDunscaled = (ADCMaximumValue * whiteColor * alpha)
-        
-        // find the lowest maximum lux value between red, green blue
-        let maxLux = findMaxLux()
-        
-        // find scaling factors for each color
-        let redScale = maxLux / redMax
-        let greenScale = maxLux / greenMax
-        let blueScale = maxLux / blueMax
-        let whiteScale: Float  = 1.0
-        
-        let redLED = Int(redLEDunscaled * redScale)
-        let greenLED = Int(greenLEDunscaled * greenScale)
-        let blueLED = Int(blueLEDunscaled * blueScale)
-        let whiteLED = Int(whiteLEDunscaled * whiteScale)
+        let redLED = ledValue(color: "red", for: redColor)
+        let greenLED = ledValue(color: "green", for: greenColor)
+        let blueLED = ledValue(color: "blue", for: blueColor)
+        let whiteLED: Int = 0
         
         BTComm.shared().research.alpha = alpha
         BTComm.shared().research.red = redColor
@@ -279,6 +255,40 @@ class ViewController: UIViewController {
         //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
         valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
     }
+    
+    func ledValue(color: String, for value: Float) -> Int {
+        var LED = 0
+        let intensity = value * alpha
+        
+        // find lux value for the color
+        let redLedLux = redCoeff[0] + intensity * (redCoeff[1] + intensity * redCoeff[2])
+        let greenLedLux = greenCoeff[0] + intensity * (greenCoeff[1] + intensity * greenCoeff[2])
+        let blueLedLux = blueCoeff[0] + intensity * (blueCoeff[1] + intensity * blueCoeff[2])
+        
+        // find scaling factors
+        var maxLux = redLedLux
+        if greenLedLux < maxLux {
+            maxLux = greenLedLux
+        }
+        if blueLedLux < maxLux {
+            maxLux = blueLedLux
+        }
+        
+        let redScale = redLedLux / maxLux
+        let greenScale = greenLedLux / maxLux
+        let blueScale = blueLedLux / maxLux
+        
+        if color == "red" {
+            LED = Int(ADCMaximumValue * redScale * redColor * alpha)
+        } else if color == "green" {
+            LED = Int(ADCMaximumValue * greenScale * greenColor * alpha)
+        } else if color == "blue" {
+            LED = Int(ADCMaximumValue * blueScale * blueColor * alpha)
+        }
+        
+        return LED
+    }
+    
     
     func findMaxLux() -> Float {
         var maximumLux = redMax
