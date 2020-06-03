@@ -28,6 +28,8 @@ let redMax = redCoeff[0] + redCoeff[1] + redCoeff[2]
 let greenMax = greenCoeff[0] + greenCoeff[1] + greenCoeff[2]
 let blueMax = blueCoeff[0] + blueCoeff[1] + greenCoeff[2]
 
+let maxLampLux: Float = 5000.0  // maximum output of the lamp
+
 // This function is used by all modules to send data to the bluetooth interface.
 // A color must be specified, followed by ADC values (0 to ADCMaximumValue above) for that color
 // The color is a single letter as seen in the if statements below

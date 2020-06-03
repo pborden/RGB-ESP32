@@ -253,6 +253,7 @@ class ViewController: UIViewController {
         BTComm.shared().research.blue = blueColor
         
         //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
+        print("red: \(redLED), green: \(greenLED), blue: \(blueLED)")
         valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
     }
     
@@ -264,6 +265,7 @@ class ViewController: UIViewController {
         let redLedLux = redCoeff[0] + intensity * (redCoeff[1] + intensity * redCoeff[2])
         let greenLedLux = greenCoeff[0] + intensity * (greenCoeff[1] + intensity * greenCoeff[2])
         let blueLedLux = blueCoeff[0] + intensity * (blueCoeff[1] + intensity * blueCoeff[2])
+        print("red: \(redLedLux), green: \(greenLedLux), blue: \(blueLedLux)")
         
         // find scaling factors
         var maxLux = redLedLux
@@ -274,16 +276,28 @@ class ViewController: UIViewController {
             maxLux = blueLedLux
         }
         
-        let redScale = redLedLux / maxLux
-        let greenScale = greenLedLux / maxLux
-        let blueScale = blueLedLux / maxLux
+        let redScale = maxLux / redLedLux
+        let greenScale = maxLux / greenLedLux
+        let blueScale = maxLux / blueLedLux
+        
+        // adjust so Lux never exceeds maxLampLux defined in ADCMaxValue.swift
+        // first, find the lux if there is no adjustment. If > maxLampLux, find, apply scale factor
+        var currentLux: Float = redCoeff[0] + redColor * alpha * (redCoeff[1] + redColor * alpha * redCoeff[2])
+        currentLux = currentLux + greenCoeff[0] + greenColor * alpha * (greenCoeff[1] + greenColor * alpha * greenCoeff[2])
+        currentLux = currentLux + blueCoeff[0] + blueColor * alpha * (blueCoeff[1] + blueColor * alpha * blueCoeff[2])
+        
+        var luxScale: Float = 1.0
+        if currentLux > maxLampLux {
+            luxScale = maxLampLux / currentLux
+        }
         
         if color == "red" {
-            LED = Int(ADCMaximumValue * redScale * redColor * alpha)
+            LED = Int(ADCMaximumValue * redScale * redColor * alpha * luxScale)
         } else if color == "green" {
-            LED = Int(ADCMaximumValue * greenScale * greenColor * alpha)
+            LED = Int(ADCMaximumValue * greenScale * greenColor * alpha * luxScale)
         } else if color == "blue" {
-            LED = Int(ADCMaximumValue * blueScale * blueColor * alpha)
+            LED = Int(ADCMaximumValue * blueScale * blueColor * alpha * luxScale)
+            print("blueScale: \(blueScale), blueColor: \(blueColor), alpha: \(alpha)")
         }
         
         return LED
