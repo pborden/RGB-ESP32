@@ -191,3 +191,56 @@ func convertToAscii(number: Int) -> String {
     return result
 }
 
+
+func ledValue(color: String, for red: Float, for green: Float, for blue: Float, for alpha: Float) -> Int {
+    
+    var intensity: Float = 0.0
+    if color == "red" {
+        intensity = red * alpha
+    } else if color == "green" {
+        intensity = green * alpha
+    } else if color == "blue" {
+        intensity = blue * alpha
+    }
+    
+    // find lux value for the color
+    let redLedLux = redCoeff[0] + intensity * (redCoeff[1] + intensity * redCoeff[2])
+    let greenLedLux = greenCoeff[0] + intensity * (greenCoeff[1] + intensity * greenCoeff[2])
+    let blueLedLux = blueCoeff[0] + intensity * (blueCoeff[1] + intensity * blueCoeff[2])
+    
+    // find scaling factors
+    var maxLux = redLedLux
+    if greenLedLux < maxLux {
+        maxLux = greenLedLux
+    }
+    if blueLedLux < maxLux {
+        maxLux = blueLedLux
+    }
+    
+    let redScale = maxLux / redLedLux
+    let greenScale = maxLux / greenLedLux
+    let blueScale = maxLux / blueLedLux
+    
+    // adjust so Lux never exceeds maxLampLux defined in ADCMaxValue.swift
+    // first, find the lux if there is no adjustment. If > maxLampLux, find, apply scale factor
+    var currentLux: Float = redCoeff[0] + red * alpha * (redCoeff[1] + red * alpha * redCoeff[2])
+    currentLux = currentLux + greenCoeff[0] + green * alpha * (greenCoeff[1] + green * alpha * greenCoeff[2])
+    currentLux = currentLux + blueCoeff[0] + blue * alpha * (blueCoeff[1] + blue * alpha * blueCoeff[2])
+    
+    var luxScale: Float = 1.0
+    if currentLux > maxLampLux {
+        luxScale = maxLampLux / currentLux
+    }
+    
+    var LED = 0
+    if color == "red" {
+        LED = Int(ADCMaximumValue * redScale * red * alpha * luxScale)
+    } else if color == "green" {
+        LED = Int(ADCMaximumValue * greenScale * green * alpha * luxScale)
+    } else if color == "blue" {
+        LED = Int(ADCMaximumValue * blueScale * blue * alpha * luxScale)
+    }
+    
+    return LED
+}
+

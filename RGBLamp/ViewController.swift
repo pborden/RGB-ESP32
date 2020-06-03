@@ -242,9 +242,9 @@ class ViewController: UIViewController {
     
     func setLEDs() {
         
-        let redLED = ledValue(color: "red", for: redColor)
-        let greenLED = ledValue(color: "green", for: greenColor)
-        let blueLED = ledValue(color: "blue", for: blueColor)
+        let redLED = ledValue(color: "red", for: redColor, for: greenColor, for: blueColor, for: alpha)
+        let greenLED = ledValue(color: "green", for: redColor, for: greenColor, for: blueColor, for: alpha)
+        let blueLED = ledValue(color: "blue", for: redColor, for: greenColor, for: blueColor, for: alpha)
         let whiteLED: Int = 0
         
         BTComm.shared().research.alpha = alpha
@@ -253,66 +253,7 @@ class ViewController: UIViewController {
         BTComm.shared().research.blue = blueColor
         
         //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
-        print("red: \(redLED), green: \(greenLED), blue: \(blueLED)")
         valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
-    }
-    
-    func ledValue(color: String, for value: Float) -> Int {
-        var LED = 0
-        let intensity = value * alpha
-        
-        // find lux value for the color
-        let redLedLux = redCoeff[0] + intensity * (redCoeff[1] + intensity * redCoeff[2])
-        let greenLedLux = greenCoeff[0] + intensity * (greenCoeff[1] + intensity * greenCoeff[2])
-        let blueLedLux = blueCoeff[0] + intensity * (blueCoeff[1] + intensity * blueCoeff[2])
-        print("red: \(redLedLux), green: \(greenLedLux), blue: \(blueLedLux)")
-        
-        // find scaling factors
-        var maxLux = redLedLux
-        if greenLedLux < maxLux {
-            maxLux = greenLedLux
-        }
-        if blueLedLux < maxLux {
-            maxLux = blueLedLux
-        }
-        
-        let redScale = maxLux / redLedLux
-        let greenScale = maxLux / greenLedLux
-        let blueScale = maxLux / blueLedLux
-        
-        // adjust so Lux never exceeds maxLampLux defined in ADCMaxValue.swift
-        // first, find the lux if there is no adjustment. If > maxLampLux, find, apply scale factor
-        var currentLux: Float = redCoeff[0] + redColor * alpha * (redCoeff[1] + redColor * alpha * redCoeff[2])
-        currentLux = currentLux + greenCoeff[0] + greenColor * alpha * (greenCoeff[1] + greenColor * alpha * greenCoeff[2])
-        currentLux = currentLux + blueCoeff[0] + blueColor * alpha * (blueCoeff[1] + blueColor * alpha * blueCoeff[2])
-        
-        var luxScale: Float = 1.0
-        if currentLux > maxLampLux {
-            luxScale = maxLampLux / currentLux
-        }
-        
-        if color == "red" {
-            LED = Int(ADCMaximumValue * redScale * redColor * alpha * luxScale)
-        } else if color == "green" {
-            LED = Int(ADCMaximumValue * greenScale * greenColor * alpha * luxScale)
-        } else if color == "blue" {
-            LED = Int(ADCMaximumValue * blueScale * blueColor * alpha * luxScale)
-            print("blueScale: \(blueScale), blueColor: \(blueColor), alpha: \(alpha)")
-        }
-        
-        return LED
-    }
-    
-    
-    func findMaxLux() -> Float {
-        var maximumLux = redMax
-        if greenMax < maximumLux {
-            maximumLux = greenMax
-        }
-        if blueMax < maximumLux {
-            maximumLux = blueMax
-        }
-        return maximumLux
     }
     
     override func viewWillAppear(_ animated: Bool) {
