@@ -191,6 +191,18 @@ func convertToAscii(number: Int) -> String {
     return result
 }
 
+func saveValues(for redColor: Float, for greenColor: Float, for blueColor: Float, for alpha: Float) {
+    
+     BTComm.shared().research.alpha = alpha
+     BTComm.shared().research.red = redColor
+     BTComm.shared().research.green = greenColor
+     BTComm.shared().research.blue = blueColor
+     
+     UserDefaults.standard.set(redColor, forKey: "red")
+     UserDefaults.standard.set(greenColor, forKey: "green")
+     UserDefaults.standard.set(blueColor, forKey: "blue")
+     UserDefaults.standard.set(alpha, forKey: "alpha")
+}
 
 func ledValue(color: String, for red: Float, for green: Float, for blue: Float, for alpha: Float) -> Int {
     
@@ -228,8 +240,8 @@ func ledValue(color: String, for red: Float, for green: Float, for blue: Float, 
     currentLux = currentLux + blueCoeff[0] + blue * alpha * (blueCoeff[1] + blue * alpha * blueCoeff[2])
     
     var luxScale: Float = 1.0
-    if currentLux > maxLampLux {
-        luxScale = maxLampLux / currentLux
+    if currentLux > maxLampLux * alpha {
+        luxScale = maxLampLux * alpha / currentLux
     }
     
     var LED = 0

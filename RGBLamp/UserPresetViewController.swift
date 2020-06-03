@@ -132,15 +132,7 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
         let blueLED = ledValue(color: "blue", for: redColor, for: greenColor, for: blueColor, for: alpha)
         let whiteLED: Int = 0
         
-        BTComm.shared().research.alpha = Float(alpha)
-        BTComm.shared().research.red = Float(redColor)
-        BTComm.shared().research.green = Float(greenColor)
-        BTComm.shared().research.blue = Float(blueColor)
-      
-        UserDefaults.standard.set(redColor, forKey: "red")
-        UserDefaults.standard.set(greenColor, forKey: "green")
-        UserDefaults.standard.set(blueColor, forKey: "blue")
-        UserDefaults.standard.set(alpha, forKey: "alpha")
+        saveValues(for: redColor, for: greenColor, for: blueColor, for: alpha)
         
         //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
         valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
