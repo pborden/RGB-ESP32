@@ -101,6 +101,7 @@ class FixedPresetViewController: UITableViewController {
         let blueColor = Float(fixedPresetArray[presetIndex].blue)
         let alpha = Float(fixedPresetArray[presetIndex].alpha)
         
+        // convert to LED values using routine in ADCMaxValue.swift
         let redLED = ledValue(color: "red", for: redColor, for: greenColor, for: blueColor, for: alpha)
         let greenLED = ledValue(color: "green", for: redColor, for: greenColor, for: blueColor, for: alpha)
         let blueLED = ledValue(color: "blue", for: redColor, for: greenColor, for: blueColor, for: alpha)

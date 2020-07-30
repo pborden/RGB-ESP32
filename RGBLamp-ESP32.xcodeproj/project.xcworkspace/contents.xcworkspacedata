@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:RGBLamp.xcodeproj">
+      location = "self:/Users/peterborden/Dropbox/PROGRAMMING/RGB-ESP32/RGBLamp-ESP32.xcodeproj">
    </FileRef>
 </Workspace>

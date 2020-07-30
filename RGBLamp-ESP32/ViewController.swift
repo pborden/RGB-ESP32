@@ -245,8 +245,8 @@ class ViewController: UIViewController {
         saveValues(for: redColor, for: greenColor, for: blueColor, for: alpha)
         
         //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
-        valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
         print("red: \(redLED), green: \(greenLED), blue: \(blueLED)")
+        valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
     }
     
     override func viewWillAppear(_ animated: Bool) {

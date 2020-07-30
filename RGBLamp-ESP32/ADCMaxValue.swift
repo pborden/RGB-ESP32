@@ -11,24 +11,28 @@
 import Foundation
 
 // set the maximum value of the ADC here as a global picked up by all modules
-let ADCMaximumValue: Float = 1023.0   // Maximum value in digital counts
+let ADCMaximumValue: Float = 255.0   // Maximum value in digital counts (8 bit conversion in ESP32
 let delaySec = 0.0    // delay between successive transmissions of values on BlueTooth
 
 let maxFrequency: Int = 1000  // these values are tests to see if not in flicker mode
 let maxDutyCycle: Int = 2
-let base = 32  // for number conversion
+let base = 10.0  // for number conversion 32 for BlueFruit, 10 for ESP32
 
 // fit coefficients for red, green, blue
 let redCoeff: [Float] = [0.071, 4139.0, -1433.0]
 let greenCoeff: [Float] = [5.357, 3738.0, -620.5]
-let blueCoeff: [Float] = [34.29, 4161.0, 0.0]
+let blueCoeff: [Float] = [26.74, 3246.0, 0.0]
+
+let blueScaleFactor: Float = 1.0
+let greenScaleFactor: Float = 1.0
+let redScaleFactor: Float = 1.0
 
 // maximum values in lux for red, green, blue at 10"
 let redMax = redCoeff[0] + redCoeff[1] + redCoeff[2]
 let greenMax = greenCoeff[0] + greenCoeff[1] + greenCoeff[2]
 let blueMax = blueCoeff[0] + blueCoeff[1] + greenCoeff[2]
 
-let maxLampLux: Float = 5000.0  // maximum output of the lamp
+let maxLampLux: Float = 10000.0  // maximum output of the lamp
 
 // This function is used by all modules to send data to the bluetooth interface.
 // A color must be specified, followed by ADC values (0 to ADCMaximumValue above) for that color
@@ -61,6 +65,7 @@ func sendToBT(color: String, white: Int, red: Int, green: Int, blue: Int, freque
     }
 }
 
+// Note: Not done in ESP32 - only for BlueFruit and AVR
 // By using base 32 two ASCII digits represent an LED value from 0 to 1024 (which is 32 * 32)
 // Two ASCII digits take 4 bytes, so 4 LEDs use 16 bytes
 // The Bluetooth has a 20 byte buffer, so using base 32 enables sending 4 LEDs worth of data
@@ -75,21 +80,25 @@ func sendToBT(color: String, white: Int, red: Int, green: Int, blue: Int, freque
 // The AVR then multiplies the first digit by the base (32) and adds the second digit to get the
 // intensity value for each color.
 
+// For ESP32:
+// Convert 3 digit number for each LED value to ASCII string, then combine to make BLE string
+
 func valueToString(white: Int, red: Int, green: Int, blue: Int) {
     var stringResult = ""
     
-    //print("Flicker mode is " + "\(BTComm.shared().flickerMode)")
-    // find ASCII strings for each of the colors (white, red, green, blue)
+    // find ASCII strings for each of the colors (red, green, blue)
     // then append to string, and add a comma as an end of string value.
-    stringResult = stringConversion(number: 0) // normally white value; set to zero
+    // stringResult = stringConversion(number: 0) // ignore white value
     stringResult = stringResult + stringConversion(number: red)
     stringResult = stringResult + stringConversion(number: green)
     stringResult = stringResult + stringConversion(number: blue)
-    if BTComm.shared().flickerMode == false {  // end of string character determines mode
+    stringResult = stringResult + " "  // need to append a space to end string
+    
+    /*if BTComm.shared().flickerMode == false {  // end of string character determines mode
         stringResult = stringResult + "}"
     } else {
         stringResult = stringResult + "{"
-    }
+    }*/
     
     // send result to the BlueTooth and print it to the console.
     BTComm.shared().writeValue(data: stringResult)
@@ -97,13 +106,17 @@ func valueToString(white: Int, red: Int, green: Int, blue: Int) {
 }
 
 func stringConversion(number: Int) -> String {
-    let tensPlace = Int(number / base)
-    let unitsPlace = number - base * tensPlace
+    let hundredsPlace = Int(Double(number) / base / base)
+    let tensPlace = Int((Double(number) - Double(hundredsPlace) * base * base) / base)
+    let unitsPlace = number - Int(base * (Double(tensPlace) + base * Double(hundredsPlace)))
+    //print("100's: \(hundredsPlace), 10's: \(tensPlace), 1's: \(unitsPlace)")
+    let hundredsPlaceString = convertToAscii(number: hundredsPlace)
     let tensPlaceString = convertToAscii(number: tensPlace)
     let unitsPlaceString = convertToAscii(number: unitsPlace)
-    let resultString = tensPlaceString + unitsPlaceString
+   // print("String 100's: \(hundredsPlaceString), 10's: \(tensPlaceString), 1's: \(unitsPlaceString)")
+    let asciiString = hundredsPlaceString + tensPlaceString + unitsPlaceString
     
-    return resultString
+    return asciiString
 }
 
 // Convert an integer from 0 to 32 to an string value corresponding to ASCII 48 to 80.
@@ -206,52 +219,35 @@ func saveValues(for redColor: Float, for greenColor: Float, for blueColor: Float
 
 func ledValue(color: String, for red: Float, for green: Float, for blue: Float, for alpha: Float) -> Int {
     
-    var intensity: Float = 0.0
-    if color == "red" {
-        intensity = red * alpha
-    } else if color == "green" {
-        intensity = green * alpha
-    } else if color == "blue" {
-        intensity = blue * alpha
+    //print("Color: \(color), red: \(red), green: \(green), blue: \(blue), alpha: \(alpha)")
+    // intensities as set by user
+    let redIntensity = red * alpha
+    let greenIntensity = green * alpha
+    let blueIntensity = blue * alpha
+    
+    // find lux value for each color
+    let redLedLux = redCoeff[0] + redIntensity * (redCoeff[1] + redIntensity * redCoeff[2])
+    let greenLedLux = greenCoeff[0] + greenIntensity * (greenCoeff[1] + greenIntensity * greenCoeff[2])
+    let blueLedLux = blueCoeff[0] + blueIntensity * (blueCoeff[1] + blueIntensity * blueCoeff[2])
+    //print("R, G, B Lux: \(redLedLux), \(greenLedLux), \(blueLedLux)")
+    
+    // Lamp has a maximum lux. See if set lux exceeds max. If so, find scale factor
+    var luxScaleFactor: Float = 1.0
+    let totalLux = redLedLux + greenLedLux + blueLedLux
+    if (totalLux > maxLampLux) {
+        luxScaleFactor = maxLampLux / totalLux
     }
     
-    // find lux value for the color
-    let redLedLux = redCoeff[0] + intensity * (redCoeff[1] + intensity * redCoeff[2])
-    let greenLedLux = greenCoeff[0] + intensity * (greenCoeff[1] + intensity * greenCoeff[2])
-    let blueLedLux = blueCoeff[0] + intensity * (blueCoeff[1] + intensity * blueCoeff[2])
-    
-    // find scaling factors
-    var maxLux = redLedLux
-    if greenLedLux < maxLux {
-        maxLux = greenLedLux
-    }
-    if blueLedLux < maxLux {
-        maxLux = blueLedLux
-    }
-    
-    let redScale = maxLux / redLedLux
-    let greenScale = maxLux / greenLedLux
-    let blueScale = maxLux / blueLedLux
-    
-    // adjust so Lux never exceeds maxLampLux defined in ADCMaxValue.swift
-    // first, find the lux if there is no adjustment. If > maxLampLux, find, apply scale factor
-    var currentLux: Float = redCoeff[0] + red * alpha * (redCoeff[1] + red * alpha * redCoeff[2])
-    currentLux = currentLux + greenCoeff[0] + green * alpha * (greenCoeff[1] + green * alpha * greenCoeff[2])
-    currentLux = currentLux + blueCoeff[0] + blue * alpha * (blueCoeff[1] + blue * alpha * blueCoeff[2])
-    
-    var luxScale: Float = 1.0
-    if currentLux > maxLampLux * alpha {
-        luxScale = maxLampLux * alpha / currentLux
-    }
-    
+    // Find ADC values. R,G,B scale factors set outputs of the 3 colors equal.
     var LED = 0
     if color == "red" {
-        LED = Int(ADCMaximumValue * redScale * red * alpha * luxScale)
+        LED = Int(ADCMaximumValue * redScaleFactor * luxScaleFactor * redLedLux / redMax)
     } else if color == "green" {
-        LED = Int(ADCMaximumValue * greenScale * green * alpha * luxScale)
-    } else if color == "blue" {
-        LED = Int(ADCMaximumValue * blueScale * blue * alpha * luxScale)
+        LED = Int(ADCMaximumValue * greenScaleFactor * luxScaleFactor * greenLedLux / greenMax)
+    } else {
+        LED = Int(ADCMaximumValue * blueScaleFactor * luxScaleFactor * blueLedLux / blueMax)
     }
+   // print("LED value: \(LED)")
     
     return LED
 }

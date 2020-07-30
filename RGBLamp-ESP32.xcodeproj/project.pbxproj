@@ -20,11 +20,12 @@
 		6E802F8623DE94D0001799BD /* UserPresetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E802F8523DE94D0001799BD /* UserPresetViewController.swift */; };
 		6E802F8823DE9526001799BD /* PresetList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E802F8723DE9526001799BD /* PresetList.swift */; };
 		6E802F8A23DE956F001799BD /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E802F8923DE956F001799BD /* EditViewController.swift */; };
+		6E88809F24C4E41E0094E7DC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E88809E24C4E41E0094E7DC /* Default-568h@2x.png */; };
 		6EF4D4752424187900B22C25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EF4D4742424187900B22C25 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6E172AB623AC35FA004B3DF2 /* RGBTaskLamp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RGBTaskLamp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E172AB623AC35FA004B3DF2 /* RGBLamp-ESP32.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RGBLamp-ESP32.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E172AB923AC35FA004B3DF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E172ABB23AC35FA004B3DF2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6E172ABD23AC35FA004B3DF2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,6 +40,7 @@
 		6E802F8523DE94D0001799BD /* UserPresetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPresetViewController.swift; sourceTree = "<group>"; };
 		6E802F8723DE9526001799BD /* PresetList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetList.swift; sourceTree = "<group>"; };
 		6E802F8923DE956F001799BD /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		6E88809E24C4E41E0094E7DC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6EF4D4742424187900B22C25 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,7 +58,8 @@
 		6E172AAD23AC35FA004B3DF2 = {
 			isa = PBXGroup;
 			children = (
-				6E172AB823AC35FA004B3DF2 /* RGBLamp */,
+				6E88809E24C4E41E0094E7DC /* Default-568h@2x.png */,
+				6E172AB823AC35FA004B3DF2 /* RGBLamp-ESP32 */,
 				6E172AB723AC35FA004B3DF2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,12 +67,12 @@
 		6E172AB723AC35FA004B3DF2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6E172AB623AC35FA004B3DF2 /* RGBTaskLamp.app */,
+				6E172AB623AC35FA004B3DF2 /* RGBLamp-ESP32.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6E172AB823AC35FA004B3DF2 /* RGBLamp */ = {
+		6E172AB823AC35FA004B3DF2 /* RGBLamp-ESP32 */ = {
 			isa = PBXGroup;
 			children = (
 				6E172AB923AC35FA004B3DF2 /* AppDelegate.swift */,
@@ -88,15 +91,15 @@
 				6E4FCEE2241DBB6200CC3794 /* UUID.swift */,
 				6E4FCEE4241F21A600CC3794 /* ADCMaxValue.swift */,
 			);
-			path = RGBLamp;
+			path = "RGBLamp-ESP32";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6E172AB523AC35FA004B3DF2 /* RGBLamp */ = {
+		6E172AB523AC35FA004B3DF2 /* RGBLamp-ESP32 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6E172ACA23AC35FB004B3DF2 /* Build configuration list for PBXNativeTarget "RGBLamp" */;
+			buildConfigurationList = 6E172ACA23AC35FB004B3DF2 /* Build configuration list for PBXNativeTarget "RGBLamp-ESP32" */;
 			buildPhases = (
 				6E172AB223AC35FA004B3DF2 /* Sources */,
 				6E172AB323AC35FA004B3DF2 /* Frameworks */,
@@ -106,9 +109,9 @@
 			);
 			dependencies = (
 			);
-			name = RGBLamp;
+			name = "RGBLamp-ESP32";
 			productName = RGBLamp;
-			productReference = 6E172AB623AC35FA004B3DF2 /* RGBTaskLamp.app */;
+			productReference = 6E172AB623AC35FA004B3DF2 /* RGBLamp-ESP32.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -126,7 +129,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6E172AB123AC35FA004B3DF2 /* Build configuration list for PBXProject "RGBLamp" */;
+			buildConfigurationList = 6E172AB123AC35FA004B3DF2 /* Build configuration list for PBXProject "RGBLamp-ESP32" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -139,7 +142,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6E172AB523AC35FA004B3DF2 /* RGBLamp */,
+				6E172AB523AC35FA004B3DF2 /* RGBLamp-ESP32 */,
 			);
 		};
 /* End PBXProject section */
@@ -150,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E172AC623AC35FB004B3DF2 /* LaunchScreen.storyboard in Resources */,
+				6E88809F24C4E41E0094E7DC /* Default-568h@2x.png in Resources */,
 				6E172AC323AC35FB004B3DF2 /* Assets.xcassets in Resources */,
 				6EF4D4752424187900B22C25 /* Main.storyboard in Resources */,
 			);
@@ -311,14 +315,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C4AJ784EAZ;
-				INFOPLIST_FILE = RGBLamp/Info.plist;
+				INFOPLIST_FILE = "RGBLamp-ESP32/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = me.pgborden.RGBTaskLamp;
-				PRODUCT_NAME = RGBTaskLamp;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "me.pgborden.RGBLamp-ESP32";
+				PRODUCT_NAME = "RGBLamp-ESP32";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -331,14 +335,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C4AJ784EAZ;
-				INFOPLIST_FILE = RGBLamp/Info.plist;
+				INFOPLIST_FILE = "RGBLamp-ESP32/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = me.pgborden.RGBTaskLamp;
-				PRODUCT_NAME = RGBTaskLamp;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "me.pgborden.RGBLamp-ESP32";
+				PRODUCT_NAME = "RGBLamp-ESP32";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -347,7 +351,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6E172AB123AC35FA004B3DF2 /* Build configuration list for PBXProject "RGBLamp" */ = {
+		6E172AB123AC35FA004B3DF2 /* Build configuration list for PBXProject "RGBLamp-ESP32" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6E172AC823AC35FB004B3DF2 /* Debug */,
@@ -356,7 +360,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6E172ACA23AC35FB004B3DF2 /* Build configuration list for PBXNativeTarget "RGBLamp" */ = {
+		6E172ACA23AC35FB004B3DF2 /* Build configuration list for PBXNativeTarget "RGBLamp-ESP32" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6E172ACB23AC35FB004B3DF2 /* Debug */,

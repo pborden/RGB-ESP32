@@ -127,6 +127,7 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
         let blueColor = userBlue[presetIndex]
         let alpha = userAlpha[presetIndex]
         
+        // convert to LED values using routine in ADCMaxValue.swift
         let redLED = ledValue(color: "red", for: redColor, for: greenColor, for: blueColor, for: alpha)
         let greenLED = ledValue(color: "green", for: redColor, for: greenColor, for: blueColor, for: alpha)
         let blueLED = ledValue(color: "blue", for: redColor, for: greenColor, for: blueColor, for: alpha)

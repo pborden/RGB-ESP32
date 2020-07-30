@@ -205,7 +205,7 @@ class BTComm: NSObject {
                 print(characteristic.value ?? "no value")
             case BLE_Characteristic_uuid_Rx:
                 receivedData = rxData(from: characteristic)
-                print("Received data: " + receivedData)
+               // print("Received data: " + receivedData)
             default:
                 print("Unhandled Characteristic UUID: \(characteristic.uuid)")
             }
@@ -234,7 +234,7 @@ class BTComm: NSObject {
     //    Adds a comma as an end of string marker and a carriage return
     //    Used only in flicker mode. Other modes format string in base 32 and wirte directly with writeValue
         func writeData(header: String, value: Int) {
-            let delayInSeconds = 0.00 // changed from 0.001
+            let delayInSeconds = 0.01 // changed from 0.001
             let appendString = "\n"
             let endOfString = ","
             let outputText = header + "\(value)" + endOfString
