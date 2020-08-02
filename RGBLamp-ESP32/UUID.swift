@@ -12,12 +12,12 @@ import CoreBluetooth
 // UART Service uuids
 
 let kBLEService_UUID =            "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
-// let kBLEService_UUID =            "8ace4159-268d-4cfc-b280-5d66a5f97699"
 let kBLE_Characteristic_uuid_Tx = "6e400002-b5a3-f393-e0a9-e50e24dcca9e"
 let kBLE_Characteristic_uuid_Rx = "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
 
+// maximum length of sent message (standard message is 10 characters)
 let MaxCharacters = 20
 
-let BLEService_UUID = CBUUID(string: kBLEService_UUID)
+let BLEService_UUID = CBUUID(string: kBLEService_UUID) // UART Service
 let BLE_Characteristic_uuid_Tx = CBUUID(string: kBLE_Characteristic_uuid_Tx)//(Property = Write without response)
 let BLE_Characteristic_uuid_Rx = CBUUID(string: kBLE_Characteristic_uuid_Rx)// (Property = Read/Notify)
