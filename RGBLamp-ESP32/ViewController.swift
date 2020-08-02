@@ -8,26 +8,20 @@
 
 import UIKit
 
-struct Hue {
-    var name: String
-    var red: Float
-    var green: Float
-    var blue: Float
-    var alpha: Float
-}
-
+// this is the home view controller
 class ViewController: UIViewController {
     
+    // Define the colors and initialize them using saved user defaults. White is not used; set to fixed value now.
     var redColor: Float = UserDefaults.standard.float(forKey: "red")
     var greenColor: Float = UserDefaults.standard.float(forKey: "green")
     var blueColor: Float = UserDefaults.standard.float(forKey: "blue")
     var whiteColor: Float = 0.9
-    var alpha: Float = UserDefaults.standard.float(forKey: "alpha")
-    var colorMode: Bool = true
-    var alertPresented: Bool = false
-    var minFontSize: Float = 4.0
+    var alpha: Float = UserDefaults.standard.float(forKey: "alpha") // alpha is the intensity
+    var colorMode: Bool = true // color mode allows changes to each color; white mode toggled with color/white button
+    var alertPresented: Bool = false // can be used with start-up alert (not implemented)
+    var minFontSize: Float = 4.0 // minimum sizes of the fonts in the reading chart text blocks
     
-    // temporary values used to toggle white/color mode
+    // temporary values used to toggle white/color modes
     var tempRed: Float = 0.0
     var tempGreen: Float = 0.0
     var tempBlue: Float = 0.0
@@ -37,18 +31,18 @@ class ViewController: UIViewController {
     var onState: Bool = true  // used to toggle on/off switch
     
     // arrays of user saved hues, used in PresetViewController
-    // needs to be separate arrays vs. Hue object for saving as user default
+    // needs to be separate arrays vs. using a Hue object for saving as user defaults
     var userName: [String] = []
     var userRed: [Float] = []
     var userGreen: [Float] = []
     var userBlue: [Float] = []
     var userAlpha: [Float] = []
     
+    // Set the font size for the vision chart text blocks. Top block is large font; bottom block is small font
     var largeFontSize = UserDefaults.standard.float(forKey: "largeFont")
     var smallFontSize = UserDefaults.standard.float(forKey: "smallFont")
     
-    let minSize: Float = 4.0 // minimum font size
-    
+    // Control outlets
     @IBOutlet weak var textLarge: UITextView!
     @IBOutlet weak var textSmall: UITextView!
     @IBOutlet weak var largeFont: UITextField!
@@ -62,7 +56,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var setBlueSlider: UISlider!
     @IBOutlet weak var setAlphaSlider: UISlider!
     
+    // Saves the current hue (RGB combination)
     @IBAction func saveHue(_ button: UIButton) {
+        // Provide alert to let user give the hue a name.
         var hueName = ""
         let alert = UIAlertController(title: "Name of saved color?", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -71,7 +67,7 @@ class ViewController: UIViewController {
             textField.placeholder = "Input name here..."
         })
         
-        loadUserDefaultArrays()
+        loadUserDefaultArrays() //Subroutine to populate arrays with previously saved hues
 
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
 
@@ -79,6 +75,7 @@ class ViewController: UIViewController {
                 hueName = name
                 print("Your name: \(hueName)")
                 
+                // Append the new name and colors to the existing arrays and save in User Defaults
                 self.userName.append(hueName)
                 self.userRed.append(self.redColor)
                 self.userBlue.append(self.blueColor)
@@ -95,44 +92,49 @@ class ViewController: UIViewController {
             print("Saved: \(self.userName)")
             
         }))
-
+        // Show the alert
         self.present(alert, animated: true)
     }
     
+    // Increase the font size in the top box
     @IBAction func largeTextBigger(_ button: UIButton) {
-        largeFontSize = largeFontSize + 1.0
+        largeFontSize = largeFontSize + 1.0 // Increment size
         textLarge.font = .systemFont(ofSize: CGFloat(largeFontSize))
-        largeFont.text = "\(Int(largeFontSize))"
-        UserDefaults.standard.set(largeFontSize, forKey: "largeFont")
+        largeFont.text = "\(Int(largeFontSize))" // Update text showing current font size
+        UserDefaults.standard.set(largeFontSize, forKey: "largeFont") // Save current font size
     }
     
+    // Decrease the font size in the top box
     @IBAction func largeTextSmaller(_ button: UIButton) {
-        largeFontSize = largeFontSize - 1.0
-            if largeFontSize < minSize {
-                largeFontSize = minSize
+        largeFontSize = largeFontSize - 1.0 // Decrement size; check if >= minimum size
+            if largeFontSize < minFontSize {
+                largeFontSize = minFontSize
             }
         textLarge.font = .systemFont(ofSize: CGFloat(largeFontSize))
-        largeFont.text = "\(Int(largeFontSize))"
-        UserDefaults.standard.set(largeFontSize, forKey: "largeFont")
+        largeFont.text = "\(Int(largeFontSize))"  // Update text showing current font size
+        UserDefaults.standard.set(largeFontSize, forKey: "largeFont") // Save current font size
     }
     
     @IBAction func smallTextBigger(_ button: UIButton) {
-        smallFontSize = smallFontSize + 1.0
+        smallFontSize = smallFontSize + 1.0 // Increment size
         textSmall.font = .systemFont(ofSize: CGFloat(smallFontSize))
-        smallFont.text = "\(Int(smallFontSize))"
-        UserDefaults.standard.set(smallFontSize, forKey: "smallFont")
+        smallFont.text = "\(Int(smallFontSize))"  // Update text showing current font size
+        UserDefaults.standard.set(smallFontSize, forKey: "smallFont") // Save current font size
     }
     
     @IBAction func smallTextSmaller(_ button: UIButton) {
-        smallFontSize = smallFontSize - 1.0
-            if smallFontSize < minSize {
-                smallFontSize = minSize
+        smallFontSize = smallFontSize - 1.0 // Decrement size; check if >= minimum size
+            if smallFontSize < minFontSize {
+                smallFontSize = minFontSize
             }
         textSmall.font = .systemFont(ofSize: CGFloat(smallFontSize))
-        smallFont.text = "\(Int(smallFontSize))"
-        UserDefaults.standard.set(smallFontSize, forKey: "smallFont")
+        smallFont.text = "\(Int(smallFontSize))"  // Update text showing current font size
+        UserDefaults.standard.set(smallFontSize, forKey: "smallFont") // Save current font size
     }
     
+    // These 4 actions set the RGB and alpha values based on the sliders and change the background
+    // color of the two text boxes according to the new slider values.
+    // Only the final slider value is read (not continuous, as this could overload Bluetooth output.
     @IBAction func redSlider(_ slider: UISlider) {
         slider.isContinuous = false
         redColor = slider.value
@@ -157,9 +159,10 @@ class ViewController: UIViewController {
         setBackgroundColor()
     }
     
+    // This button switches the background of the text fields between colored and white
     @IBAction func colorButton(_ button: UIButton) {
-         if colorMode {
-            tempRed = redColor
+         if colorMode {  // in color mode, switch to white mode
+            tempRed = redColor      // save current color settings
             tempGreen = greenColor
             tempBlue = blueColor
             tempAlpha = alpha
@@ -169,8 +172,8 @@ class ViewController: UIViewController {
             blueColor = whiteColor
             
             setBackgroundWhite()
-        } else {
-            redColor = tempRed
+        } else {  // return to color mode
+            redColor = tempRed  // recover color settings
             greenColor = tempGreen
             blueColor = tempBlue
             
@@ -178,23 +181,27 @@ class ViewController: UIViewController {
         }
     }
     
+    // Provide function to on/off switch. Turn off by setting alpha to zero. Also re-establishes Bluetooth
+    // connection if lost, which may be the case if user turns off lamp, walks away, and comes back.
     @IBAction func onOff (_ sender: AnyObject) {
         // initiate bluetooth connection
         if onState {
             tempAlpha = alpha
-            alpha = 0.0
+            alpha = 0.0  // if on, setting alpha=0 means no LED output for any color.
             setLEDs()
             onState = false
         } else {
-            alpha = tempAlpha
+            alpha = tempAlpha // reset to original alpha value
+            // reconnect in event Bluetooth connection was lost
             BTComm.shared().centralManager.scanForPeripherals(withServices: [BLEService_UUID], options: nil)
             setLEDs()
             onState = true
         }
     }
     
+    // sets the colored background and intensity (alpha) of the two text blocks
     func setBackgroundColor() {
-        
+        // set background color of both text blocks
         textLarge.backgroundColor = UIColor(
             red: CGFloat(redColor),
             green: CGFloat(greenColor),
@@ -208,7 +215,9 @@ class ViewController: UIViewController {
         setLEDs()
     }
     
+    // sets a white background for the two text blocks. Used with colored/white button
     func setBackgroundWhite() {
+        // set background color to white for both text blocks.
         textLarge.backgroundColor = UIColor(
             red: CGFloat(whiteColor),
             green: CGFloat(whiteColor),
@@ -223,7 +232,9 @@ class ViewController: UIViewController {
         
     }
     
+    // sets the labels at the ends of the sliders to read out a numeric value between 0 and 100
     func setLabels() {
+        // label values must be integers. Multiply by 100 since base values are in the range of 0 to 1
         let redColorInt = Int(100 * redColor)
         let greenColorInt = Int(100 * greenColor)
         let blueColorInt = Int(100 * blueColor)
@@ -235,30 +246,34 @@ class ViewController: UIViewController {
         alphaValue.text = "\(alphaInt)"
     }
     
+    // send the LED string intensities to the lamp
     func setLEDs() {
         
+        // find the led output values (the ledValue() routine is in ADCMaxValue.swift)
         let redLED = ledValue(color: "red", for: redColor, for: greenColor, for: blueColor, for: alpha)
         let greenLED = ledValue(color: "green", for: redColor, for: greenColor, for: blueColor, for: alpha)
         let blueLED = ledValue(color: "blue", for: redColor, for: greenColor, for: blueColor, for: alpha)
         let whiteLED: Int = 0
         
+        // save the color values to user defaults (the saveValues() routine ins in ADCMaxValue.swift)
         saveValues(for: redColor, for: greenColor, for: blueColor, for: alpha)
         
-        //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
         print("red: \(redLED), green: \(greenLED), blue: \(blueLED)")
+        
+        // send the color values to the Bluetooth (the valueToString() routine is in ADCMaxValue.swift)
         valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadDefaults()
-        setBackgroundColor()
+        loadDefaults() // load user defaults at start
+        setBackgroundColor() // set the background color of the text blocks based on the user defaults
         print("View controller appearing")
     }
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // print current values for diagnostic purposes
         print("Red = \(redColor)")
         print("Green = \(greenColor)")
         print("Blue = \(blueColor)")
@@ -266,13 +281,15 @@ class ViewController: UIViewController {
         print("Large font size = \(largeFontSize)")
         print("Small font size = \(smallFontSize)")
         
+        // set a low background level if all three colors are zero.
+        // otherwise, the text blocks will be invisible
         if (redColor + greenColor + blueColor) == 0 {
             redColor = 0.1
             greenColor = 0.1
             blueColor = 0.1
         }
         
-        //set start-up values of sliders
+        //set start-up values of sliders by loading user defaults
         setRedSlider.value = UserDefaults.standard.float(forKey: "red")
         setGreenSlider.value = UserDefaults.standard.float(forKey: "green")
         setBlueSlider.value = UserDefaults.standard.float(forKey: "blue")
@@ -282,7 +299,8 @@ class ViewController: UIViewController {
         
         // on first run of program, need to set initial values
         if UserDefaults.standard.string(forKey: "firstTry") != "no" {
-            UserDefaults.standard.set("no", forKey: "firstTry")
+            UserDefaults.standard.set("no", forKey: "firstTry") // not first try anymore
+            // set initial values
             setRedSlider.value = 0.9
             setGreenSlider.value = 0.9
             setBlueSlider.value = 0.9
@@ -298,12 +316,12 @@ class ViewController: UIViewController {
             userGreen = []
             userBlue = []
             userAlpha = []
-        } else {
+        } else { // not first try; initialize with user defaults
             loadUserDefaultArrays()
         }
         
         setBackgroundColor()
-        
+        // make sure fonts in the two text blocks are at least the minimum font size
         if largeFontSize < minFontSize {
             largeFontSize = minFontSize
         }
@@ -311,13 +329,14 @@ class ViewController: UIViewController {
         if smallFontSize < minFontSize {
             smallFontSize = minFontSize
         }
-        
+        // set font size in the two text blocks
         textLarge.font = .systemFont(ofSize: CGFloat(largeFontSize))
         textSmall.font = .systemFont(ofSize: CGFloat(smallFontSize))
-        
+        // label the font size
         largeFont.text = "\(Int(largeFontSize))"
         smallFont.text = "\(Int(smallFontSize))"
         
+        // this alert is not used. Presents on start-up to tell user how to find help in using app.
        /* if !alertPresented {
             let alert = UIAlertController(title: "How to use", message: "For instructions, hit Help at lower right", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
@@ -329,6 +348,7 @@ class ViewController: UIViewController {
         } */
     }
     
+    // load arrays containing name, RGB and alpha values for each user saved setting
     func loadUserDefaultArrays() {
         userName = UserDefaults.standard.stringArray(forKey: "userName") ?? [String]()
         userRed = UserDefaults.standard.array(forKey: "userRed") as? [Float] ?? [Float]()
@@ -337,6 +357,7 @@ class ViewController: UIViewController {
         userAlpha = UserDefaults.standard.array(forKey: "userAlpha") as? [Float] ?? [Float]()
     }
     
+    // load last saved values of the various settings and slider positions.
     func loadDefaults() {
         redColor = UserDefaults.standard.float(forKey: "red")
         greenColor = UserDefaults.standard.float(forKey: "green")
@@ -349,12 +370,5 @@ class ViewController: UIViewController {
         setBlueSlider.value = blueColor
         setAlphaSlider.value = alpha
     }
-    
-   /* override func viewWillDisappear(_ animated: Bool) {
-        UserDefaults.standard.set(redColor, forKey: "red")
-        UserDefaults.standard.set(greenColor, forKey: "green")
-        UserDefaults.standard.set(blueColor, forKey: "blue")
-        UserDefaults.standard.set(alpha, forKey: "alpha")
-    } */
 }
 
