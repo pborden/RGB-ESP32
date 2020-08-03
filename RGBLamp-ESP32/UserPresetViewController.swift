@@ -101,6 +101,7 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
             cell.accessoryType = .none
         }
         
+        // place a check mark in the selected row to indicate it was selected
         if let cell = tableView.cellForRow(at: indexPath) {
                 cell.accessoryType = .checkmark
             }
