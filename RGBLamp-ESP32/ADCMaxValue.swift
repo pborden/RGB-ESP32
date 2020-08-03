@@ -11,11 +11,11 @@
 import Foundation
 
 // set the maximum value of the ADC here as a global picked up by all modules
-let ADCMaximumValue: Float = 255.0   // Maximum value in digital counts (8 bit conversion in ESP32
+let ADCMaximumValue: Float = 255.0   // Maximum value in digital counts (8 bit conversion in ESP32)
 let delaySec = 0.0    // delay between successive transmissions of values on BlueTooth
 
-let maxFrequency: Int = 1000  // these values are tests to see if not in flicker mode
-let maxDutyCycle: Int = 2
+//let maxFrequency: Int = 1000  // these values are tests to see if not in flicker mode
+//let maxDutyCycle: Int = 2
 let base = 10.0  // for number conversion 32 for BlueFruit, 10 for ESP32
 
 // fit coefficients for red, green, blue
@@ -23,11 +23,12 @@ let redCoeff: [Float] = [0.071, 4139.0, -1433.0]
 let greenCoeff: [Float] = [5.357, 3738.0, -620.5]
 let blueCoeff: [Float] = [26.74, 3246.0, 0.0]
 
+// these factors enable scaling the output of each LED string
 let blueScaleFactor: Float = 1.0
 let greenScaleFactor: Float = 1.0
 let redScaleFactor: Float = 1.0
 
-// maximum values in lux for red, green, blue at 10"
+// maximum values in lux for red, green, blue at 10" and alpha = 1.0
 let redMax = redCoeff[0] + redCoeff[1] + redCoeff[2]
 let greenMax = greenCoeff[0] + greenCoeff[1] + greenCoeff[2]
 let blueMax = blueCoeff[0] + blueCoeff[1] + greenCoeff[2]
@@ -41,7 +42,7 @@ let maxLampLux: Float = 10000.0  // maximum output of the lamp
 
 // 3.18.19 This is now used only in flicker mode.
 // valueToString is used for all other modes.
-func sendToBT(color: String, white: Int, red: Int, green: Int, blue: Int, frequency: Int, dutyCycle: Int) {
+/*func sendToBT(color: String, white: Int, red: Int, green: Int, blue: Int, frequency: Int, dutyCycle: Int) {
 
     if (color == "r") {
         BTComm.shared().writeData(header: "r", value: red)
@@ -63,7 +64,7 @@ func sendToBT(color: String, white: Int, red: Int, green: Int, blue: Int, freque
         // don't need to send duty cycle - is same as intensity
         //DispatchQueue.main.asyncAfter(deadline: .now() + delaySec) {}
     }
-}
+} */
 
 // Note: Not done in ESP32 - only for BlueFruit and AVR
 // By using base 32 two ASCII digits represent an LED value from 0 to 1024 (which is 32 * 32)
@@ -92,7 +93,7 @@ func valueToString(white: Int, red: Int, green: Int, blue: Int) {
     stringResult = stringResult + stringConversion(number: red)
     stringResult = stringResult + stringConversion(number: green)
     stringResult = stringResult + stringConversion(number: blue)
-    stringResult = stringResult + " "  // need to append a space to end string
+    stringResult = stringResult + " "  // need to append a space to indicate end of string
     
     /*if BTComm.shared().flickerMode == false {  // end of string character determines mode
         stringResult = stringResult + "}"
@@ -105,6 +106,7 @@ func valueToString(white: Int, red: Int, green: Int, blue: Int) {
     print(stringResult)
 }
 
+// Convert three integer digits to an ascii string. Used to build 9 digit string, 3 for each LED output.
 func stringConversion(number: Int) -> String {
     let hundredsPlace = Int(Double(number) / base / base)
     let tensPlace = Int((Double(number) - Double(hundredsPlace) * base * base) / base)
@@ -143,7 +145,13 @@ func convertToAscii(number: Int) -> String {
         result = "8"            //ASCII 56
     } else if number == 9 {
         result = "9"            //ASCII 57
-    } else if number == 10 {
+    } else {
+        result = "0"
+    }
+    
+    return result
+    
+    /*else if number == 10 {
         result = ":"            //ASCII 58
     } else if number == 11 {
         result = ";"            //ASCII 59
@@ -201,31 +209,35 @@ func convertToAscii(number: Int) -> String {
         result = "V"
     }
     
-    return result
+    return result */
 }
 
 func saveValues(for redColor: Float, for greenColor: Float, for blueColor: Float, for alpha: Float) {
     
-     BTComm.shared().research.alpha = alpha
-     BTComm.shared().research.red = redColor
-     BTComm.shared().research.green = greenColor
-     BTComm.shared().research.blue = blueColor
+    // save values across all view controllers
+    BTComm.shared().research.alpha = alpha
+    BTComm.shared().research.red = redColor
+    BTComm.shared().research.green = greenColor
+    BTComm.shared().research.blue = blueColor
      
+    // save to user defaults
      UserDefaults.standard.set(redColor, forKey: "red")
      UserDefaults.standard.set(greenColor, forKey: "green")
      UserDefaults.standard.set(blueColor, forKey: "blue")
      UserDefaults.standard.set(alpha, forKey: "alpha")
 }
 
+// find the output of each string, consistent with the value of alpha and the maximum lamp output
 func ledValue(color: String, for red: Float, for green: Float, for blue: Float, for alpha: Float) -> Int {
     
     //print("Color: \(color), red: \(red), green: \(green), blue: \(blue), alpha: \(alpha)")
-    // intensities as set by user
+    
+    // intensities as set by user - the string outputs are scaled by alpha
     let redIntensity = red * alpha
     let greenIntensity = green * alpha
     let blueIntensity = blue * alpha
     
-    // find lux value for each color
+    // find lux value for each color based on measured quadatic curve fit of output vs intensity setting
     let redLedLux = redCoeff[0] + redIntensity * (redCoeff[1] + redIntensity * redCoeff[2])
     let greenLedLux = greenCoeff[0] + greenIntensity * (greenCoeff[1] + greenIntensity * greenCoeff[2])
     let blueLedLux = blueCoeff[0] + blueIntensity * (blueCoeff[1] + blueIntensity * blueCoeff[2])

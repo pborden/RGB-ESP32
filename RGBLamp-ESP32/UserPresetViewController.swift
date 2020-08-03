@@ -66,7 +66,8 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
         // #warning Incomplete implementation, return the number of sections
         return 0
     } */
-
+    
+    // Number of rows in table
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return userName.count
@@ -78,6 +79,7 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
         
         let label = cell.viewWithTag(1000) as! UILabel
         
+        // set background color of cell same as associated lamp hue RGB, alpha values
         let redBack = CGFloat(userRed[indexPath.row])
         let greenBack = CGFloat(userGreen[indexPath.row])
         let blueBack = CGFloat(userBlue[indexPath.row])
@@ -85,12 +87,14 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
         print("IndexPath \(indexPath.row), red \(redBack), green \(greenBack), blue \(blueBack)")
         cell.backgroundColor = UIColor(red: redBack, green: greenBack, blue: blueBack, alpha: alphaBack)
         
+        // text in cell is black; put name of saved preset in cell
         label.textColor = UIColor.black
         label.text = userName[indexPath.row]
         
         return cell
     }
     
+    // if row selected, set lamp color to hue associated with row
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         for cell in tableView.visibleCells {
@@ -106,6 +110,7 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    // provide abiity to delete a row using the swipe left and delete method
     override func tableView(_ tableView: UITableView, commit edititngStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         userName.remove(at: indexPath.row)
         userRed.remove(at: indexPath.row)
@@ -113,8 +118,10 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
         userBlue.remove(at: indexPath.row)
         userAlpha.remove(at: indexPath.row)
         
+        // save new arrays without removed value
         setUserDefaults()
         
+        // remove row from table
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
     }
@@ -122,6 +129,7 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
     func setLEDs(presetIndex: Int) {
         // normalize so output independent of mix of colors, only dependent on alpha
         
+        // read associated RGB values and alpha
         let redColor = userRed[presetIndex]
         let greenColor = userGreen[presetIndex]
         let blueColor = userBlue[presetIndex]
@@ -133,6 +141,7 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
         let blueLED = ledValue(color: "blue", for: redColor, for: greenColor, for: blueColor, for: alpha)
         let whiteLED: Int = 0
         
+        // save selected hue as current values
         saveValues(for: redColor, for: greenColor, for: blueColor, for: alpha)
         
         //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
