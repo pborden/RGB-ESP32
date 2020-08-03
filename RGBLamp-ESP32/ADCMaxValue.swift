@@ -136,12 +136,14 @@ func ledValue(color: String, for red: Float, for green: Float, for blue: Float, 
     
     // Find ADC values. R,G,B scale factors set outputs of the 3 colors equal.
     var LED = 0
-    if color == "red" {
-        LED = Int(ADCMaximumValue * redScaleFactor * luxScaleFactor * redLedLux / redMax)
-    } else if color == "green" {
-        LED = Int(ADCMaximumValue * greenScaleFactor * luxScaleFactor * greenLedLux / greenMax)
-    } else {
-        LED = Int(ADCMaximumValue * blueScaleFactor * luxScaleFactor * blueLedLux / blueMax)
+    if alpha > 0 {
+        if color == "red" {
+            LED = Int(ADCMaximumValue * redScaleFactor * luxScaleFactor * redLedLux / redMax)
+        } else if color == "green" {
+            LED = Int(ADCMaximumValue * greenScaleFactor * luxScaleFactor * greenLedLux / greenMax)
+        } else {
+            LED = Int(ADCMaximumValue * blueScaleFactor * luxScaleFactor * blueLedLux / blueMax)
+        }
     }
    // print("LED value: \(LED)")
     
