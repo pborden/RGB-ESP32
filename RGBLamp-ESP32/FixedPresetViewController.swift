@@ -76,6 +76,8 @@ class FixedPresetViewController: UITableViewController {
         print("IndexPath \(indexPath.row), red \(redBack), green \(greenBack), blue \(blueBack)")
         cell.backgroundColor = UIColor(red: redBack, green: greenBack, blue: blueBack, alpha: alphaBack)
         
+        //Change text and checkmark color to black
+        cell.tintColor = UIColor.black
         label.textColor = UIColor.black
         label.text = fixedPresetArray[indexPath.row].name
        /* if indexPath.row == 0 {

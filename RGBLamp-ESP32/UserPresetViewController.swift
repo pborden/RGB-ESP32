@@ -87,8 +87,9 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
         print("IndexPath \(indexPath.row), red \(redBack), green \(greenBack), blue \(blueBack)")
         cell.backgroundColor = UIColor(red: redBack, green: greenBack, blue: blueBack, alpha: alphaBack)
         
-        // text in cell is black; put name of saved preset in cell
+        // text in cell and checkmark is black; put name of saved preset in cell
         label.textColor = UIColor.black
+        cell.tintColor = UIColor.black
         label.text = userName[indexPath.row]
         
         return cell
