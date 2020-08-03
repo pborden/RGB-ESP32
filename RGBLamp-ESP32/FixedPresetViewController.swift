@@ -80,21 +80,6 @@ class FixedPresetViewController: UITableViewController {
         cell.tintColor = UIColor.black
         label.textColor = UIColor.black
         label.text = fixedPresetArray[indexPath.row].name
-       /* if indexPath.row == 0 {
-            label.text = fixedPresetArray[0].name
-        } else if indexPath.row == 1 {
-            label.text =  fixedPresetArray[1].name
-        } else if indexPath.row == 2 {
-            label.text = fixedPresetArray[2].name
-        } else if indexPath.row == 3 {
-            label.text =  fixedPresetArray[3].name
-        } else if indexPath.row == 4 {
-            label.text =  fixedPresetArray[4].name
-        } else if indexPath.row == 5 {
-            label.text =  fixedPresetArray[5].name
-        } else if indexPath.row == 6 {
-            label.text =  fixedPresetArray[6].name
-        } */
 
         return cell
     }
@@ -114,7 +99,6 @@ class FixedPresetViewController: UITableViewController {
         
         saveValues(for: redColor, for: greenColor, for: blueColor, for: alpha)
         
-        //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
         valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
     }
     

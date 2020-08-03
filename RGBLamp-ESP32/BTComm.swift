@@ -28,11 +28,6 @@ class BTComm: NSObject {
         var transmittedData: String = ""
         var receivedData: String = ""
         
-        /*required init?(coder aDecoder: NSCoder) {
-         let txData = aDecoder.decodeObject(forKey: self.txData) as? String
-         fatalError("init(coder:) has not been implemented")
-         } */
-        
         // initialize global variables. Colors are global
         private init(transmittedData: String) {
             self.transmittedData = transmittedData
@@ -41,28 +36,6 @@ class BTComm: NSObject {
         private init(receivedData: String) {
             self.receivedData = receivedData
         }
-        /*
-        init(white: String) {
-            self.white = white
-        }
-        init(red: String) {
-            self.red = red
-        }
-        init(green: String) {
-            self.green = green
-        }
-        init(blue: String) {
-            self.blue = blue
-        }
-        init(alpha: String) {
-            self.alpha = alpha
-        }
-       init(frequency: String) {
-            self.frequency = frequency
-        }
-        init(dutyCycle: String) {
-            self.dutyCycle = dutyCycle
-        }  */
         
         // Shared is the class that shares BTComm across the program
         class func shared() -> BTComm {
@@ -78,28 +51,6 @@ class BTComm: NSObject {
         var rxCharacteristic : CBCharacteristic?
         var characteristicASCIIValue = NSString()
         var research = Hue(name: "Dummy", red: 0.9, green: 0.9, blue: 0.9, alpha: 0.9)   // research view controller settings
-        /*var white: String?
-        var red: String?
-        var green: String?
-        var blue: String?
-        var alpha: String?
-        var frequency: String?
-        var dutyCycle: String? */
-        
-        //var whiteSettings = WhiteLight()
-       // var bulbLumens: String = ""
-        //var bulbDistance: String = "10"
-        //var lensDescriptions: [String] = [] // Array of keys for lenses found in ColorViewController; used in LensTableViewController
-       // var research = Hue(name: "Dummy", red: 0.9, green: 0.9, blue: 0.9, alpha: 0.9)   // research view controller settings
-        //var sensitivity = ColoredLight()
-        //var flicker = FlickerLight()
-       // var latestLens: String = "No Lens Chosen"  // last lens chosen in Simulate Tinted Lens Mode
-       // var practitionerName: String = "Practitioner"  // name on summary screen
-        
-       // var flickerMode: Bool = false
-        //var flickerColor: String = "w"
-        //var flickerFrequency: Int = 60
-        //var flickerDutyCycle: Int = 50
         
         override init() {
             super.init()
@@ -110,7 +61,6 @@ class BTComm: NSObject {
     extension BTComm: CBCentralManagerDelegate {
         
         // find out if the bluetooth is powered on. If so, scan for the peripheral
-        
         func centralManagerDidUpdateState(_ central: CBCentralManager) {
             switch central.state {
             case .unknown:
@@ -242,21 +192,4 @@ class BTComm: NSObject {
             }
         }
 
-    //    Write a header value (r, g, b, w) and an integer to bluetooth
-    //    Adds a comma as an end of string marker and a carriage return
-    //    Used only in flicker mode. Other modes format string in base 32 and wirte directly with writeValue
-      /*  func writeData(header: String, value: Int) {
-            let delayInSeconds = 0.01 // changed from 0.001
-            let appendString = "\n"
-            let endOfString = ","
-            let outputText = header + "\(value)" + endOfString
-            for character in outputText {
-                let inputText = "\(character)" + appendString
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
-                self.writeValue(data: "\(inputText)")
-                //print("\(character)")
-                }
-            }
-            //print("\n")
-        } */
 }

@@ -19,21 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaultBlue = ["blue": Float()]
         let defaultAlpha = ["alpha": Float()]
         let defaultFirstTry = ["firstTry": String()]
-        //let defaultuserName = [Array, "userName": String()]
-        //let defaultuserRed = [Array, "userRed" : Float()]
-        //let defaultuserGreen = [Array, "userGreen": Float()]
-        //let defaultuserBlue = [Array, "userBlue": Float()]
-        //let defaultuserAlpha = [Array, "userAlpha": Float()]
+        
         defaults.register(defaults: defaultRed)
         defaults.register(defaults: defaultGreen)
         defaults.register(defaults: defaultBlue)
         defaults.register(defaults: defaultAlpha)
         defaults.register(defaults: defaultFirstTry)
-        //defaults.register(defaults: defaultuserName)
-        //defaults.register(defaults: defaultuserRed)
-        //defaults.register(defaults: defaultuserGreen)
-        //defaults.register(defaults: defaultuserBlue)
-       // defaults.register(defaults: defaultuserAlpha)
+        
         return true
     }
 

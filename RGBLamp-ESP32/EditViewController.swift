@@ -96,7 +96,4 @@ class EditViewController: UITableViewController, UITextFieldDelegate {
         UserDefaults.standard.set(userBlue, forKey: "userBlue")
         UserDefaults.standard.set(userAlpha, forKey: "userAlpha")
     }
-    
-//MARK:- TextField Delegates
-
 }

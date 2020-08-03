@@ -1,9 +1,10 @@
 //
-//  PresetViewControllerTableViewController.swift
+//  UserPresetViewController.swift
 //  RGBLamp
 //
 //  Created by Peter Borden on 1/26/20.
 //  Copyright © 2020 Peter Borden. All rights reserved.
+//  Handles user presets
 //
 
 import UIKit
@@ -18,18 +19,9 @@ struct Preset {
     var check: Bool = false
 }
 
-class UserPresetViewController: UITableViewController { // EditViewControllerDelegate {
-    /*func EditViewControllerDidCancel(_ controller: EditViewController) {
-        navigationController?.popViewController(animated: true)
-    }
+class UserPresetViewController: UITableViewController {
     
-    func EditViewController(_ controller: EditViewController, didFinishEditing item: Preset) {
-        
-        navigationController?.popViewController(animated: true)
-    } */
-    
-    //Mark:-Presets.
-    
+    //Mark: Presets.
     var userName: [String] = []
     var userGreen: [Float] = []
     var userRed: [Float] = []
@@ -38,13 +30,6 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // pass values through user defaults
-       
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,11 +46,6 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
     }
 
     // MARK: - Table view data source
-
-    /*override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    } */
     
     // Number of rows in table
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -146,7 +126,6 @@ class UserPresetViewController: UITableViewController { // EditViewControllerDel
         // save selected hue as current values
         saveValues(for: redColor, for: greenColor, for: blueColor, for: alpha)
         
-        //sendToBT(color: color, white: white, red: red, green: green, blue: blue, frequency: maxFrequency, dutyCycle: maxDutyCycle)
         valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
     }
     
