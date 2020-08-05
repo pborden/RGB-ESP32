@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var greenColor: Float = UserDefaults.standard.float(forKey: "green")
     var blueColor: Float = UserDefaults.standard.float(forKey: "blue")
     var whiteColor: Float = 0.9
+    let thumbAlpha: Float = 0.3 // minimum value of alpha for slider thumb color
     var alpha: Float = UserDefaults.standard.float(forKey: "alpha") // alpha is the intensity
     var colorMode: Bool = true // color mode allows changes to each color; white mode toggled with color/white button
     var alertPresented: Bool = false // can be used with start-up alert (not implemented)
@@ -138,24 +139,32 @@ class ViewController: UIViewController {
     @IBAction func redSlider(_ slider: UISlider) {
         slider.isContinuous = false
         redColor = slider.value
+        // let redValue = thumbAlpha + (1 - thumbAlpha) * redColor
+        // slider.thumbTintColor = UIColor(red: CGFloat(redValue), green: 0.0, blue: 0.0, alpha: 1.0)
         setBackgroundColor()
     }
     
     @IBAction func greenSlider(_ slider: UISlider) {
         slider.isContinuous = false
         greenColor = slider.value
+        // let greenValue = thumbAlpha + (1 - thumbAlpha) * greenColor
+        // slider.thumbTintColor = UIColor(red: 0.0, green: CGFloat(greenValue), blue: 0.0, alpha: 1.0)
         setBackgroundColor()
     }
     
     @IBAction func blueSlider(_ slider: UISlider) {
         slider.isContinuous = false
         blueColor = slider.value
+        // let blueValue = thumbAlpha + (1 - thumbAlpha) * blueColor
+        // slider.thumbTintColor = UIColor(red: 0.0, green: 0.0, blue: CGFloat(blueValue), alpha: 1.0)
         setBackgroundColor()
     }
     
     @IBAction func alphaSlider(_ slider: UISlider) {
         slider.isContinuous = false
         alpha = slider.value
+        // let alphaValue = thumbAlpha + (1 - thumbAlpha) * alpha
+        // slider.thumbTintColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: CGFloat(alphaValue))
         setBackgroundColor()
     }
     

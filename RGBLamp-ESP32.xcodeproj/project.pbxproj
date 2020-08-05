@@ -77,13 +77,13 @@
 				6E39924C23E291B400CFB3BD /* FixedPresetViewController.swift */,
 				6E802F8523DE94D0001799BD /* UserPresetViewController.swift */,
 				6E802F8923DE956F001799BD /* EditViewController.swift */,
+				6E4FCEE4241F21A600CC3794 /* ADCMaxValue.swift */,
+				6E4FCEE2241DBB6200CC3794 /* UUID.swift */,
+				6E4FCEE0241DBAD000CC3794 /* BTComm.swift */,
 				6EF4D4742424187900B22C25 /* Main.storyboard */,
-				6E172AC223AC35FB004B3DF2 /* Assets.xcassets */,
 				6E172AC423AC35FB004B3DF2 /* LaunchScreen.storyboard */,
 				6E172AC723AC35FB004B3DF2 /* Info.plist */,
-				6E4FCEE0241DBAD000CC3794 /* BTComm.swift */,
-				6E4FCEE2241DBB6200CC3794 /* UUID.swift */,
-				6E4FCEE4241F21A600CC3794 /* ADCMaxValue.swift */,
+				6E172AC223AC35FB004B3DF2 /* Assets.xcassets */,
 			);
 			path = "RGBLamp-ESP32";
 			sourceTree = "<group>";

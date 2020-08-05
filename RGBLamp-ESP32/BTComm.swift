@@ -85,6 +85,10 @@ class BTComm: NSObject {
         func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi: NSNumber) {
             
             print(peripheral)
+            let peripheralName = peripheral.name
+            let peripheralID = peripheral.identifier
+            print("Lamp name = \(peripheralName ?? "No name found")")
+            print("Lamp ID = \(peripheralID)")
             
             blePeripheral = peripheral
             blePeripheral.delegate = self
