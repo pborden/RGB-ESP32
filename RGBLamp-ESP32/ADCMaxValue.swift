@@ -21,16 +21,23 @@ let greenCoeff: [Float] = [5.357, 3738.0, -620.5]
 let blueCoeff: [Float] = [26.74, 3246.0, 0.0]
 
 // these factors enable scaling the output of each LED string
-let blueScaleFactor: Float = 1.0
+let blueScaleFactor: Float = 0.696
 let greenScaleFactor: Float = 1.0
-let redScaleFactor: Float = 1.0
+let redScaleFactor: Float = 0.792
+let alphaScaleFactor: Float = 1.0 // Scales alpha when peak intensity reached at low values of alpha to provide
+                                    // more slider range
 
 // maximum values in lux for red, green, blue at 10" and alpha = 1.0
 let redMax = redCoeff[0] + redCoeff[1] + redCoeff[2]
 let greenMax = greenCoeff[0] + greenCoeff[1] + greenCoeff[2]
 let blueMax = blueCoeff[0] + blueCoeff[1] + greenCoeff[2]
 
-let maxLampLux: Float = 10000.0  // maximum output of the lamp
+// Lux limits for individual colors
+let redLimit: Float = 1500.0
+let greenLimit: Float = 2000.0
+let blueLimit: Float = 2000.0
+
+let maxLampLux: Float = 3000.0  // maximum output of the lamp
 
 // For ESP32:
 // Convert 3 digit number for each LED value to ASCII string, then combine to make BLE string
@@ -48,6 +55,8 @@ func valueToString(white: Int, red: Int, green: Int, blue: Int) {
     // send result to the BlueTooth and print it to the console.
     BTComm.shared().writeValue(data: stringResult)
     print(stringResult)
+    let checkValue = BTComm.shared().receivedData
+    print("Check value = \(checkValue)")
 }
 
 // Convert three integer digits to an ascii string. Used to build 9 digit string, 3 for each LED output.
@@ -117,22 +126,42 @@ func ledValue(color: String, for red: Float, for green: Float, for blue: Float, 
     //print("Color: \(color), red: \(red), green: \(green), blue: \(blue), alpha: \(alpha)")
     
     // intensities as set by user - the string outputs are scaled by alpha
-    let redIntensity = red * alpha
-    let greenIntensity = green * alpha
-    let blueIntensity = blue * alpha
+    let redIntensity = red * alpha * alphaScaleFactor
+    let greenIntensity = green * alpha * alphaScaleFactor
+    let blueIntensity = blue * alpha * alphaScaleFactor
     
     // find lux value for each color based on measured quadatic curve fit of output vs intensity setting
     let redLedLux = redCoeff[0] + redIntensity * (redCoeff[1] + redIntensity * redCoeff[2])
     let greenLedLux = greenCoeff[0] + greenIntensity * (greenCoeff[1] + greenIntensity * greenCoeff[2])
     let blueLedLux = blueCoeff[0] + blueIntensity * (blueCoeff[1] + blueIntensity * blueCoeff[2])
-    //print("R, G, B Lux: \(redLedLux), \(greenLedLux), \(blueLedLux)")
     
-    // Lamp has a maximum lux. See if set lux exceeds max. If so, find scale factor
+    // make sure Lux values for individual colors do not exceed allowable limit
     var luxScaleFactor: Float = 1.0
+    if redLedLux > redLimit {
+        luxScaleFactor = redLimit / redLedLux
+    }
+    if greenLedLux > greenLimit {
+        let tempLuxScaleFactor = greenLimit / greenLedLux
+        if tempLuxScaleFactor < luxScaleFactor {
+            luxScaleFactor = tempLuxScaleFactor
+        }
+    }
+    if blueLedLux > blueLimit {
+        let tempLuxScaleFactor = blueLimit / blueLedLux
+        if tempLuxScaleFactor < luxScaleFactor {
+            luxScaleFactor = tempLuxScaleFactor
+        }
+    }
+    
+    // Lamp also has a maximum total lux. See if set lux exceeds max. If so, find scale factor
     let totalLux = redLedLux + greenLedLux + blueLedLux
     if (totalLux > maxLampLux) {
-        luxScaleFactor = maxLampLux / totalLux
+        let templuxScaleFactor = maxLampLux / totalLux
+        if templuxScaleFactor < luxScaleFactor {
+            luxScaleFactor = templuxScaleFactor
+        }
     }
+    print("R, G, B, total Lux: \(redLedLux), \(greenLedLux), \(blueLedLux), \(totalLux)")
     
     // Find ADC values. R,G,B scale factors set outputs of the 3 colors equal.
     var LED = 0
@@ -140,18 +169,20 @@ func ledValue(color: String, for red: Float, for green: Float, for blue: Float, 
         if color == "red" {
             if red > 0.0 {
                 LED = Int(ADCMaximumValue * redScaleFactor * luxScaleFactor * redLedLux / redMax)
+                print("LED value for color \(color) = \((Float(LED) / ADCMaximumValue) * redMax)")
             }
         } else if color == "green" {
             if green > 0.0 {
                 LED = Int(ADCMaximumValue * greenScaleFactor * luxScaleFactor * greenLedLux / greenMax)
+                print("LED value for color \(color) = \((Float(LED) / ADCMaximumValue) * greenMax)")
             }
         } else {
             if blue > 0.0 {
                 LED = Int(ADCMaximumValue * blueScaleFactor * luxScaleFactor * blueLedLux / blueMax)
+                print("LED value for color \(color) = \((Float(LED) / ADCMaximumValue) * blueMax)")
             }
         }
     }
-   // print("LED value: \(LED)")
     
     return LED
 }

@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var greenColor: Float = UserDefaults.standard.float(forKey: "green")
     var blueColor: Float = UserDefaults.standard.float(forKey: "blue")
     var whiteColor: Float = 0.9
+    let minTextBackground: Float = 0.25
     let thumbAlpha: Float = 0.3 // minimum value of alpha for slider thumb color
     var alpha: Float = UserDefaults.standard.float(forKey: "alpha") // alpha is the intensity
     var colorMode: Bool = true // color mode allows changes to each color; white mode toggled with color/white button
@@ -211,11 +212,24 @@ class ViewController: UIViewController {
     // sets the colored background and intensity (alpha) of the two text blocks
     func setBackgroundColor() {
         // set background color of both text blocks
+        // make sure background not zero, or blocks become invisible
+        var tempRed = redColor
+        var tempGreen = greenColor
+        var tempBlue = blueColor
+        var tempAlpha = alpha
+        if (tempRed + tempGreen + tempBlue) < minTextBackground {
+            tempRed = minTextBackground
+            tempGreen = minTextBackground
+            tempBlue = minTextBackground
+        }
+        if tempAlpha < minTextBackground {
+            tempAlpha = minTextBackground
+        }
         textLarge.backgroundColor = UIColor(
-            red: CGFloat(redColor),
-            green: CGFloat(greenColor),
-            blue: CGFloat(blueColor),
-            alpha: CGFloat(alpha)
+            red: CGFloat(tempRed),
+            green: CGFloat(tempGreen),
+            blue: CGFloat(tempBlue),
+            alpha: CGFloat(tempAlpha)
         )
         textSmall.backgroundColor = textLarge.backgroundColor
         colorMode = true
@@ -226,12 +240,22 @@ class ViewController: UIViewController {
     
     // sets a white background for the two text blocks. Used with colored/white button
     func setBackgroundWhite() {
-        // set background color to white for both text blocks.
+        // set background color to white for both text blocks, with intensity same as colored light
+        var tempWhite = (redColor + greenColor + blueColor)
+        var tempAlpha = alpha
+        
+        if tempAlpha < minTextBackground {
+            tempAlpha = minTextBackground
+        }
+        if tempWhite < minTextBackground {
+            tempWhite = minTextBackground
+        }
+        
         textLarge.backgroundColor = UIColor(
-            red: CGFloat(whiteColor),
-            green: CGFloat(whiteColor),
-            blue: CGFloat(whiteColor),
-            alpha: CGFloat(alpha)
+            red: CGFloat(tempWhite),
+            green: CGFloat(tempWhite),
+            blue: CGFloat(tempWhite),
+            alpha: CGFloat(tempAlpha)
         )
         textSmall.backgroundColor = textLarge.backgroundColor
         colorMode = false
@@ -264,7 +288,7 @@ class ViewController: UIViewController {
         let blueLED = ledValue(color: "blue", for: redColor, for: greenColor, for: blueColor, for: alpha)
         let whiteLED: Int = 0
         
-        // save the color values to user defaults (the saveValues() routine ins in ADCMaxValue.swift)
+        // save the color values to user defaults (the saveValues() routine is in ADCMaxValue.swift)
         saveValues(for: redColor, for: greenColor, for: blueColor, for: alpha)
         
         print("red: \(redLED), green: \(greenLED), blue: \(blueLED)")
