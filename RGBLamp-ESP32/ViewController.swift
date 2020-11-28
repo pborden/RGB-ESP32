@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     var greenColor: Float = UserDefaults.standard.float(forKey: "green")
     var blueColor: Float = UserDefaults.standard.float(forKey: "blue")
     var whiteColor: Float = 0.9
-    let minTextBackground: Float = 0.25
+    let minTextBackground: Float = 0.0  // sets minimum brightness in text field. Set to zero with borders added
     let thumbAlpha: Float = 0.3 // minimum value of alpha for slider thumb color
     var alpha: Float = UserDefaults.standard.float(forKey: "alpha") // alpha is the intensity
     var colorMode: Bool = true // color mode allows changes to each color; white mode toggled with color/white button
@@ -329,6 +329,12 @@ class ViewController: UIViewController {
         
         largeFontSize = UserDefaults.standard.float(forKey: "largeFont")
         smallFontSize = UserDefaults.standard.float(forKey: "smallFont")
+        
+        // add borders to text fields so their presence is seen even at low intensity
+        textLarge!.layer.borderWidth = 1
+        textLarge!.layer.borderColor = UIColor.darkGray.cgColor
+        textSmall!.layer.borderWidth = 1
+        textSmall!.layer.borderColor = UIColor.darkGray.cgColor
         
         // on first run of program, need to set initial values
         if UserDefaults.standard.string(forKey: "firstTry") != "no" {

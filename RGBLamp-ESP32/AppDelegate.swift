@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         defaults.register(defaults: defaultBlue)
         defaults.register(defaults: defaultAlpha)
         defaults.register(defaults: defaultFirstTry)
+        print("Launching")
         
         return true
     }

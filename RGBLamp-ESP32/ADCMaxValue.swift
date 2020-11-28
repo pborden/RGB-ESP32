@@ -15,29 +15,39 @@ let ADCMaximumValue: Float = 255.0   // Maximum value in digital counts (8 bit c
 let delaySec = 0.0    // delay between successive transmissions of values on BlueTooth
 let base = 10.0  // for number conversion 32 for BlueFruit, 10 for ESP32
 
-// fit coefficients for red, green, blue
-let redCoeff: [Float] = [0.071, 4139.0, -1433.0]
-let greenCoeff: [Float] = [5.357, 3738.0, -620.5]
-let blueCoeff: [Float] = [26.74, 3246.0, 0.0]
+// fit coefficients for red, green, blue lux as a function of A/D counts
+let redLuxCoeff: [Float] = [-233.7, 7.714, 0.0]   //[0.071, 4139.0, -1433.0]
+let greenLuxCoeff: [Float] = [-180.44, 7.8952, 0.0]   //[5.357, 3738.0, -620.5]
+let blueLuxCoeff: [Float] = [-395.2, 12.28, 0.0]   //[26.74, 3246.0, 0.0]
+
+// fit coefficients for reg, green, blue A/D counts as a function of lux (inverse of above)
+let redADCoeff: [Float] = [30.34, 0.1296, 0.0]
+let greenADCoeff: [Float] = [23.03, 0.1256, 0.0]
+let blueADCoeff: [Float] = [32.58, 0.08103, 0.0]
+
+// A/D counts where the LEDs turn on
+let redTurnOn: Float = 30.0
+let greenTurnOn: Float = 30.0
+let blueTurnOn: Float = 30.0
 
 // these factors enable scaling the output of each LED string
-let blueScaleFactor: Float = 0.696
-let greenScaleFactor: Float = 1.0
-let redScaleFactor: Float = 0.792
-let alphaScaleFactor: Float = 1.0 // Scales alpha when peak intensity reached at low values of alpha to provide
-                                    // more slider range
+let blueScaleFactor: Float = 0.67 // .67 from calibration
+let greenScaleFactor: Float = 1.0 // 1.0
+let redScaleFactor: Float = 0.9585  // .9585 from calibration
+let alphaScaleFactor: Float = 1.0 // 1.0 Scales alpha when peak intensity reached at low values of alpha to provide
+                                    // more slider range. Scales all three colors equally
 
 // maximum values in lux for red, green, blue at 10" and alpha = 1.0
-let redMax = redCoeff[0] + redCoeff[1] + redCoeff[2]
-let greenMax = greenCoeff[0] + greenCoeff[1] + greenCoeff[2]
-let blueMax = blueCoeff[0] + blueCoeff[1] + greenCoeff[2]
+let redMax = redCoeff[0] + ADCMaximumValue * (redCoeff[1] + ADCMaximumValue * redCoeff[2])
+let greenMax = greenCoeff[0] + ADCMaximumValue * (greenCoeff[1] + ADCMaximumValue * greenCoeff[2])
+let blueMax = blueCoeff[0] + ADCMaximumValue * (blueCoeff[1] + ADCMaximumValue * greenCoeff[2])
 
 // Lux limits for individual colors
-let redLimit: Float = 1500.0
-let greenLimit: Float = 2000.0
-let blueLimit: Float = 2000.0
+let redLimit: Float = 825.0
+let greenLimit: Float = 1100.0
+let blueLimit: Float = 1260.0
 
-let maxLampLux: Float = 3000.0  // maximum output of the lamp
+let maxLampLux: Float = 2400.0  // maximum output of the lamp
 
 // For ESP32:
 // Convert 3 digit number for each LED value to ASCII string, then combine to make BLE string
@@ -123,19 +133,113 @@ func saveValues(for redColor: Float, for greenColor: Float, for blueColor: Float
 // find the output of each string, consistent with the value of alpha and the maximum lamp output
 func ledValue(color: String, for red: Float, for green: Float, for blue: Float, for alpha: Float) -> Int {
     
-    //print("Color: \(color), red: \(red), green: \(green), blue: \(blue), alpha: \(alpha)")
+    print("Color: \(color), red: \(red), green: \(green), blue: \(blue), alpha: \(alpha)")
     
-    // intensities as set by user - the string outputs are scaled by alpha
-    let redIntensity = red * alpha * alphaScaleFactor
-    let greenIntensity = green * alpha * alphaScaleFactor
-    let blueIntensity = blue * alpha * alphaScaleFactor
+    // find fraction of total intensity for each color
+    let redFraction = red / (red + green + blue)
+    let greenFraction = green / (red + green + blue)
+    let blueFraction = blue / (red + green + blue)
     
-    // find lux value for each color based on measured quadatic curve fit of output vs intensity setting
-    let redLedLux = redCoeff[0] + redIntensity * (redCoeff[1] + redIntensity * redCoeff[2])
-    let greenLedLux = greenCoeff[0] + greenIntensity * (greenCoeff[1] + greenIntensity * greenCoeff[2])
-    let blueLedLux = blueCoeff[0] + blueIntensity * (blueCoeff[1] + blueIntensity * blueCoeff[2])
+    // to match the colors, set the limit for all 3 colors is the lowest limit for any of the colors
+    var colorLimit = redLimit
+    if (greenLimit < colorLimit) {
+        colorLimit = greenLimit
+    }
+    if (blueLimit < colorLimit) {
+        colorLimit = blueLimit
+    }
     
-    // make sure Lux values for individual colors do not exceed allowable limit
+    // find intensity in lux for each color
+    var redIntensity = redFraction * colorLimit * alpha
+    var greenIntensity = greenFraction * colorLimit * alpha
+    var blueIntensity = blueFraction * colorLimit * alpha
+    
+    // make sure total lamp lux limit not exceeded; if so, scale outputs down
+    let lampLux = redIntensity + greenIntensity + blueIntensity
+    if lampLux > maxLampLux {
+        let lampScaleFactor = maxLampLux / lampLux
+        redIntensity = redIntensity * lampScaleFactor
+        greenIntensity = greenIntensity * lampScaleFactor
+        blueIntensity = blueIntensity * lampScaleFactor
+    }
+    
+    // Find AD counts corresponding to the intensity of each color
+    var redAD = redADCoeff[0] + redIntensity * (redADCoeff[1] + redIntensity * redADCoeff[2])
+    var greenAD = greenADCoeff[0] + greenIntensity * (greenADCoeff[1] + greenIntensity * greenADCoeff[2])
+    var blueAD = blueADCoeff[0] + blueIntensity * (blueADCoeff[1] + blueIntensity * blueADCoeff[2])
+    
+    // make sure AD counts at turn-on value
+    if (redAD <= 0) && (red > 0) {
+        redAD = redTurnOn
+    }
+    if (greenAD <= 0) && (green > 0) {
+        greenAD = redTurnOn
+    }
+    if (blueAD <= 0) && (blue > 0) {
+        blueAD = redTurnOn
+    }
+    
+    // make sure color is off if value is zero
+    if (red == 0) {
+        redAD = 0
+    }
+    if (green == 0) {
+        greenAD = 0
+    }
+    if (blue == 0) {
+        blueAD = 0
+    }
+    
+    // make sure values do not exceed maximum allowed
+    if (redAD > ADCMaximumValue) {
+        redAD = ADCMaximumValue
+    }
+    if (greenAD > ADCMaximumValue) {
+        greenAD = ADCMaximumValue
+    }
+    if (blueAD > ADCMaximumValue) {
+        blueAD = ADCMaximumValue
+    }
+    
+    // return value of LEDS A/D counts
+    var LED: Int = 0
+    if color == "red" {
+        LED = Int(redAD)
+    } else if color == "green" {
+        LED = Int(greenAD)
+    } else {
+        LED = Int(blueAD)
+    }
+    
+    print("LED value for color \(color) = \(LED)")
+    
+    return LED
+    
+    // convert slider settings (red, green, blue) to digital values over range of TurnOn to ADCMaximum
+    /*let redIntensity = red * redScaleFactor * alpha * alphaScaleFactor * (ADCMaximumValue - redTurnOn) + redTurnOn
+    let greenIntensity = green * greenScaleFactor * alpha * alphaScaleFactor * (ADCMaximumValue - greenTurnOn) + greenTurnOn
+    let blueIntensity = blue * blueScaleFactor * alpha * alphaScaleFactor * (ADCMaximumValue - blueTurnOn) + blueTurnOn */
+    
+    // find lux value for each color based on measured quadatic curve fit of lux vs A/D counts
+    
+    /*
+    var redLedLux = redLuxCoeff[0] + redIntensity * (redLuxCoeff[1] + redIntensity * redLuxCoeff[2])
+    var greenLedLux = greenLuxCoeff[0] + greenIntensity * (greenLuxCoeff[1] + greenIntensity * greenLuxCoeff[2])
+    var blueLedLux = blueLuxCoeff[0] + blueIntensity * (blueLuxCoeff[1] + blueIntensity * blueCLuxoeff[2])
+    
+    // make sure all the lux values are greater than zero
+    if (redLedLux < 0) {
+        redLedLux = 0
+    }
+    if (greenLedLux < 0) {
+        greenLedLux = 0
+    }
+    if (blueLedLux < 0) {
+        blueLedLux = 0
+    }
+    
+    // make sure lux values for individual colors do not exceed allowable limit
+    // find a common scaling factor to reduce all colors by same fraction if any color is over the limit
     var luxScaleFactor: Float = 1.0
     if redLedLux > redLimit {
         luxScaleFactor = redLimit / redLedLux
@@ -163,27 +267,28 @@ func ledValue(color: String, for red: Float, for green: Float, for blue: Float, 
     }
     print("R, G, B, total Lux: \(redLedLux), \(greenLedLux), \(blueLedLux), \(totalLux)")
     
-    // Find ADC values. R,G,B scale factors set outputs of the 3 colors equal.
+    // Find ADC values; scale by luxScalFactor if any LED too bright
     var LED = 0
     if alpha > 0 {
         if color == "red" {
             if red > 0.0 {
-                LED = Int(ADCMaximumValue * redScaleFactor * luxScaleFactor * redLedLux / redMax)
-                print("LED value for color \(color) = \((Float(LED) / ADCMaximumValue) * redMax)")
+                LED = Int(luxScaleFactor * redIntensity)
             }
         } else if color == "green" {
             if green > 0.0 {
-                LED = Int(ADCMaximumValue * greenScaleFactor * luxScaleFactor * greenLedLux / greenMax)
-                print("LED value for color \(color) = \((Float(LED) / ADCMaximumValue) * greenMax)")
+                LED = Int(luxScaleFactor * greenIntensity)
             }
         } else {
             if blue > 0.0 {
-                LED = Int(ADCMaximumValue * blueScaleFactor * luxScaleFactor * blueLedLux / blueMax)
-                print("LED value for color \(color) = \((Float(LED) / ADCMaximumValue) * blueMax)")
+                LED = Int(luxScaleFactor * blueIntensity)
             }
         }
     }
     
-    return LED
+    if (LED > Int(ADCMaximumValue)) {
+        LED = Int(ADCMaximumValue)
+    }
+    */
+    
 }
 
