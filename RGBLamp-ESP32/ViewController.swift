@@ -57,6 +57,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var setGreenSlider: UISlider!
     @IBOutlet weak var setBlueSlider: UISlider!
     @IBOutlet weak var setAlphaSlider: UISlider!
+    @IBOutlet weak var onOffSwitch: UIButton!
+    @IBOutlet weak var colorWhiteSwitch: UIButton!
     
     // Saves the current hue (RGB combination)
     @IBAction func saveHue(_ button: UIButton) {
@@ -181,11 +183,30 @@ class ViewController: UIViewController {
             greenColor = whiteColor
             blueColor = whiteColor
             
+            redValue.text = "\(whiteColor)"
+            greenValue.text = "\(whiteColor)"
+            blueValue.text = "\(whiteColor)"
+            setRedSlider.value = whiteColor
+            setGreenSlider.value = whiteColor
+            setBlueSlider.value = whiteColor
+            
+            colorWhiteSwitch.setTitle("COLOR", for: .normal)
+            
             setBackgroundWhite()
+            
         } else {  // return to color mode
             redColor = tempRed  // recover color settings
             greenColor = tempGreen
             blueColor = tempBlue
+            
+            redValue.text = "\(redColor)"
+            greenValue.text = "\(greenColor)"
+            blueValue.text = "\(blueColor)"
+            setRedSlider.value = redColor
+            setGreenSlider.value = greenColor
+            setBlueSlider.value = blueColor
+            
+            colorWhiteSwitch.setTitle("WHITE", for: .normal)
             
             setBackgroundColor()
         }
@@ -200,12 +221,14 @@ class ViewController: UIViewController {
             alpha = 0.0  // if on, setting alpha=0 means no LED output for any color.
             setLEDs()
             onState = false
+            onOffSwitch.setTitle("Turn ON", for: .normal)
         } else {
             alpha = tempAlpha // reset to original alpha value
             // reconnect in event Bluetooth connection was lost
             BTComm.shared().centralManager.scanForPeripherals(withServices: [BLEService_UUID], options: nil)
             setLEDs()
             onState = true
+            onOffSwitch.setTitle("Turn OFF", for: .normal)
         }
     }
     
@@ -335,6 +358,9 @@ class ViewController: UIViewController {
         textLarge!.layer.borderColor = UIColor.darkGray.cgColor
         textSmall!.layer.borderWidth = 1
         textSmall!.layer.borderColor = UIColor.darkGray.cgColor
+        
+        colorWhiteSwitch.setTitle("WHITE", for: .normal)
+        onOffSwitch.setTitle("Turn OFF", for: .normal)
         
         // on first run of program, need to set initial values
         if UserDefaults.standard.string(forKey: "firstTry") != "no" {
