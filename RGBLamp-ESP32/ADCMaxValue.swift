@@ -11,7 +11,7 @@
 import Foundation
 
 // set the maximum value of the ADC here as a global picked up by all modules
-let ADCMaximumValue: Float = 255.0   // Maximum value in digital counts (8 bit conversion in ESP32)
+let ADCMaximumValue: Float = 255.0   // For 10 bit PWM: 10230. For 8 bit PWM: 255.0
 let delaySec = 0.0    // delay between successive transmissions of values on BlueTooth
 let base = 10.0  // for number conversion 32 for BlueFruit, 10 for ESP32
 
@@ -23,9 +23,9 @@ let blueLuxCoeff: [Float] = [-395.2, 12.28, 0.0]   //[26.74, 3246.0, 0.0]
  */
 
 // fit coefficients for reg, green, blue A/D counts as a function of lux (inverse of above)
-let redADCoeff: [Float] = [73.16, 0.2893, -7.697e-5] //[30.34, 0.1296, 0.0]
-let greenADCoeff: [Float] = [79.48, 0.1536, 1.676e-5] //[23.03, 0.1256, 0.0]
-let blueADCoeff: [Float] = [83.49, 0.1355, -1.764e-5 ] //[32.58, 0.08103, 0.0]
+let redADCoeff: [Float] = [32.87, 0.3658, -1.214e-4] //[30.34, 0.1296, 0.0]
+let greenADCoeff: [Float] = [20.43, 0.2792, -5.392e-5] //[23.03, 0.1256, 0.0]
+let blueADCoeff: [Float] = [48.08, 0.1783, -3.492e-5 ] //[32.58, 0.08103, 0.0]
 
 // A/D counts where the LEDs turn on
 let turnOnOffset: Float = 8.0 // Reduce turn-on to ensure LEDs off at zero intensity
@@ -48,14 +48,14 @@ let blueMax = blueLuxCoeff[0] + ADCMaximumValue * (blueLuxCoeff[1] + ADCMaximumV
  */
 
 // Lux limits for individual colors
-let redLimit: Float = 780.0 //825.0; gets too hot beyond this value
-let greenLimit: Float = 1000.0 //1100.0
-let blueLimit: Float = 1550.0 //1260.0
+let redLimit: Float = 825.0 //825.0; gets too hot beyond this value
+let greenLimit: Float = 1020.0 //1100.0
+let blueLimit: Float = 1650.0 //1260.0
 
-let maxLampLux: Float = 2200.0  // maximum output of the lamp
+let maxLampLux: Float = 2400.0  // maximum output of the lamp
 
 // For ESP32:
-// Convert 3 digit number for each LED value to ASCII string, then combine to make BLE string
+// Convert 3 or 4 digit number for each LED value to ASCII string, then combine to make BLE string
 func valueToString(white: Int, red: Int, green: Int, blue: Int) {
     var stringResult = ""
     
@@ -74,17 +74,32 @@ func valueToString(white: Int, red: Int, green: Int, blue: Int) {
     print("Check value = \(checkValue)")
 }
 
-// Convert three integer digits to an ascii string. Used to build 9 digit string, 3 for each LED output.
+// Convert 3 or 4 integer digits to an ascii string. Used to build 9 or 12 digit string, 3 or 4 for each LED output.
 func stringConversion(number: Int) -> String {
-    let hundredsPlace = Int(Double(number) / base / base)
-    let tensPlace = Int((Double(number) - Double(hundredsPlace) * base * base) / base)
-    let unitsPlace = number - Int(base * (Double(tensPlace) + base * Double(hundredsPlace)))
-    //print("100's: \(hundredsPlace), 10's: \(tensPlace), 1's: \(unitsPlace)")
+    var asciiString = ""
+    
+    let baseCubed = base * base * base
+    let baseSquared = base * base
+    
+    var residual = number
+    let thousandsPlace = Int(Double(number) / baseCubed)
+    residual = residual - Int(Double(thousandsPlace) * baseCubed)
+    let hundredsPlace =  Int(Double(residual) / baseSquared)
+    residual = residual - Int(Double(hundredsPlace) * baseSquared)
+    let tensPlace = Int(Double(residual) / base)
+    let unitsPlace = residual - Int(Double(tensPlace) * base)
+    
+    //print("1000's: \(thousandsPlace), 100's: \(hundredsPlace), 10's: \(tensPlace), 1's: \(unitsPlace)")
+    let thousandsPlaceString = convertToAscii(number: thousandsPlace)
     let hundredsPlaceString = convertToAscii(number: hundredsPlace)
     let tensPlaceString = convertToAscii(number: tensPlace)
     let unitsPlaceString = convertToAscii(number: unitsPlace)
-   // print("String 100's: \(hundredsPlaceString), 10's: \(tensPlaceString), 1's: \(unitsPlaceString)")
-    let asciiString = hundredsPlaceString + tensPlaceString + unitsPlaceString
+   // print("String 1000's: \(thousandsPlaceString), 100's: \(hundredsPlaceString), 10's: \(tensPlaceString), 1's: \(unitsPlaceString)")
+    
+    asciiString = hundredsPlaceString + tensPlaceString + unitsPlaceString
+    if (ADCMaximumValue >= 1000) {
+        asciiString = thousandsPlaceString + asciiString
+    }
     
     return asciiString
 }
@@ -220,6 +235,13 @@ func ledValue(color: String, for red: Float, for green: Float, for blue: Float, 
         blueAD = ADCMaximumValue
     }
     
+    // scale values for case of 10 bit PWM
+    if (ADCMaximumValue > 1000) {
+        redAD = 4.0 * redAD
+        greenAD = 4.0 * greenAD
+        blueAD = 4.0 * blueAD
+    }
+    
     // return value of LED A/D counts
     var LED: Int = 0
     if color == "red" {
@@ -233,81 +255,6 @@ func ledValue(color: String, for red: Float, for green: Float, for blue: Float, 
     print("LED value for color \(color) = \(LED)")
     
     return LED
-    
-    // convert slider settings (red, green, blue) to digital values over range of TurnOn to ADCMaximum
-    /*let redIntensity = red * redScaleFactor * alpha * alphaScaleFactor * (ADCMaximumValue - redTurnOn) + redTurnOn
-    let greenIntensity = green * greenScaleFactor * alpha * alphaScaleFactor * (ADCMaximumValue - greenTurnOn) + greenTurnOn
-    let blueIntensity = blue * blueScaleFactor * alpha * alphaScaleFactor * (ADCMaximumValue - blueTurnOn) + blueTurnOn */
-    
-    // find lux value for each color based on measured quadatic curve fit of lux vs A/D counts
-    
-    /*
-    var redLedLux = redLuxCoeff[0] + redIntensity * (redLuxCoeff[1] + redIntensity * redLuxCoeff[2])
-    var greenLedLux = greenLuxCoeff[0] + greenIntensity * (greenLuxCoeff[1] + greenIntensity * greenLuxCoeff[2])
-    var blueLedLux = blueLuxCoeff[0] + blueIntensity * (blueLuxCoeff[1] + blueIntensity * blueCLuxoeff[2])
-    
-    // make sure all the lux values are greater than zero
-    if (redLedLux < 0) {
-        redLedLux = 0
-    }
-    if (greenLedLux < 0) {
-        greenLedLux = 0
-    }
-    if (blueLedLux < 0) {
-        blueLedLux = 0
-    }
-    
-    // make sure lux values for individual colors do not exceed allowable limit
-    // find a common scaling factor to reduce all colors by same fraction if any color is over the limit
-    var luxScaleFactor: Float = 1.0
-    if redLedLux > redLimit {
-        luxScaleFactor = redLimit / redLedLux
-    }
-    if greenLedLux > greenLimit {
-        let tempLuxScaleFactor = greenLimit / greenLedLux
-        if tempLuxScaleFactor < luxScaleFactor {
-            luxScaleFactor = tempLuxScaleFactor
-        }
-    }
-    if blueLedLux > blueLimit {
-        let tempLuxScaleFactor = blueLimit / blueLedLux
-        if tempLuxScaleFactor < luxScaleFactor {
-            luxScaleFactor = tempLuxScaleFactor
-        }
-    }
-    
-    // Lamp also has a maximum total lux. See if set lux exceeds max. If so, find scale factor
-    let totalLux = redLedLux + greenLedLux + blueLedLux
-    if (totalLux > maxLampLux) {
-        let templuxScaleFactor = maxLampLux / totalLux
-        if templuxScaleFactor < luxScaleFactor {
-            luxScaleFactor = templuxScaleFactor
-        }
-    }
-    print("R, G, B, total Lux: \(redLedLux), \(greenLedLux), \(blueLedLux), \(totalLux)")
-    
-    // Find ADC values; scale by luxScalFactor if any LED too bright
-    var LED = 0
-    if alpha > 0 {
-        if color == "red" {
-            if red > 0.0 {
-                LED = Int(luxScaleFactor * redIntensity)
-            }
-        } else if color == "green" {
-            if green > 0.0 {
-                LED = Int(luxScaleFactor * greenIntensity)
-            }
-        } else {
-            if blue > 0.0 {
-                LED = Int(luxScaleFactor * blueIntensity)
-            }
-        }
-    }
-    
-    if (LED > Int(ADCMaximumValue)) {
-        LED = Int(ADCMaximumValue)
-    }
-    */
     
 }
 

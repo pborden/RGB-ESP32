@@ -31,6 +31,7 @@ class ViewController: UIViewController {
     var tempWhite: Float = 0.0
     
     var onState: Bool = true  // used to toggle on/off switch
+    var alphaInOnState: Float = 1.0
     
     // arrays of user saved hues, used in PresetViewController
     // needs to be separate arrays vs. using a Hue object for saving as user defaults
@@ -217,13 +218,13 @@ class ViewController: UIViewController {
     @IBAction func onOff (_ sender: AnyObject) {
         // initiate bluetooth connection
         if onState {
-            tempAlpha = alpha
+            alphaInOnState = alpha
             alpha = 0.0  // if on, setting alpha=0 means no LED output for any color.
             setLEDs()
             onState = false
             onOffSwitch.setTitle("Turn ON", for: .normal)
         } else {
-            alpha = tempAlpha // reset to original alpha value
+            alpha = alphaInOnState // reset to original alpha value
             // reconnect in event Bluetooth connection was lost
             BTComm.shared().centralManager.scanForPeripherals(withServices: [BLEService_UUID], options: nil)
             setLEDs()
