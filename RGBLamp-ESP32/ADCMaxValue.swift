@@ -36,7 +36,7 @@ let blueTurnOn: Float = blueADCoeff[0] - turnOnOffset
 // these factors enable scaling the output of each LED string
 let blueScaleFactor: Float = 1.0 // .67 from calibration
 let greenScaleFactor: Float = 1.0 // 1.0
-let redScaleFactor: Float = 1.0  // .9585 from calibration
+let redScaleFactor: Float = 0.90  // .9585 from calibration
 let alphaScaleFactor: Float = 1.0 // 1.0 Scales alpha when peak intensity reached at low values of alpha to provide
                                     // more slider range. Scales all three colors equally
 
@@ -164,9 +164,9 @@ func ledValue(color: String, for red: Float, for green: Float, for blue: Float, 
     
     
     // find intensity in lux for each color
-    var redLux = redFraction * maxLampLux * alpha
-    var greenLux = greenFraction * maxLampLux * alpha
-    var blueLux = blueFraction * maxLampLux * alpha
+    var redLux = redFraction * maxLampLux * alpha * redScaleFactor
+    var greenLux = greenFraction * maxLampLux * alpha * greenScaleFactor
+    var blueLux = blueFraction * maxLampLux * alpha * blueScaleFactor
     
     //print("Lux values: red \(redLux), green \(greenLux), blue \(blueLux)")
     
