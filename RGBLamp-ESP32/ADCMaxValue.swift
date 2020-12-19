@@ -23,9 +23,9 @@ let blueLuxCoeff: [Float] = [-395.2, 12.28, 0.0]   //[26.74, 3246.0, 0.0]
  */
 
 // fit coefficients for reg, green, blue A/D counts as a function of lux (inverse of above)
-let redADCoeff: [Float] = [32.87, 0.3658, -1.214e-4] //[30.34, 0.1296, 0.0]
-let greenADCoeff: [Float] = [20.43, 0.2792, -5.392e-5] //[23.03, 0.1256, 0.0]
-let blueADCoeff: [Float] = [48.08, 0.1783, -3.492e-5 ] //[32.58, 0.08103, 0.0]
+let redADCoeff: [Float] = [-11.19, 0.2011, 4.788e-5] //[45.07, 0.3567, -1.093e-4] for LM3410
+let greenADCoeff: [Float] = [-9.33, 0.07355, 5.699e-5] //[55.41, 0.2086, -4.165e-5] for LM3410
+let blueADCoeff: [Float] = [-6.69, 0.1111, 1.881e-5 ] //[54.77, 0.2001, -1.573e-5 ] for LM3410
 
 // A/D counts where the LEDs turn on
 let turnOnOffset: Float = 8.0 // Reduce turn-on to ensure LEDs off at zero intensity
@@ -34,10 +34,10 @@ let greenTurnOn: Float = greenADCoeff[0] - turnOnOffset
 let blueTurnOn: Float = blueADCoeff[0] - turnOnOffset
 
 // these factors enable scaling the output of each LED string
-let blueScaleFactor: Float = 1.0 // .67 from calibration
+let redScaleFactor: Float = 0.7794  // .7794
 let greenScaleFactor: Float = 1.0 // 1.0
-let redScaleFactor: Float = 0.90  // .9585 from calibration
-let alphaScaleFactor: Float = 1.0 // 1.0 Scales alpha when peak intensity reached at low values of alpha to provide
+let blueScaleFactor: Float = 0.4720// .4728
+let alphaScaleFactor: Float = 1.2 // 1.0 Scales alpha when peak intensity reached at low values of alpha to provide
                                     // more slider range. Scales all three colors equally
 
 // maximum values in lux for red, green, blue at 10" and alpha = 1.0
@@ -48,11 +48,11 @@ let blueMax = blueLuxCoeff[0] + ADCMaximumValue * (blueLuxCoeff[1] + ADCMaximumV
  */
 
 // Lux limits for individual colors
-let redLimit: Float = 825.0 //825.0; gets too hot beyond this value
-let greenLimit: Float = 1020.0 //1100.0
-let blueLimit: Float = 1650.0 //1260.0
+let redLimit: Float = 1500.0 //780.0; gets too hot beyond this value
+let greenLimit: Float = 2000.0 //1250.0
+let blueLimit: Float = 2000.0 //950.0
 
-let maxLampLux: Float = 2400.0  // maximum output of the lamp
+let maxLampLux: Float = 3000.0  // maximum output of the lamp
 
 // For ESP32:
 // Convert 3 or 4 digit number for each LED value to ASCII string, then combine to make BLE string
@@ -164,11 +164,11 @@ func ledValue(color: String, for red: Float, for green: Float, for blue: Float, 
     
     
     // find intensity in lux for each color
-    var redLux = redFraction * maxLampLux * alpha * redScaleFactor
-    var greenLux = greenFraction * maxLampLux * alpha * greenScaleFactor
-    var blueLux = blueFraction * maxLampLux * alpha * blueScaleFactor
+    var redLux = redFraction * maxLampLux * alpha * redScaleFactor * alphaScaleFactor
+    var greenLux = greenFraction * maxLampLux * alpha * greenScaleFactor * alphaScaleFactor
+    var blueLux = blueFraction * maxLampLux * alpha * blueScaleFactor * alphaScaleFactor
     
-    //print("Lux values: red \(redLux), green \(greenLux), blue \(blueLux)")
+    print("Lux values: red \(redLux), green \(greenLux), blue \(blueLux)")
     
     // make sure output limit for each color not exceeded; if so, scale outputs down
     // first determine the factor needed for each color and find the smallest of the three
