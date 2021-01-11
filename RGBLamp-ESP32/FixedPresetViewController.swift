@@ -19,12 +19,12 @@ class FixedPresetViewController: UITableViewController {
     Preset(name: "Diabetic Retinopathy", red: 0.5, green: 0.9, blue: 0.4, alpha: 0.9, editable: false, check: false),
      ]
     
-    var commonPresetArray = [Preset(name: "Cold white", red: 0.9, green: 0.9, blue: 1.0, alpha: 0.6, editable: false, check: false),
+    var section0Array = [Preset(name: "Cold white", red: 0.9, green: 0.9, blue: 1.0, alpha: 0.6, editable: false, check: false),
                              Preset(name: "Neutral white", red: 0.9, green: 0.9, blue: 0.8, alpha: 0.6, editable: false, check: false),
                              Preset(name: "Warm white", red: 0.9, green: 0.9, blue: 0.6, alpha: 0.6, editable: false, check: false)
                               ]
     
-    var conditionPresetArray = [Preset(name: "Macular Degeneration", red: 0.3, green: 1.0, blue: 0.5, alpha: 1.0, editable: false, check: false),
+    var section1Array = [Preset(name: "Macular Degeneration", red: 0.3, green: 1.0, blue: 0.5, alpha: 1.0, editable: false, check: false),
                             Preset(name: "Glaucoma", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false),
     Preset(name: "Retinitis Pigmentosa", red: 0.9, green: 0.3, blue: 0.5, alpha: 0.9, editable: false, check: false),
     Preset(name: "Diabetic Retinopathy", red: 0.5, green: 0.9, blue: 0.4, alpha: 0.9, editable: false, check: false)
@@ -51,9 +51,9 @@ class FixedPresetViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return (commonPresetArray.count)
+            return (section0Array.count)
         } else if section == 1 {
-            return (conditionPresetArray.count)
+            return (section1Array.count)
         } else {
             return 1
         }
@@ -67,38 +67,38 @@ class FixedPresetViewController: UITableViewController {
         
         let label = cell.viewWithTag(1000) as! UILabel
         
+        var redBack: CGFloat = 0.0
+        var greenBack: CGFloat = 0.0
+        var blueBack: CGFloat = 0.0
+        var alphaBack: CGFloat = 0.0
+        
+        let defaultArray = section1Array
+        
         switch (indexPath.section) {
             case 0:
-                let redBack = CGFloat(commonPresetArray[indexPath.row].red)
-                let greenBack = CGFloat(commonPresetArray[indexPath.row].green)
-                let blueBack = CGFloat(commonPresetArray[indexPath.row].blue)
-                let alphaBack = CGFloat(commonPresetArray[indexPath.row].alpha)
-                print("IndexPath \(indexPath.row), red \(redBack), green \(greenBack), blue \(blueBack)")
-                cell.backgroundColor = UIColor(red: redBack, green: greenBack, blue: blueBack, alpha: alphaBack)
-                cell.tintColor = UIColor.black
-                label.textColor = UIColor.black
-                label.text = commonPresetArray[indexPath.row].name
+                redBack = CGFloat(section0Array[indexPath.row].red)
+                greenBack = CGFloat(section0Array[indexPath.row].green)
+                blueBack = CGFloat(section0Array[indexPath.row].blue)
+                alphaBack = CGFloat(section0Array[indexPath.row].alpha)
+                label.text = section0Array[indexPath.row].name
             case 1:
-                let redBack = CGFloat(conditionPresetArray[indexPath.row].red)
-                let greenBack = CGFloat(conditionPresetArray[indexPath.row].green)
-                let blueBack = CGFloat(conditionPresetArray[indexPath.row].blue)
-                let alphaBack = CGFloat(conditionPresetArray[indexPath.row].alpha)
-                print("IndexPath \(indexPath.row), red \(redBack), green \(greenBack), blue \(blueBack)")
-                cell.backgroundColor = UIColor(red: redBack, green: greenBack, blue: blueBack, alpha: alphaBack)
-                cell.tintColor = UIColor.black
-                label.textColor = UIColor.black
-                label.text = conditionPresetArray[indexPath.row].name
+                redBack = CGFloat(section1Array[indexPath.row].red)
+                greenBack = CGFloat(section1Array[indexPath.row].green)
+                blueBack = CGFloat(section1Array[indexPath.row].blue)
+                alphaBack = CGFloat(section1Array[indexPath.row].alpha)
+                label.text = section1Array[indexPath.row].name
             default:
-                let redBack = CGFloat(conditionPresetArray[indexPath.row].red)
-                let greenBack = CGFloat(conditionPresetArray[indexPath.row].green)
-                let blueBack = CGFloat(conditionPresetArray[indexPath.row].blue)
-                let alphaBack = CGFloat(conditionPresetArray[indexPath.row].alpha)
-                print("IndexPath \(indexPath.row), red \(redBack), green \(greenBack), blue \(blueBack)")
-                cell.backgroundColor = UIColor(red: redBack, green: greenBack, blue: blueBack, alpha: alphaBack)
-                cell.tintColor = UIColor.black
-                label.textColor = UIColor.black
-                label.text = conditionPresetArray[indexPath.row].name
+                redBack = CGFloat(defaultArray[indexPath.row].red)
+                greenBack = CGFloat(defaultArray[indexPath.row].green)
+                blueBack = CGFloat(defaultArray[indexPath.row].blue)
+                alphaBack = CGFloat(defaultArray[indexPath.row].alpha)
+                label.text = defaultArray[indexPath.row].name
         }
+        
+        print("IndexPath \(indexPath.row), red \(redBack), green \(greenBack), blue \(blueBack)")
+        cell.backgroundColor = UIColor(red: redBack, green: greenBack, blue: blueBack, alpha: alphaBack)
+        cell.tintColor = UIColor.black
+        label.textColor = UIColor.black
 
         return cell
         
@@ -144,16 +144,16 @@ class FixedPresetViewController: UITableViewController {
         var blueColor: Float = 0.0
         var alpha: Float = 0.0
         if section == 0 {
-            redColor = Float(commonPresetArray[presetIndex].red)
-            greenColor = Float(commonPresetArray[presetIndex].green)
-            blueColor = Float(commonPresetArray[presetIndex].blue)
-            alpha = Float(commonPresetArray[presetIndex].alpha)
+            redColor = Float(section0Array[presetIndex].red)
+            greenColor = Float(section0Array[presetIndex].green)
+            blueColor = Float(section0Array[presetIndex].blue)
+            alpha = Float(section0Array[presetIndex].alpha)
         }
         if section == 1 {
-            redColor = Float(conditionPresetArray[presetIndex].red)
-            greenColor = Float(conditionPresetArray[presetIndex].green)
-            blueColor = Float(conditionPresetArray[presetIndex].blue)
-            alpha = Float(conditionPresetArray[presetIndex].alpha)
+            redColor = Float(section1Array[presetIndex].red)
+            greenColor = Float(section1Array[presetIndex].green)
+            blueColor = Float(section1Array[presetIndex].blue)
+            alpha = Float(section1Array[presetIndex].alpha)
         }
         
         // convert to LED values using routine in ADCMaxValue.swift
