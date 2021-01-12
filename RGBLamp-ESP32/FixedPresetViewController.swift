@@ -30,7 +30,7 @@ class FixedPresetViewController: UITableViewController {
     Preset(name: "Diabetic Retinopathy", red: 0.5, green: 0.9, blue: 0.4, alpha: 0.9, editable: false, check: false)
      ]
     
-    var titleString = [0 : "StellaIQ™: Common Presets", 1 : "StellaIQ™: Other Presets"]
+    var titleString = [0 : "Stella IQ™ Presets", 1 : "Stella IQ™ Special Presets"]
 
     override func viewDidLoad() {
         super.viewDidLoad()

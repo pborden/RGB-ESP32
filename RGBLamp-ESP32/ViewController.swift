@@ -191,7 +191,7 @@ class ViewController: UIViewController {
             setGreenSlider.value = whiteColor
             setBlueSlider.value = whiteColor
             
-            colorWhiteSwitch.setTitle("COLOR", for: .normal)
+            colorWhiteSwitch.setTitle("Color", for: .normal)
             
             setBackgroundWhite()
             
@@ -207,7 +207,7 @@ class ViewController: UIViewController {
             setGreenSlider.value = greenColor
             setBlueSlider.value = blueColor
             
-            colorWhiteSwitch.setTitle("WHITE", for: .normal)
+            colorWhiteSwitch.setTitle("White", for: .normal)
             
             setBackgroundColor()
         }
@@ -222,14 +222,14 @@ class ViewController: UIViewController {
             alpha = 0.0  // if on, setting alpha=0 means no LED output for any color.
             setLEDs()
             onState = false
-            onOffSwitch.setTitle("Turn ON", for: .normal)
+            onOffSwitch.setTitle("Turn On", for: .normal)
         } else {
             alpha = alphaInOnState // reset to original alpha value
             // reconnect in event Bluetooth connection was lost
             BTComm.shared().centralManager.scanForPeripherals(withServices: [BLEService_UUID], options: nil)
             setLEDs()
             onState = true
-            onOffSwitch.setTitle("Turn OFF", for: .normal)
+            onOffSwitch.setTitle("Turn Off", for: .normal)
         }
     }
     
@@ -360,7 +360,7 @@ class ViewController: UIViewController {
         textSmall!.layer.borderWidth = 1
         textSmall!.layer.borderColor = UIColor.darkGray.cgColor
         
-        colorWhiteSwitch.setTitle("WHITE", for: .normal)
+        colorWhiteSwitch.setTitle("White", for: .normal)
         onOffSwitch.setTitle("Turn OFF", for: .normal)
         
         // on first run of program, need to set initial values
