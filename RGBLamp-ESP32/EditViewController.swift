@@ -20,7 +20,7 @@ class EditViewController: UITableViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.keyboardDismissMode = .onDrag //.interactive
     }
 
     // MARK: - Table view data source
@@ -40,6 +40,7 @@ class EditViewController: UITableViewController, UITextFieldDelegate {
            let cell = tableView.dequeueReusableCell(withIdentifier: "Edit", for: indexPath)
            
            let label = cell.viewWithTag(2000) as! UITextField
+        label.becomeFirstResponder()
            
            let redBack = CGFloat(userRed[indexPath.row])
            let greenBack = CGFloat(userGreen[indexPath.row])
@@ -56,7 +57,8 @@ class EditViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //textField.becomeFirstResponder()
+        
+        //label.becomeFirstResponder()
         loadUserDefaults()
         self.tableView.reloadData()
         print("View appearing")

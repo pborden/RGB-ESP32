@@ -11,30 +11,37 @@ import UIKit
 class FixedPresetViewController: UITableViewController {
     
     // Array of fixed presets with name and RGB vlaues. These are not user editable
-    var fixedPresetArray = [Preset(name: "Cold white", red: 0.9, green: 0.9, blue: 1.0, alpha: 0.6, editable: false, check: false),
-    Preset(name: "Neutral white", red: 0.9, green: 0.9, blue: 0.8, alpha: 0.6, editable: false, check: false),
-    Preset(name: "Warm white", red: 0.9, green: 0.9, blue: 0.6, alpha: 0.6, editable: false, check: false),Preset(name: "Macular Degeneration", red: 0.3, green: 1.0, blue: 0.5, alpha: 1.0, editable: false, check: false),
+    var fixedPresetArray = [Preset(name: "Cold white", red: 0.9, green: 0.9, blue: 1.0, alpha: 0.9, editable: false, check: false),
+    Preset(name: "Neutral white", red: 0.9, green: 0.9, blue: 0.8, alpha: 0.9, editable: false, check: false),
+    Preset(name: "Warm white", red: 0.9, green: 0.9, blue: 0.6, alpha: 0.9, editable: false, check: false),Preset(name: "Macular Degeneration", red: 0.3, green: 1.0, blue: 0.5, alpha: 1.0, editable: false, check: false),
                             Preset(name: "Glaucoma", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false),
     Preset(name: "Retinitis Pigmentosa", red: 0.9, green: 0.3, blue: 0.5, alpha: 0.9, editable: false, check: false),
     Preset(name: "Diabetic Retinopathy", red: 0.5, green: 0.9, blue: 0.4, alpha: 0.9, editable: false, check: false),
      ]
     
-    var section0Array = [Preset(name: "Cold white", red: 0.9, green: 0.9, blue: 1.0, alpha: 0.6, editable: false, check: false),
-                             Preset(name: "Neutral white", red: 0.9, green: 0.9, blue: 0.8, alpha: 0.6, editable: false, check: false),
-                             Preset(name: "Warm white", red: 0.9, green: 0.9, blue: 0.6, alpha: 0.6, editable: false, check: false)
+    var section0Array = [Preset(name: "Cold white", red: 0.9, green: 0.9, blue: 1.0, alpha: 0.9, editable: false, check: false),
+                             Preset(name: "Neutral white", red: 0.9, green: 0.9, blue: 0.8, alpha: 0.9, editable: false, check: false),
+                             Preset(name: "Warm white", red: 0.9, green: 0.9, blue: 0.6, alpha: 0.9, editable: false, check: false)
                               ]
     
     var section1Array = [Preset(name: "Macular Degeneration", red: 0.3, green: 1.0, blue: 0.5, alpha: 1.0, editable: false, check: false),
                             Preset(name: "Glaucoma", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false),
     Preset(name: "Retinitis Pigmentosa", red: 0.9, green: 0.3, blue: 0.5, alpha: 0.9, editable: false, check: false),
-    Preset(name: "Diabetic Retinopathy", red: 0.5, green: 0.9, blue: 0.4, alpha: 0.9, editable: false, check: false)
+    Preset(name: "Diabetic Retinopathy", red: 0.5, green: 0.9, blue: 0.4, alpha: 0.9, editable: false, check: false), Preset(name: "FL-41 (migraine)", red: 1.0, green: 0.62, blue: 0.46, alpha: 0.9, editable: false, check: false)
      ]
     
-    var titleString = [0 : "Stella IQ™ Presets", 1 : "Stella IQ™ Special Presets"]
+    var titleString = [0 : "Stella IQ™ Presets", 1 : "Special Presets"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let footerView:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width:320 , height: 50))
+            footerView.text = "©2021 Jasper Ridge Inc. Patents pending"
+            footerView.font = UIFont(name: "Helvetica", size: 12)
+            footerView.numberOfLines = 0;
+            footerView.sizeToFit()
+            tableView.tableFooterView = footerView
+        tableView.contentInset = (UIEdgeInsets(top: 0, left: 0, bottom: -footerView.frame.size.height, right: 8))
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
