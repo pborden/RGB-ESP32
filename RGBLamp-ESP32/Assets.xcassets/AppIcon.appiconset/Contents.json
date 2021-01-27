@@ -1,116 +1,116 @@
 {
   "images" : [
     {
-      "size" : "20x20",
-      "idiom" : "iphone",
       "filename" : "RGBLamp40-2.jpg",
-      "scale" : "2x"
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "20x20"
     },
     {
-      "size" : "20x20",
-      "idiom" : "iphone",
       "filename" : "RGBLamp60.jpg",
-      "scale" : "3x"
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "20x20"
     },
     {
-      "size" : "29x29",
-      "idiom" : "iphone",
       "filename" : "RGBLamp58-1.jpg",
-      "scale" : "2x"
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "29x29"
     },
     {
-      "size" : "29x29",
-      "idiom" : "iphone",
       "filename" : "RGBLamp87.jpg",
-      "scale" : "3x"
-    },
-    {
-      "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "RGBLamp80-1.jpg",
-      "scale" : "2x"
+      "scale" : "3x",
+      "size" : "29x29"
     },
     {
-      "size" : "40x40",
+      "filename" : "RGBCurved80.jpg",
       "idiom" : "iphone",
-      "filename" : "RGBLamp120-1.jpg",
-      "scale" : "3x"
+      "scale" : "2x",
+      "size" : "40x40"
     },
     {
-      "size" : "60x60",
+      "filename" : "RGBCurved120.jpg",
       "idiom" : "iphone",
-      "filename" : "RGBLamp120.jpg",
-      "scale" : "2x"
+      "scale" : "3x",
+      "size" : "40x40"
     },
     {
-      "size" : "60x60",
+      "filename" : "RGBCurved120-1.jpg",
       "idiom" : "iphone",
-      "filename" : "RGBLamp180.jpg",
-      "scale" : "3x"
+      "scale" : "2x",
+      "size" : "60x60"
     },
     {
-      "size" : "20x20",
+      "filename" : "RGBCurved180.jpg",
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "60x60"
+    },
+    {
+      "filename" : "RGBCurved20.jpg",
       "idiom" : "ipad",
-      "filename" : "RGBLamp20.jpg",
-      "scale" : "1x"
+      "scale" : "1x",
+      "size" : "20x20"
     },
     {
-      "size" : "20x20",
+      "filename" : "RGBCurved40.jpg",
       "idiom" : "ipad",
-      "filename" : "RGBLamp40-1.jpg",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "20x20"
     },
     {
-      "size" : "29x29",
+      "filename" : "RGBCurved29.jpg",
       "idiom" : "ipad",
-      "filename" : "RGBLamp29.jpg",
-      "scale" : "1x"
+      "scale" : "1x",
+      "size" : "29x29"
     },
     {
-      "size" : "29x29",
+      "filename" : "RGBCurved58.jpg",
       "idiom" : "ipad",
-      "filename" : "RGBLamp58.jpg",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "29x29"
     },
     {
-      "size" : "40x40",
+      "filename" : "RGBCurved40-1.jpg",
       "idiom" : "ipad",
-      "filename" : "RGBLamp40.jpg",
-      "scale" : "1x"
+      "scale" : "1x",
+      "size" : "40x40"
     },
     {
-      "size" : "40x40",
+      "filename" : "RGBCurved80-1.jpg",
       "idiom" : "ipad",
-      "filename" : "RGBLamp80.jpg",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "40x40"
     },
     {
-      "size" : "76x76",
+      "filename" : "RGBCurved76.jpg",
       "idiom" : "ipad",
-      "filename" : "RGBLamp76.jpg",
-      "scale" : "1x"
+      "scale" : "1x",
+      "size" : "76x76"
     },
     {
-      "size" : "76x76",
+      "filename" : "RGBCurved152.jpg",
       "idiom" : "ipad",
-      "filename" : "RGBLamp152.jpg",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "76x76"
     },
     {
-      "size" : "83.5x83.5",
+      "filename" : "RGBCurved167.jpg",
       "idiom" : "ipad",
-      "filename" : "RGBLamp167.jpg",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "83.5x83.5"
     },
     {
-      "size" : "1024x1024",
+      "filename" : "RGBCurved1024.png",
       "idiom" : "ios-marketing",
-      "filename" : "RGBLamp1024.jpg",
-      "scale" : "1x"
+      "scale" : "1x",
+      "size" : "1024x1024"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }
