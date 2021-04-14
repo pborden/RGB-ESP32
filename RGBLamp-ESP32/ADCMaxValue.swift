@@ -22,7 +22,7 @@ let greenLuxCoeff: [Float] = [-180.44, 7.8952, 0.0]   //[5.357, 3738.0, -620.5]
 let blueLuxCoeff: [Float] = [-395.2, 12.28, 0.0]   //[26.74, 3246.0, 0.0]
  */
 
-// fit coefficients for reg, green, blue A/D counts as a function of lux (inverse of above)
+// fit coefficients for red, green, blue A/D counts as a function of lux (inverse of above)
 let redADCoeff: [Float] = [-11.19, 0.2011, 4.788e-5] //[45.07, 0.3567, -1.093e-4] for LM3410
 let greenADCoeff: [Float] = [-9.33, 0.07355, 5.699e-5] //[55.41, 0.2086, -4.165e-5] for LM3410
 let blueADCoeff: [Float] = [-6.69, 0.1111, 1.881e-5 ] //[54.77, 0.2001, -1.573e-5 ] for LM3410
@@ -34,11 +34,14 @@ let greenTurnOn: Float = greenADCoeff[0] - turnOnOffset
 let blueTurnOn: Float = blueADCoeff[0] - turnOnOffset
 
 // these factors enable scaling the output of each LED string
-let redScaleFactor: Float = 0.7794  // .7794
+// based on spreadsheet RGB lamp - filter matching. Calculates x,y,z based on spectra
+// and normalizes power spectra to measured power at 255 A/D counts.
+// rgb scale factors of 0.69, 1.0, 0.24 give best fit to white 
+let redScaleFactor: Float = 0.69  // .7794
 let greenScaleFactor: Float = 1.0 // 1.0
-let blueScaleFactor: Float = 0.4720// .4728
-let alphaScaleFactor: Float = 1.2 // 1.0 Scales alpha when peak intensity reached at low values of alpha to provide
-                                    // more slider range. Scales all three colors equally
+let blueScaleFactor: Float = 0.24// .4728
+let alphaScaleFactor: Float = 1.0 // .62 for blue max = 100
+// more slider range. Scales all three colors equally
 
 // maximum values in lux for red, green, blue at 10" and alpha = 1.0
 /*
@@ -48,9 +51,10 @@ let blueMax = blueLuxCoeff[0] + ADCMaximumValue * (blueLuxCoeff[1] + ADCMaximumV
  */
 
 // Lux limits for individual colors
-let redLimit: Float = 1500.0 //780.0; gets too hot beyond this value
-let greenLimit: Float = 2000.0 //1250.0
-let blueLimit: Float = 2000.0 //950.0
+let redLimit: Float = 1100.0 //3.17.21 increased from 1500 to 2250
+let greenLimit: Float = 1200.0 //3.17.21 increased from 2000 to 3000. 4,8 decreased from 1620 to 1500
+                                // 4.14.21 decreased to 1200
+let blueLimit: Float = 1820.0 //3.17.21 increased from 2000 to 3000
 
 let maxLampLux: Float = 3000.0  // maximum output of the lamp
 

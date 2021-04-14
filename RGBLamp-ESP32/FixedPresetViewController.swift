@@ -27,7 +27,7 @@ class FixedPresetViewController: UITableViewController {
     var section1Array = [Preset(name: "Macular Degeneration", red: 0.3, green: 1.0, blue: 0.5, alpha: 1.0, editable: false, check: false),
                             Preset(name: "Glaucoma", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false),
     Preset(name: "Retinitis Pigmentosa", red: 0.9, green: 0.3, blue: 0.5, alpha: 0.9, editable: false, check: false),
-    Preset(name: "Diabetic Retinopathy", red: 0.5, green: 0.9, blue: 0.4, alpha: 0.9, editable: false, check: false), Preset(name: "FL-41 filter (migraine)", red: 1.0, green: 0.62, blue: 0.46, alpha: 0.9, editable: false, check: false), Preset(name: "Blue block filter (low blue)", red: 0.6, green: 0.8, blue: 0.05, alpha: 0.9, editable: false, check: false)
+    Preset(name: "Diabetic Retinopathy", red: 0.5, green: 0.9, blue: 0.4, alpha: 0.9, editable: false, check: false), Preset(name: "FL-41 filter (migraine)", red: 1.0, green: 0.62, blue: 0.46, alpha: 0.9, editable: false, check: false), Preset(name: "Blue block filter (low blue)", red: 0.79, green: 0.56, blue: 0.00, alpha: 0.6, editable: false, check: false)
      ]
     
     var titleString = [0 : "Stella IQ™ Presets", 1 : "Special Presets"]
