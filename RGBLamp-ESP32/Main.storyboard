@@ -35,7 +35,13 @@
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ZJ-4q-3pH" userLabel="TextLarge">
                                                 <rect key="frame" x="0.0" y="0.0" width="344" height="180"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <string key="text">Spring is the season when landscapes wake up from winter’s chill, and there are few more dramatic places to witness this spring awakening than on the west coast of Canada, when the snow-covered scenery transforms into a patchwork of green spaces and multicolored flowers, and animals venture out into the warmer temperatures.</string>
+                                                <string key="text">Spring is the season when landscapes wake up from winter’s chill, and there are few more dramatic places to witness this spring awakening than on the west coast of Canada, when the snow-covered scenery transforms into a patchwork of green spaces and multicolored flowers, and animals venture out into the warmer temperatures.
+
+D K H S C
+R N Z S H
+V O K D C
+Z R N S 0
+O H V K C</string>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
@@ -507,8 +513,8 @@ Home screen
                                     <fragment content="Move sliders to find best color in reading sections. Look for least eye strain, sharpest letters.">
                                         <attributes>
                                             <color key="NSColor" systemColor="labelColor"/>
-                                            <font key="NSFont" metaFont="system" size="12"/>
-                                            <font key="NSOriginalFont" metaFont="system" size="12"/>
+                                            <font key="NSFont" metaFont="cellTitle"/>
+                                            <font key="NSOriginalFont" metaFont="cellTitle"/>
                                         </attributes>
                                     </fragment>
                                     <fragment>
@@ -524,8 +530,8 @@ Sliders
                                     <fragment content="Control brightness of their color (red, green, blue). White slider sets intensity.">
                                         <attributes>
                                             <color key="NSColor" systemColor="labelColor"/>
-                                            <font key="NSFont" metaFont="system" size="12"/>
-                                            <font key="NSOriginalFont" metaFont="system" size="12"/>
+                                            <font key="NSFont" metaFont="cellTitle"/>
+                                            <font key="NSOriginalFont" metaFont="cellTitle"/>
                                         </attributes>
                                     </fragment>
                                     <fragment>
@@ -541,8 +547,8 @@ Colors/White
                                     <fragment content="Switches between colored screen and white. Use to compare your chosen color to white.">
                                         <attributes>
                                             <color key="NSColor" systemColor="labelColor"/>
-                                            <font key="NSFont" metaFont="system" size="12"/>
-                                            <font key="NSOriginalFont" metaFont="system" size="12"/>
+                                            <font key="NSFont" metaFont="cellTitle"/>
+                                            <font key="NSOriginalFont" metaFont="cellTitle"/>
                                         </attributes>
                                     </fragment>
                                     <fragment>
@@ -558,8 +564,8 @@ Save Setting
                                     <fragment content="Give it a name in the dialog box and hit Save. Return to it with Saved button at bottom.">
                                         <attributes>
                                             <color key="NSColor" systemColor="labelColor"/>
-                                            <font key="NSFont" metaFont="system" size="12"/>
-                                            <font key="NSOriginalFont" metaFont="system" size="12"/>
+                                            <font key="NSFont" metaFont="cellTitle"/>
+                                            <font key="NSOriginalFont" metaFont="cellTitle"/>
                                         </attributes>
                                     </fragment>
                                     <fragment>
@@ -575,8 +581,8 @@ On/Off
                                     <fragment content="Turns lamp on and off. If connection to light is lost, turning lamp off and on will reconnect.">
                                         <attributes>
                                             <color key="NSColor" systemColor="labelColor"/>
-                                            <font key="NSFont" metaFont="system" size="12"/>
-                                            <font key="NSOriginalFont" metaFont="system" size="12"/>
+                                            <font key="NSFont" metaFont="cellTitle"/>
+                                            <font key="NSOriginalFont" metaFont="cellTitle"/>
                                         </attributes>
                                     </fragment>
                                     <fragment>
@@ -593,8 +599,8 @@ Presets
                                         <string key="content">Colors recommended for certain conditions. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference</string>
                                         <attributes>
                                             <color key="NSColor" systemColor="labelColor"/>
-                                            <font key="NSFont" metaFont="system" size="12"/>
-                                            <font key="NSOriginalFont" metaFont="system" size="12"/>
+                                            <font key="NSFont" metaFont="cellTitle"/>
+                                            <font key="NSOriginalFont" metaFont="cellTitle"/>
                                         </attributes>
                                     </fragment>
                                     <fragment>
@@ -611,8 +617,8 @@ Saved
                                         <string key="content">Colors you saved with the name you selected. Color of box matches color you saved. Check mark appears in box when active. You can return to Home after selection and adjust based on your preference. Hit Edit at to left to edit name. Swipe left to delete an entry.</string>
                                         <attributes>
                                             <color key="NSColor" systemColor="labelColor"/>
-                                            <font key="NSFont" metaFont="system" size="12"/>
-                                            <font key="NSOriginalFont" metaFont="system" size="12"/>
+                                            <font key="NSFont" metaFont="cellTitle"/>
+                                            <font key="NSOriginalFont" metaFont="cellTitle"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
