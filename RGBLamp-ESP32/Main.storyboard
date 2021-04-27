@@ -51,20 +51,26 @@ O H V K C</string>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </textView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eQH-n2-5ZV">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="eQH-n2-5ZV">
                                                 <rect key="frame" x="344" y="0.0" width="30" height="180"/>
                                                 <subviews>
-                                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XSd-rK-xC3">
-                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="60"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Fc-AQ-vG2">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="45"/>
+                                                        <state key="normal" image="lock.open.fill" catalog="system" backgroundImage="Default.png"/>
+                                                        <connections>
+                                                            <action selector="lockUpperText:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xCS-ps-L5I"/>
+                                                        </connections>
+                                                    </button>
+                                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XSd-rK-xC3">
+                                                        <rect key="frame" x="0.0" y="45" width="30" height="45"/>
                                                         <color key="backgroundColor" systemColor="darkTextColor"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uo7-Nj-aUh">
-                                                        <rect key="frame" x="0.0" y="60" width="30" height="60"/>
+                                                        <rect key="frame" x="0.0" y="90" width="30" height="45"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="60" id="Mmv-Tv-uJO"/>
                                                             <constraint firstAttribute="width" constant="30" id="g3W-N7-3Cj"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
@@ -77,10 +83,9 @@ O H V K C</string>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ao-NO-wZ8">
-                                                        <rect key="frame" x="0.0" y="120" width="30" height="60"/>
+                                                        <rect key="frame" x="0.0" y="135" width="30" height="45"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="30" id="77c-Ek-hwk"/>
-                                                            <constraint firstAttribute="height" constant="60" id="EZq-em-7Yi"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -114,21 +119,25 @@ O H V K C</string>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </textView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BTA-6f-tKy">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="BTA-6f-tKy">
                                                 <rect key="frame" x="344" y="0.0" width="30" height="180"/>
                                                 <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5mg-Lm-MY3">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="45"/>
+                                                        <state key="normal" image="lock.open.fill" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="lockLowerText:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C7K-gP-YRC"/>
+                                                        </connections>
+                                                    </button>
                                                     <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8qD-22-PlA">
-                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="60"/>
+                                                        <rect key="frame" x="0.0" y="45" width="30" height="45"/>
                                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQy-Hf-yX9" userLabel="SmallPlus">
-                                                        <rect key="frame" x="0.0" y="60" width="30" height="60"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="60" id="lpQ-WQ-OWm"/>
-                                                        </constraints>
+                                                        <rect key="frame" x="0.0" y="90" width="30" height="45"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="+">
@@ -139,7 +148,7 @@ O H V K C</string>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vnz-w4-1mf" userLabel="SmallMinus">
-                                                        <rect key="frame" x="0.0" y="120" width="30" height="60"/>
+                                                        <rect key="frame" x="0.0" y="135" width="30" height="45"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="-">
@@ -376,6 +385,7 @@ O H V K C</string>
                         <outlet property="colorWhiteSwitch" destination="Bh4-OF-f3p" id="I0Z-sJ-WNw"/>
                         <outlet property="greenValue" destination="EHE-Xa-INz" id="ecU-dn-eKp"/>
                         <outlet property="largeFont" destination="XSd-rK-xC3" id="MHh-XW-LtO"/>
+                        <outlet property="lowerTextLock" destination="5mg-Lm-MY3" id="gbu-Ic-XgI"/>
                         <outlet property="onOffSwitch" destination="vYV-l6-ATg" id="ILr-OA-yi9"/>
                         <outlet property="redValue" destination="w0G-0J-pEI" id="rmm-A6-n97"/>
                         <outlet property="setAlphaSlider" destination="n06-PH-2Sf" id="TJT-ap-6bl"/>
@@ -385,6 +395,7 @@ O H V K C</string>
                         <outlet property="smallFont" destination="8qD-22-PlA" id="IRI-tm-Wk2"/>
                         <outlet property="textLarge" destination="0ZJ-4q-3pH" id="BB6-mB-7A2"/>
                         <outlet property="textSmall" destination="OGp-yr-9bE" id="hhH-o2-neu"/>
+                        <outlet property="upperTextLock" destination="4Fc-AQ-vG2" id="J4p-4j-nij"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -729,6 +740,7 @@ Saved
         <image name="folder.fill" catalog="system" width="128" height="97"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
+        <image name="lock.open.fill" catalog="system" width="128" height="112"/>
         <image name="square.and.arrow.down.fill" catalog="system" width="121" height="128"/>
         <systemColor name="darkTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -30,6 +30,9 @@ class ViewController: UIViewController {
     var tempAlpha: Float = 0.0
     var tempWhite: Float = 0.0
     
+    var upperTextLocked = false
+    var lowerTextLocked = false
+    
     var onState: Bool = true  // used to toggle on/off switch
     var alphaInOnState: Float = 1.0
     
@@ -60,6 +63,35 @@ class ViewController: UIViewController {
     @IBOutlet weak var setAlphaSlider: UISlider!
     @IBOutlet weak var onOffSwitch: UIButton!
     @IBOutlet weak var colorWhiteSwitch: UIButton!
+    @IBOutlet weak var upperTextLock: UIButton!
+    @IBOutlet weak var lowerTextLock: UIButton!
+    
+    @IBAction func lockUpperText(_ button: UIButton) {
+        if upperTextLocked {
+            upperTextLocked = false
+            setBackgroundColor()
+            upperTextLock.setImage(UIImage(named: "unlocked"), for: .normal)
+            upperTextLock.setImage(UIImage(named: "unlocked"), for: .highlighted)
+        } else {
+            upperTextLocked = true
+            upperTextLock.setImage(UIImage(named: "locked"), for: .normal)
+            upperTextLock.setImage(UIImage(named: "locked"), for: .highlighted)
+        }
+    }
+    
+    @IBAction func lockLowerText(_ button: UIButton) {
+        if lowerTextLocked {
+            lowerTextLocked = false
+            setBackgroundColor()
+            lowerTextLock.setImage(UIImage(named: "unlocked"), for: .normal)
+            lowerTextLock.setImage(UIImage(named: "unlocked"), for: .highlighted)
+        } else {
+            lowerTextLocked = true
+            lowerTextLock.setImage(UIImage(named: "locked"), for: .normal)
+            lowerTextLock.setImage(UIImage(named: "locked"), for: .highlighted)
+        }
+    }
+
     
     // Saves the current hue (RGB combination)
     @IBAction func saveHue(_ button: UIButton) {
@@ -249,13 +281,24 @@ class ViewController: UIViewController {
         if tempAlpha < minTextBackground {
             tempAlpha = minTextBackground
         }
-        textLarge.backgroundColor = UIColor(
-            red: CGFloat(tempRed),
-            green: CGFloat(tempGreen),
-            blue: CGFloat(tempBlue),
-            alpha: CGFloat(tempAlpha)
-        )
-        textSmall.backgroundColor = textLarge.backgroundColor
+        if !upperTextLocked {
+            textLarge.backgroundColor = UIColor(
+                red: CGFloat(tempRed),
+                green: CGFloat(tempGreen),
+                blue: CGFloat(tempBlue),
+                alpha: CGFloat(tempAlpha)
+            )
+        }
+        
+        if !lowerTextLocked {
+            textSmall.backgroundColor = UIColor(
+                red: CGFloat(tempRed),
+                green: CGFloat(tempGreen),
+                blue: CGFloat(tempBlue),
+                alpha: CGFloat(tempAlpha)
+            )
+        }
+        
         colorMode = true
         
         setLabels()
@@ -274,14 +317,23 @@ class ViewController: UIViewController {
         if tempWhite < minTextBackground {
             tempWhite = minTextBackground
         }
+        if !upperTextLocked {
+            textLarge.backgroundColor = UIColor(
+                red: CGFloat(tempWhite),
+                green: CGFloat(tempWhite),
+                blue: CGFloat(tempWhite),
+                alpha: CGFloat(tempAlpha)
+            )
+        }
+        if !lowerTextLocked {
+            textSmall.backgroundColor = UIColor(
+                red: CGFloat(tempWhite),
+                green: CGFloat(tempWhite),
+                blue: CGFloat(tempWhite),
+                alpha: CGFloat(tempAlpha)
+            )
+        }
         
-        textLarge.backgroundColor = UIColor(
-            red: CGFloat(tempWhite),
-            green: CGFloat(tempWhite),
-            blue: CGFloat(tempWhite),
-            alpha: CGFloat(tempAlpha)
-        )
-        textSmall.backgroundColor = textLarge.backgroundColor
         colorMode = false
         
         setLabels()
@@ -401,6 +453,15 @@ class ViewController: UIViewController {
         // label the font size
         largeFont.text = "\(Int(largeFontSize))"
         smallFont.text = "\(Int(smallFontSize))"
+        
+        upperTextLocked = false
+        lowerTextLocked = false
+        upperTextLock.setImage(UIImage(named: "unlocked"), for: .normal)
+        upperTextLock.setImage(UIImage(named: "unlocked"), for: .highlighted)
+        lowerTextLock.setImage(UIImage(named: "unlocked"), for: .normal)
+        lowerTextLock.setImage(UIImage(named: "unlocked"), for: .highlighted)
+        
+        
         
         // this alert is not used. Presents on start-up to tell user how to find help in using app.
        /* if !alertPresented {

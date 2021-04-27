@@ -25,23 +25,29 @@ let blueLuxCoeff: [Float] = [-395.2, 12.28, 0.0]   //[26.74, 3246.0, 0.0]
 // fit coefficients for red, green, blue A/D counts as a function of lux (inverse of above)
 let redADCoeff: [Float] = [-11.19, 0.2011, 4.788e-5] //[45.07, 0.3567, -1.093e-4] for LM3410
 let greenADCoeff: [Float] = [-9.33, 0.07355, 5.699e-5] //[55.41, 0.2086, -4.165e-5] for LM3410
-let blueADCoeff: [Float] = [-6.69, 0.1111, 1.881e-5 ] //[54.77, 0.2001, -1.573e-5 ] for LM3410
+let blueADCoeff: [Float] = [-6.69, 0.1111, 2.016e-5 ] //[54.77, 0.2001, -1.573e-5 ] for LM3410
 
 // A/D counts where the LEDs turn on
-let turnOnOffset: Float = 8.0 // Reduce turn-on to ensure LEDs off at zero intensity
-let redTurnOn: Float = redADCoeff[0] - turnOnOffset
-let greenTurnOn: Float = greenADCoeff[0] - turnOnOffset
-let blueTurnOn: Float = blueADCoeff[0] - turnOnOffset
+let turnOnOffset: Float = 0.0 // Reduce turn-on to ensure LEDs off at zero intensity
+let redTurnOn: Float = 2.0
+let greenTurnOn: Float = 2.0
+let blueTurnOn: Float = 2.0
 
 // these factors enable scaling the output of each LED string
 // based on spreadsheet RGB lamp - filter matching. Calculates x,y,z based on spectra
 // and normalizes power spectra to measured power at 255 A/D counts.
-// rgb scale factors of 0.69, 1.0, 0.24 give best fit to white 
-let redScaleFactor: Float = 0.69  // .7794
+// rgb scale factors of 0.52, 1.0, 0.27 give best fit to white 6000K.
+let redScaleFactor: Float = 0.52  // .69  4.26 ->.53
 let greenScaleFactor: Float = 1.0 // 1.0
-let blueScaleFactor: Float = 0.24// .4728
+let blueScaleFactor: Float = 0.27// .4728 4.22 .24 -> .321 4.26->.1477
 let alphaScaleFactor: Float = 1.0 // .62 for blue max = 100
 // more slider range. Scales all three colors equally
+
+// colors need to exceed these lux levels individually or they won't turn on.
+// this results, for example in white having red and green but no blue.
+let lowestBlue: Float = 80.0
+let lowestGreen: Float = 116.0
+let lowestRed: Float = 55.0
 
 // maximum values in lux for red, green, blue at 10" and alpha = 1.0
 /*
@@ -51,9 +57,9 @@ let blueMax = blueLuxCoeff[0] + ADCMaximumValue * (blueLuxCoeff[1] + ADCMaximumV
  */
 
 // Lux limits for individual colors
-let redLimit: Float = 1100.0 //3.17.21 increased from 1500 to 2250
-let greenLimit: Float = 1200.0 //3.17.21 increased from 2000 to 3000. 4,8 decreased from 1620 to 1500
-                                // 4.14.21 decreased to 1200
+let redLimit: Float = 1280.0 //3.17.21 increased from 1500 to 2250 4.22 set to 1280 per spreadsheet
+let greenLimit: Float = 1230.0 //3.17.21 increased from 2000 to 3000. 4,8 decreased from 1620 to 1500
+                                // 4.14.21 decreased to 1200  4.22 set to 1230 per spreadsheet
 let blueLimit: Float = 1820.0 //3.17.21 increased from 2000 to 3000
 
 let maxLampLux: Float = 3000.0  // maximum output of the lamp
@@ -166,7 +172,6 @@ func ledValue(color: String, for red: Float, for green: Float, for blue: Float, 
     
     //print("Fractions: red \(redFraction), green \(greenFraction), blue \(blueFraction)")
     
-    
     // find intensity in lux for each color
     var redLux = redFraction * maxLampLux * alpha * redScaleFactor * alphaScaleFactor
     var greenLux = greenFraction * maxLampLux * alpha * greenScaleFactor * alphaScaleFactor
@@ -198,6 +203,8 @@ func ledValue(color: String, for red: Float, for green: Float, for blue: Float, 
     redLux = redLux * lampScaleFactor
     greenLux = greenLux * lampScaleFactor
     blueLux = blueLux * lampScaleFactor
+    
+    print("Adjusted lux values: red \(redLux), green \(greenLux), blue \(blueLux)")
     
     //print("Lux values after scaling: red \(redLux), green \(greenLux), blue \(blueLux)")
     
