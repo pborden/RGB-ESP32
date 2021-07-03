@@ -23,9 +23,14 @@ let blueLuxCoeff: [Float] = [-395.2, 12.28, 0.0]   //[26.74, 3246.0, 0.0]
  */
 
 // fit coefficients for red, green, blue A/D counts as a function of lux (inverse of above)
-let redADCoeff: [Float] = [-11.19, 0.2011, 4.788e-5] //[45.07, 0.3567, -1.093e-4] for LM3410
-let greenADCoeff: [Float] = [-9.33, 0.07355, 5.699e-5] //[55.41, 0.2086, -4.165e-5] for LM3410
-let blueADCoeff: [Float] = [-6.69, 0.1111, 2.016e-5 ] //[54.77, 0.2001, -1.573e-5 ] for LM3410
+// coefficients for tps61169: red [-11.19, 0.2011, 4.788e-5], green [-1, 0.07355, 5.699e-5],
+// blue [-6.69, 0.1111, 2.016e-5 ]
+// coefficients for PAM2863 (24V)
+// red [1.518, 0.1602, 8.824e-5] green [-2.912, 0.1184, 0.0] blue [0.1193, 0.1239, 0.0]
+let redADCoeff: [Float] = [1.518, 0.1602, 8.824e-5] //[45.07, 0.3567, -1.093e-4] for LM3410
+// adjusted green zero intercept to enhance at low levels from -9.33 to -1
+let greenADCoeff: [Float] = [-2.912, 0.1184, 0.0] //[55.41, 0.2086, -4.165e-5] for LM3410
+let blueADCoeff: [Float] = [0.1193, 0.1239, 0.0] //[54.77, 0.2001, -1.573e-5 ] for LM3410
 
 // A/D counts where the LEDs turn on
 let turnOnOffset: Float = 0.0 // Reduce turn-on to ensure LEDs off at zero intensity
@@ -37,17 +42,19 @@ let blueTurnOn: Float = 2.0
 // based on spreadsheet RGB lamp - filter matching. Calculates x,y,z based on spectra
 // and normalizes power spectra to measured power at 255 A/D counts.
 // rgb scale factors of 0.52, 1.0, 0.27 give best fit to white 6000K.
-let redScaleFactor: Float = 0.52  // .69  4.26 ->.53
+let redScaleFactor: Float = 0.48  // 0.52
 let greenScaleFactor: Float = 1.0 // 1.0
-let blueScaleFactor: Float = 0.27// .4728 4.22 .24 -> .321 4.26->.1477
-let alphaScaleFactor: Float = 1.0 // .62 for blue max = 100
+let blueScaleFactor: Float = 0.42// 0.27
+let alphaScaleFactor: Float = 1.2 // Raised from 1.2 6.22.21
 // more slider range. Scales all three colors equally
 
 // colors need to exceed these lux levels individually or they won't turn on.
 // this results, for example in white having red and green but no blue.
-let lowestBlue: Float = 80.0
-let lowestGreen: Float = 116.0
-let lowestRed: Float = 55.0
+// for tps61169 Blue = 88.0, Green = 116.0, Red = 55.0
+// for PAM2869  Blue = 88.0, Green = 116.0, Red = 55.0
+let lowestBlue: Float = 10.0
+let lowestGreen: Float = 50.0
+let lowestRed: Float = 30.0
 
 // maximum values in lux for red, green, blue at 10" and alpha = 1.0
 /*
@@ -57,12 +64,13 @@ let blueMax = blueLuxCoeff[0] + ADCMaximumValue * (blueLuxCoeff[1] + ADCMaximumV
  */
 
 // Lux limits for individual colors
-let redLimit: Float = 1280.0 //3.17.21 increased from 1500 to 2250 4.22 set to 1280 per spreadsheet
-let greenLimit: Float = 1230.0 //3.17.21 increased from 2000 to 3000. 4,8 decreased from 1620 to 1500
+// For PAM2869 R = 1000, G = B = 2000
+let redLimit: Float = 1000.0 //3.17.21 increased from 1500 to 2250 4.22 set to 1280 per spreadsheet
+let greenLimit: Float = 2000.0 //3.17.21 increased from 2000 to 3000. 4,8 decreased from 1620 to 1500
                                 // 4.14.21 decreased to 1200  4.22 set to 1230 per spreadsheet
-let blueLimit: Float = 1820.0 //3.17.21 increased from 2000 to 3000
+let blueLimit: Float = 2000.0 //3.17.21 increased from 2000 to 3000 4.22 1820
 
-let maxLampLux: Float = 3000.0  // maximum output of the lamp
+let maxLampLux: Float = 3000.0  // maximum output of the lamp 4.22 3000
 
 // For ESP32:
 // Convert 3 or 4 digit number for each LED value to ASCII string, then combine to make BLE string
@@ -165,10 +173,16 @@ func ledValue(color: String, for red: Float, for green: Float, for blue: Float, 
     
     print("Color: \(color), red: \(red), green: \(green), blue: \(blue), alpha: \(alpha)")
     
+    var redFraction: Float = 0.0
+    var greenFraction: Float = 0.0
+    var blueFraction: Float = 0.0
+    
     // find fraction of total intensity for each color
-    let redFraction = red / (red + green + blue)
-    let greenFraction = green / (red + green + blue)
-    let blueFraction = blue / (red + green + blue)
+    if (red + green + blue) > 0 {
+        redFraction = red / (red + green + blue)
+        greenFraction = green / (red + green + blue)
+        blueFraction = blue / (red + green + blue)
+    }
     
     //print("Fractions: red \(redFraction), green \(greenFraction), blue \(blueFraction)")
     
@@ -214,24 +228,24 @@ func ledValue(color: String, for red: Float, for green: Float, for blue: Float, 
     var blueAD = blueADCoeff[0] + blueLux * (blueADCoeff[1] + blueLux * blueADCoeff[2])
     
     // make sure AD counts at turn-on value
-    if (redAD < redTurnOn) && (red > 0) {
-        redAD = redTurnOn
+    if (redAD < redTurnOn) || (redLux < lowestRed) || (alpha == 0) {
+        redAD = 0
     }
-    if (greenAD < greenTurnOn) && (green > 0) {
-        greenAD = greenTurnOn
+    if (greenAD < greenTurnOn) || (greenLux < lowestGreen) || (alpha == 0) {
+        greenAD = 0
     }
-    if (blueAD < blueTurnOn) && (blue > 0) {
-        blueAD = blueTurnOn
+    if (blueAD < blueTurnOn) || (blueLux < lowestBlue) || (alpha == 0) {
+        blueAD = 0
     }
     
     // make sure color is off if value is zero
-    if (red == 0) {
+    if (redLux == 0) {
         redAD = 0
     }
-    if (green == 0) {
+    if (greenLux == 0) {
         greenAD = 0
     }
-    if (blue == 0) {
+    if (blueLux == 0) {
         blueAD = 0
     }
     
