@@ -19,20 +19,41 @@ class FixedPresetViewController: UITableViewController {
     Preset(name: "Diabetic Retinopathy", red: 0.5, green: 0.9, blue: 0.4, alpha: 0.9, editable: false, check: false),
      ]
     
-    var section0Array = [Preset(name: "Cold white", red: 0.9, green: 0.9, blue: 1.0, alpha: 0.9, editable: false, check: false),
-                             Preset(name: "Neutral white", red: 0.9, green: 0.9, blue: 0.8, alpha: 0.9, editable: false, check: false),
-                             Preset(name: "Warm white", red: 0.9, green: 0.9, blue: 0.6, alpha: 0.9, editable: false, check: false), Preset(name: "Light green", red: 0.15, green: 0.92, blue: 0.7, alpha: 0.9, editable: false, check: false)
+    var section0Array = [
+        Preset(name: "Cold white", red: 0.9, green: 0.9, blue: 1.0, alpha: 0.9, editable: false, check: false),
+        Preset(name: "Neutral white", red: 0.9, green: 0.9, blue: 0.8, alpha: 0.9, editable: false, check: false),
+        Preset(name: "Warm white", red: 0.9, green: 0.9, blue: 0.6, alpha: 0.9, editable: false, check: false),
+        Preset(name: "Light green", red: 0.15, green: 0.92, blue: 0.7, alpha: 0.9, editable: false, check: false)
                               ]
     
-    var section1Array = [Preset(name: "Macular Degeneration", red: 0.3, green: 1.0, blue: 0.5, alpha: 1.0, editable: false, check: false),
-                            Preset(name: "Glaucoma", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false),
-    Preset(name: "Retinitis Pigmentosa", red: 0.9, green: 0.3, blue: 0.5, alpha: 0.9, editable: false, check: false),
-    Preset(name: "Diabetic Retinopathy", red: 0.5, green: 0.9, blue: 0.4, alpha: 0.9, editable: false, check: false), Preset(name: "FL-41 filter (migraine)", red: 1.0, green: 0.62, blue: 0.46, alpha: 0.9, editable: false, check: false), Preset(name: "Blue block filter (low blue)", red: 0.79, green: 0.56, blue: 0.00, alpha: 0.6, editable: false, check: false)
+    var section1Array = [
+        Preset(name: "Macular Degeneration", red: 0.3, green: 1.0, blue: 0.5, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Glaucoma", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false),
+        Preset(name: "Retinitis Pigmentosa", red: 0.9, green: 0.3, blue: 0.5, alpha: 0.9, editable: false, check: false),
+        Preset(name: "Diabetic Retinopathy", red: 0.5, green: 0.9, blue: 0.4, alpha: 0.9, editable: false, check: false)
      ]
     
-    var section2Array = [Preset(name: "Light yellow", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false),Preset(name: "Mid yellow", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false), Preset(name: "Dark yellow", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false), Preset(name: "Light amber", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false), Preset(name: "Mid amber", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false), Preset(name: "Dark amber", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false), Preset(name: "Light red", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false),Preset(name: "Mid red", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false), Preset(name: "Dark red", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false), Preset(name: "Light green", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false),Preset(name: "Mid green", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false), Preset(name: "Dark green", red: 0.1, green: 0.9, blue: 0.9, alpha: 0.5, editable: false, check: false), Preset(name: "FL-41 filter (migraine)", red: 1.0, green: 0.62, blue: 0.46, alpha: 0.9, editable: false, check: false)]
+    var section2Array = [
+        Preset(name: "Light yellow (NoIR 58 or similar)", red: 0.563, green: 0.691, blue: 0.27, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Med yellow (NoIR 50 or similar)", red: 0.574, green: 0.707, blue: 0.035, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Dark yellow (NoIR 59 or similar)", red: 0.676, green: 0.617, blue: 0.0, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Light amber (NoIR 48 or similar)", red: 0.637, green: 0.617, blue: 0.613, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Med amber (NoIR 40 or similar)", red: 0.707, green: 0.457, blue: 0.238, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Dark amber (NoIR 43 or similar)", red: 0.691, green: 0.492, blue: 0.289, alpha: 0.5, editable: false, check: false),
+        Preset(name: "Blue blocker (NoIR 465 or similar)", red: 0.684, green: 0.703, blue: 0.086, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Light grey-green (NoIR 12 or similar)", red: 0.664, green: 0.741, blue: 0.621, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Med grey-green (NoIR 02 or similar)", red: 0.660, green: 0.821, blue: 0.574, alpha: 0.7, editable: false, check: false),
+        Preset(name: "Dark grey-green (NoIR 08 or similar)", red: 0.0, green: 0.648, blue: 0.258, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Green (NoIR 35 or similar)", red: 0.0, green: 0.719, blue: 0.246, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Blue (NoIR 26 or similar)", red: 0.0, green: 0.32, blue: 0.918, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Topaz (NoIR 47 or similar)", red: 0.820, green: 0.355, blue: 0.539, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Light Plum (NoIR 88 or similar)", red: 0.652, green: 0.609, blue: 0.621, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Plum (NoIR 81 or similar)", red: 0.777, green: 0.453, blue: 0.770, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Med Red (NoIR 90 or similar)", red: 0.996, green: 0.0, blue: 0.219, alpha: 1.0, editable: false, check: false),
+        Preset(name: "Dark Red (NoIR 99 or similar)", red: 0.996, green: 0.0, blue: 0.277, alpha: 0.5, editable: false, check: false),
+        Preset(name: "FL-41 (migraine)", red: 0.895, green: 0.59, blue: 0.57, alpha: 1.0, editable: false, check: false)]
     
-    var titleString = [0 : "Stella IQ™ Presets", 1 : "Special Presets"]
+    var titleString = [0 : "Stella IQ™ Presets", 1 : "Special Presets", 2: "Filters"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +76,7 @@ class FixedPresetViewController: UITableViewController {
     // see reference: https://stackoverflow.com/questions/48658391/how-to-make-multiple-level-sections-in-uitableview-in-swift-4
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,6 +84,8 @@ class FixedPresetViewController: UITableViewController {
             return (section0Array.count)
         } else if section == 1 {
             return (section1Array.count)
+        } else if section == 2 {
+            return (section2Array.count)
         } else {
             return 1
         }
@@ -96,6 +119,12 @@ class FixedPresetViewController: UITableViewController {
                 blueBack = CGFloat(section1Array[indexPath.row].blue)
                 alphaBack = CGFloat(section1Array[indexPath.row].alpha)
                 label.text = section1Array[indexPath.row].name
+            case 2:
+                redBack = CGFloat(section2Array[indexPath.row].red)
+                greenBack = CGFloat(section2Array[indexPath.row].green)
+                blueBack = CGFloat(section2Array[indexPath.row].blue)
+                alphaBack = CGFloat(section2Array[indexPath.row].alpha)
+                label.text = section2Array[indexPath.row].name
             default:
                 redBack = CGFloat(defaultArray[indexPath.row].red)
                 greenBack = CGFloat(defaultArray[indexPath.row].green)
@@ -163,6 +192,12 @@ class FixedPresetViewController: UITableViewController {
             greenColor = Float(section1Array[presetIndex].green)
             blueColor = Float(section1Array[presetIndex].blue)
             alpha = Float(section1Array[presetIndex].alpha)
+        }
+        if section == 2 {
+            redColor = Float(section2Array[presetIndex].red)
+            greenColor = Float(section2Array[presetIndex].green)
+            blueColor = Float(section2Array[presetIndex].blue)
+            alpha = Float(section2Array[presetIndex].alpha)
         }
         
         // convert to LED values using routine in ADCMaxValue.swift
