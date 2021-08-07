@@ -54,6 +54,7 @@ class FixedPresetViewController: UITableViewController {
         Preset(name: "FL-41 (migraine)", red: 0.895, green: 0.59, blue: 0.57, alpha: 1.0, editable: false, check: false)]
     
     var titleString = [0 : "Stella IQ™ Presets", 1 : "Special Presets", 2: "Filters"]
+    var selectedElement: IndexPath = [4, 0] // set to non-existent section so no check appears at start
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,8 +95,15 @@ class FixedPresetViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "PresetCell", for: indexPath)
-
-        // Configure the cell...
+        
+        // place a check mark on the selected row
+        
+        /*if cell.isSelected {
+            cell.accessoryType = .checkmark
+        }
+        else {
+            cell.accessoryType = .none
+        } */
         
         let label = cell.viewWithTag(1000) as! UILabel
         
@@ -113,24 +121,44 @@ class FixedPresetViewController: UITableViewController {
                 blueBack = CGFloat(section0Array[indexPath.row].blue)
                 alphaBack = CGFloat(section0Array[indexPath.row].alpha)
                 label.text = section0Array[indexPath.row].name
+                //if section0Array[indexPath.row].check == true
+                
+                if ((selectedElement.section == 0) && (selectedElement.row == indexPath.row)){
+                    cell.accessoryType = .checkmark
+                    print("section 0 row \(indexPath.row) has check")
+                } else {
+                    cell.accessoryType = .none
+                }
             case 1:
                 redBack = CGFloat(section1Array[indexPath.row].red)
                 greenBack = CGFloat(section1Array[indexPath.row].green)
                 blueBack = CGFloat(section1Array[indexPath.row].blue)
                 alphaBack = CGFloat(section1Array[indexPath.row].alpha)
                 label.text = section1Array[indexPath.row].name
+                if ((selectedElement.section == 1) && (selectedElement.row == indexPath.row)) {
+                    cell.accessoryType = .checkmark
+                    print("section 1 row \(indexPath.row) has check")
+                } else {
+                    cell.accessoryType = .none
+                }
             case 2:
                 redBack = CGFloat(section2Array[indexPath.row].red)
                 greenBack = CGFloat(section2Array[indexPath.row].green)
                 blueBack = CGFloat(section2Array[indexPath.row].blue)
                 alphaBack = CGFloat(section2Array[indexPath.row].alpha)
                 label.text = section2Array[indexPath.row].name
+                if ((selectedElement.section == 2) && (selectedElement.row == indexPath.row)) {
+                    cell.accessoryType = .checkmark
+                } else {
+                    cell.accessoryType = .none
+                }
             default:
                 redBack = CGFloat(defaultArray[indexPath.row].red)
                 greenBack = CGFloat(defaultArray[indexPath.row].green)
                 blueBack = CGFloat(defaultArray[indexPath.row].blue)
                 alphaBack = CGFloat(defaultArray[indexPath.row].alpha)
                 label.text = defaultArray[indexPath.row].name
+                cell.accessoryType = .none
         }
         
         print("IndexPath \(indexPath.row), red \(redBack), green \(greenBack), blue \(blueBack)")
@@ -167,6 +195,22 @@ class FixedPresetViewController: UITableViewController {
         if let cell = tableView.cellForRow(at: indexPath) {
                 cell.accessoryType = .checkmark
             }
+        
+        selectedElement = indexPath
+        print("Selected element: \(selectedElement)")
+        // checksFalse() // set all check marks to false
+        
+        // set check mark in selected row to true
+        
+        let selectedRow = indexPath.row
+        if indexPath.section == 0 {
+            section0Array[selectedRow].check = true
+        } else if indexPath.section == 1 {
+            section1Array[selectedRow].check = true
+        } else {
+            section2Array[selectedRow].check = true
+        }
+        
         let section = indexPath.section
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -209,6 +253,19 @@ class FixedPresetViewController: UITableViewController {
         saveValues(for: redColor, for: greenColor, for: blueColor, for: alpha)
         
         valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
+    }
+    
+    func checksFalse() {
+
+        for var element0 in section0Array {
+            element0.check = false
+        }
+        for var element1 in section1Array {
+            element1.check = false
+        }
+        for var element2 in section2Array {
+            element2.check = false
+        }
     }
     
     
