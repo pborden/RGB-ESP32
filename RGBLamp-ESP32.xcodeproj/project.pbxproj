@@ -19,6 +19,7 @@
 		6E802F8623DE94D0001799BD /* UserPresetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E802F8523DE94D0001799BD /* UserPresetViewController.swift */; };
 		6E802F8A23DE956F001799BD /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E802F8923DE956F001799BD /* EditViewController.swift */; };
 		6E88809F24C4E41E0094E7DC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E88809E24C4E41E0094E7DC /* Default-568h@2x.png */; };
+		6EE6F60A26BF31C3006A6D5C /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE6F60926BF31C3006A6D5C /* CameraViewController.swift */; };
 		6EF4D4752424187900B22C25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EF4D4742424187900B22C25 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		6E802F8523DE94D0001799BD /* UserPresetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPresetViewController.swift; sourceTree = "<group>"; };
 		6E802F8923DE956F001799BD /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		6E88809E24C4E41E0094E7DC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		6EE6F60926BF31C3006A6D5C /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		6EF4D4742424187900B22C25 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,6 +76,7 @@
 				6E172AB923AC35FA004B3DF2 /* AppDelegate.swift */,
 				6E172ABB23AC35FA004B3DF2 /* SceneDelegate.swift */,
 				6E172ABD23AC35FA004B3DF2 /* ViewController.swift */,
+				6EE6F60926BF31C3006A6D5C /* CameraViewController.swift */,
 				6E39924C23E291B400CFB3BD /* FixedPresetViewController.swift */,
 				6E802F8523DE94D0001799BD /* UserPresetViewController.swift */,
 				6E802F8923DE956F001799BD /* EditViewController.swift */,
@@ -161,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E172ABE23AC35FA004B3DF2 /* ViewController.swift in Sources */,
+				6EE6F60A26BF31C3006A6D5C /* CameraViewController.swift in Sources */,
 				6E4FCEE5241F21A600CC3794 /* ADCMaxValue.swift in Sources */,
 				6E802F8623DE94D0001799BD /* UserPresetViewController.swift in Sources */,
 				6E172ABA23AC35FA004B3DF2 /* AppDelegate.swift in Sources */,
