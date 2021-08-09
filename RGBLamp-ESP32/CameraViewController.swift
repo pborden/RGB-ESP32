@@ -10,17 +10,20 @@ import UIKit
 import AVFoundation
 import CoreGraphics
 
-class CameraViewController: UITabBarController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
+// this is the home view controller
+class CameraViewController: UIViewController {
+    
     // Define the colors and initialize them using saved user defaults. White is not used; set to fixed value now.
     var redColor: Float = UserDefaults.standard.float(forKey: "red")
     var greenColor: Float = UserDefaults.standard.float(forKey: "green")
     var blueColor: Float = UserDefaults.standard.float(forKey: "blue")
     var whiteColor: Float = 0.9
+    let minTextBackground: Float = 0.0  // sets minimum brightness in text field. Set to zero with borders added
     let thumbAlpha: Float = 0.3 // minimum value of alpha for slider thumb color
     var alpha: Float = UserDefaults.standard.float(forKey: "alpha") // alpha is the intensity
     var colorMode: Bool = true // color mode allows changes to each color; white mode toggled with color/white button
     var alertPresented: Bool = false // can be used with start-up alert (not implemented)
+    var minFontSize: Float = 4.0 // minimum sizes of the fonts in the reading chart text blocks
     
     // temporary values used to toggle white/color modes
     var tempRed: Float = 0.0
@@ -29,7 +32,10 @@ class CameraViewController: UITabBarController, UINavigationControllerDelegate, 
     var tempAlpha: Float = 0.0
     var tempWhite: Float = 0.0
     
-    //var onState: Bool = true  // used to toggle on/off switch
+    var upperTextLocked = false
+    var lowerTextLocked = false
+    
+    var onState: Bool = true  // used to toggle on/off switch
     var alphaInOnState: Float = 1.0
     
     // arrays of user saved hues, used in PresetViewController
@@ -40,11 +46,12 @@ class CameraViewController: UITabBarController, UINavigationControllerDelegate, 
     var userBlue: [Float] = []
     var userAlpha: [Float] = []
     
-    var redCount: Int = 0
-    var greenCount: Int = 0
-    var blueCount: Int = 0
+    // Set the font size for the vision chart text blocks. Top block is large font; bottom block is small font
+    var largeFontSize = UserDefaults.standard.float(forKey: "largeFont")
+    var smallFontSize = UserDefaults.standard.float(forKey: "smallFont")
     
     // Control outlets
+
     @IBOutlet weak var redValue: UILabel!
     @IBOutlet weak var greenValue: UILabel!
     @IBOutlet weak var blueValue: UILabel!
@@ -54,52 +61,10 @@ class CameraViewController: UITabBarController, UINavigationControllerDelegate, 
     @IBOutlet weak var setBlueSlider: UISlider!
     @IBOutlet weak var setAlphaSlider: UISlider!
     @IBOutlet weak var colorWhiteSwitch: UIButton!
-    @IBOutlet weak var imageView: UIImageView!
 
     
-    @IBAction func snapPicture(_ button: UIButton) {
-        let vc = UIImagePickerController()
-        vc.sourceType = .camera
-        vc.allowsEditing = true
-        vc.delegate = self
-        present(vc, animated: true)
-    }
-    
-    // These 4 actions set the RGB and alpha values based on the sliders.
-    // Only the final slider value is read (not continuous, as this could overload Bluetooth output.
-    @IBAction func redSlider(_ slider: UISlider) {
-        slider.isContinuous = false
-        redColor = slider.value
-        // let redValue = thumbAlpha + (1 - thumbAlpha) * redColor
-        // slider.thumbTintColor = UIColor(red: CGFloat(redValue), green: 0.0, blue: 0.0, alpha: 1.0)
-        setBackgroundColor()
-    }
-    
-    @IBAction func greenSlider(_ slider: UISlider) {
-        slider.isContinuous = false
-        greenColor = slider.value
-        // let greenValue = thumbAlpha + (1 - thumbAlpha) * greenColor
-        // slider.thumbTintColor = UIColor(red: 0.0, green: CGFloat(greenValue), blue: 0.0, alpha: 1.0)
-        setBackgroundColor()
-    }
-    
-    @IBAction func blueSlider(_ slider: UISlider) {
-        slider.isContinuous = false
-        blueColor = slider.value
-        // let blueValue = thumbAlpha + (1 - thumbAlpha) * blueColor
-        // slider.thumbTintColor = UIColor(red: 0.0, green: 0.0, blue: CGFloat(blueValue), alpha: 1.0)
-        setBackgroundColor()
-    }
-    
-    @IBAction func alphaSlider(_ slider: UISlider) {
-        slider.isContinuous = false
-        alpha = slider.value
-        // let alphaValue = thumbAlpha + (1 - thumbAlpha) * alpha
-        // slider.thumbTintColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: CGFloat(alphaValue))
-        setBackgroundColor()
-    }
-    
-    @IBAction func saveColor(_ button: UIButton) {
+    // Saves the current hue (RGB combination)
+    @IBAction func saveHue(_ button: UIButton) {
         // Provide alert to let user give the hue a name.
         var hueName = ""
         let alert = UIAlertController(title: "Name of saved color?", message: nil, preferredStyle: .alert)
@@ -138,6 +103,41 @@ class CameraViewController: UITabBarController, UINavigationControllerDelegate, 
         self.present(alert, animated: true)
     }
     
+    // These 4 actions set the RGB and alpha values based on the sliders and change the background
+    // color of the two text boxes according to the new slider values.
+    // Only the final slider value is read (not continuous, as this could overload Bluetooth output.
+    @IBAction func redSlider(_ slider: UISlider) {
+        slider.isContinuous = false
+        redColor = slider.value
+        // let redValue = thumbAlpha + (1 - thumbAlpha) * redColor
+        // slider.thumbTintColor = UIColor(red: CGFloat(redValue), green: 0.0, blue: 0.0, alpha: 1.0)
+        setBackgroundColor()
+    }
+    
+    @IBAction func greenSlider(_ slider: UISlider) {
+        slider.isContinuous = false
+        greenColor = slider.value
+        // let greenValue = thumbAlpha + (1 - thumbAlpha) * greenColor
+        // slider.thumbTintColor = UIColor(red: 0.0, green: CGFloat(greenValue), blue: 0.0, alpha: 1.0)
+        setBackgroundColor()
+    }
+    
+    @IBAction func blueSlider(_ slider: UISlider) {
+        slider.isContinuous = false
+        blueColor = slider.value
+        // let blueValue = thumbAlpha + (1 - thumbAlpha) * blueColor
+        // slider.thumbTintColor = UIColor(red: 0.0, green: 0.0, blue: CGFloat(blueValue), alpha: 1.0)
+        setBackgroundColor()
+    }
+    
+    @IBAction func alphaSlider(_ slider: UISlider) {
+        slider.isContinuous = false
+        alpha = slider.value
+        // let alphaValue = thumbAlpha + (1 - thumbAlpha) * alpha
+        // slider.thumbTintColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: CGFloat(alphaValue))
+        setBackgroundColor()
+    }
+    
     // This button switches the background of the text fields between colored and white
     @IBAction func colorButton(_ button: UIButton) {
          if colorMode {  // in color mode, switch to white mode
@@ -159,6 +159,8 @@ class CameraViewController: UITabBarController, UINavigationControllerDelegate, 
             
             colorWhiteSwitch.setTitle("Color", for: .normal)
             
+            setBackgroundWhite()
+            
         } else {  // return to color mode
             redColor = tempRed  // recover color settings
             greenColor = tempGreen
@@ -177,22 +179,32 @@ class CameraViewController: UITabBarController, UINavigationControllerDelegate, 
         }
     }
     
-    // Find RGBalpha in picture; set RGB values and sliders to those values
-
-    @IBAction func matchColors (_ sender: AnyObject) {
+    // sets the colored background and intensity (alpha) of the two text blocks
+    func setBackgroundColor() {
+        // set background color of both text blocks
+        // make sure background not zero, or blocks become invisible
+        var tempRed = redColor
+        var tempGreen = greenColor
+        var tempBlue = blueColor
+        var tempAlpha = alpha
+        if (tempRed + tempGreen + tempBlue) < minTextBackground {
+            tempRed = minTextBackground
+            tempGreen = minTextBackground
+            tempBlue = minTextBackground
+        }
+        if tempAlpha < minTextBackground {
+            tempAlpha = minTextBackground
+        }
         
-    }
-    
-    func recolorPicture() {
+        colorMode = true
         
+        setLabels()
         setLEDs()
     }
     
     // sets a white background for the two text blocks. Used with colored/white button
-    func recolorPictureWhite() {
+    func setBackgroundWhite() {
         // set background color to white for both text blocks, with intensity same as colored light
-        //var tempWhite = (redColor + greenColor + blueColor)
-        //var tempAlpha = alpha
         
         colorMode = false
         
@@ -235,6 +247,7 @@ class CameraViewController: UITabBarController, UINavigationControllerDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         loadDefaults() // load user defaults at start
+        setBackgroundColor() // set the background color of the text blocks based on the user defaults
         print("View controller appearing")
     }
 
@@ -246,6 +259,8 @@ class CameraViewController: UITabBarController, UINavigationControllerDelegate, 
         print("Green = \(greenColor)")
         print("Blue = \(blueColor)")
         print("Alpha = \(alpha)")
+        print("Large font size = \(largeFontSize)")
+        print("Small font size = \(smallFontSize)")
         
         // set a low background level if all three colors are zero.
         // otherwise, the text blocks will be invisible
@@ -255,109 +270,48 @@ class CameraViewController: UITabBarController, UINavigationControllerDelegate, 
             blueColor = 0.1
         }
         
-        //set start-up values of sliders by loading user defaults
-        setRedSlider.value = UserDefaults.standard.float(forKey: "red")
-        setGreenSlider.value = UserDefaults.standard.float(forKey: "green")
-        setBlueSlider.value = UserDefaults.standard.float(forKey: "blue")
-        
-        // add borders to text fields so their presence is seen even at low intensity
-        
         colorWhiteSwitch.setTitle("White", for: .normal)
         
+        // on first run of program, need to set initial values
+        if UserDefaults.standard.string(forKey: "firstTry") != "no" {
+            UserDefaults.standard.set("no", forKey: "firstTry") // not first try anymore
+            // set initial values
+            setRedSlider.value = 0.9
+            setGreenSlider.value = 0.9
+            setBlueSlider.value = 0.9
+            setAlphaSlider.value = 0.9
+            redColor = 0.9
+            greenColor = 0.9
+            blueColor = 0.9
+            alpha = 0.9
+            userName = []
+            userRed = []
+            userGreen = []
+            userBlue = []
+            userAlpha = []
+        } else { // not first try; initialize with user defaults
+            loadUserDefaultArrays()
+        }
+        
         setBackgroundColor()
-    }
-    
-    // sets the colored background and intensity (alpha) of the two text blocks
-    func setBackgroundColor() {
-        // set background color of both text blocks
-        // make sure background not zero, or blocks become invisible
-
-        colorMode = true
-        setLabels()
-        setLEDs()
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true)
-                
-        guard let yourUIImage = info[.editedImage] as? UIImage else {
-            print("No image found")
-            return
+        // make sure fonts in the two text blocks are at least the minimum font size
+        if largeFontSize < minFontSize {
+            largeFontSize = minFontSize
         }
         
-        guard let currentCGImage = yourUIImage.cgImage else { return }
-        let currentCIImage = CIImage(cgImage: currentCGImage)
         
-        // for filters see https://developer.apple.com/library/archive/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html#//apple_ref/doc/filter/ci/CILinearToSRGBToneCurve
-        //let filter = CIFilter(name: "CIColorMonochrome")
-        let filter = CIFilter(name: "CINoiseReduction")  // Averages for noise reduction
-        filter?.setValue(currentCIImage, forKey: "inputImage")
         
-        // set a gray value for the tint color
-        //filter?.setValue(CIColor(red: 0.5, green: 0.5, blue: 0.5), forKey: "inputColor")
-        
-        //filter?.setValue(1.0, forKey: "inputIntensity")
-        guard let outputImage = filter?.outputImage else { return }
-        
-        let context = CIContext()
-        
-        if let cgimg = context.createCGImage(outputImage, from: outputImage.extent) {
-        //if let cgimg = context.createCGImage(currentCIImage, from: currentCIImage.extent){
-           // show image
-            let processedImage = UIImage(cgImage: cgimg)
-            imageView.image = processedImage
+        // this alert is not used. Presents on start-up to tell user how to find help in using app.
+       /* if !alertPresented {
+            let alert = UIAlertController(title: "How to use", message: "For instructions, hit Help at lower right", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            NSLog("The \"OK\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
             
-            let height = cgimg.height
-            let width = cgimg.width
-            print("Picture width = \(cgimg.width)")
-            print("Picture height = \(cgimg.height)")
-            //let imageValues: [UInt8] = pixelValues(fromCGImage: cgimg)!
-            let imageValues: [UInt8]? = UIImage.pixelData(processedImage)()
-            
-            // select pixels from central region of image
-            let regionSize = 3
-            let startColumn = Int(width / regionSize)
-            let endColumn = width - startColumn
-            let startRow = Int(height / regionSize)
-            let endRow = height - startRow
-            
-
-            var pixelCount = 0      // number of pixels counted
-            var redSum: Int = 0
-            var greenSum: Int = 0
-            var blueSum: Int = 0
-            var alphaSum: Int = 0
-            let printInterval = 10000.0
-            
-            var column = startColumn
-            var row = endRow
-            
-            while column <= endColumn {
-                while row <= endRow {
-                    let pixel = column * height + row
-                    let redValue = Int((imageValues![4 * pixel]))
-                    let greenValue = Int((imageValues![4 * pixel + 1]))
-                    let blueValue = Int((imageValues![4 * pixel + 2]))
-                    let alphaValue = Int((imageValues![4 * pixel + 3]))
-                    redSum = redValue + redSum
-                    greenSum = greenValue + greenSum
-                    blueSum = blueValue + blueSum
-                    alphaSum = alphaValue + alphaSum
-                    row = row + 1
-                    pixelCount = pixelCount + 1
-                    if Int(printInterval) == Int(Double(pixelCount) / printInterval) {
-                        print("Red = \(redValue); Green = \(greenValue); Blue = \(blueValue)")
-                    }// if
-                } // row <= endRow
-                column = column + 1
-            } // column <= endColumn
-            
-            redCount = Int(redSum / pixelCount)
-            greenCount = Int(greenSum / pixelCount)
-            blueCount = Int(blueSum / pixelCount)
-            
-        }
-    } // imagePickerController
+            alertPresented = true
+        } */
+    }
     
     // load arrays containing name, RGB and alpha values for each user saved setting
     func loadUserDefaultArrays() {
@@ -382,23 +336,3 @@ class CameraViewController: UITabBarController, UINavigationControllerDelegate, 
         setAlphaSlider.value = alpha
     }
 }
-
-extension UIImage {
-    func pixelData() -> [UInt8]? {
-        let size = self.size
-        let dataSize = size.width * size.height * 4
-        var pixelData = [UInt8](repeating: 0, count: Int(dataSize))
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let context = CGContext(data: &pixelData,
-                                width: Int(size.width),
-                                height: Int(size.height),
-                                bitsPerComponent: 8,
-                                bytesPerRow: 4 * Int(size.width),
-                                space: colorSpace,
-                                bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue)
-        guard let cgImage = self.cgImage else { return nil }
-        context?.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-
-        return pixelData
-    }
- } // UIImage extension

@@ -24,6 +24,8 @@
 	<string>Bluetooth sends color values to lamp</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Bluetooth required to send color values to associated lamp</string>
+	<key>NSCameraUsageDescription</key>
+	<string>App requires use of camera</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
