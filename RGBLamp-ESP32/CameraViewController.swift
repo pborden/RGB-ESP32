@@ -77,43 +77,60 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate & 
     
     @IBAction func matchPictureColor(_ button: UIButton) {
         
-        if !pictureMatched {  // match LEDs to color mix in picture
+        if matchButton.currentTitle! == "Match"  {  // match LEDs to color mix in picture
             tempPicRed = redColor
             tempPicGreen = greenColor
             tempPicBlue = blueColor
             tempPicAlpha = alpha
             
-            redColor = pictureRed
-            greenColor = pictureGreen
-            blueColor = pictureBlue
-            alpha = pictureAlpha
-        
-            setRedSlider.value = redColor
-            setGreenSlider.value = greenColor
-            setBlueSlider.value = blueColor
-            setAlphaSlider.value = alpha
+            if (pictureRed + pictureGreen + pictureBlue > 0) {
+            
+                redColor = pictureRed
+                greenColor = pictureGreen
+                blueColor = pictureBlue
+                alpha = pictureAlpha
+                setSliders(redValue: redColor, greenValue: greenColor, blueValue: blueColor, alphaValue: alpha)
+            }
             
             matchButton.setTitleColor(UIColor.red, for: .normal)
+            matchButton.setTitle("Red", for: .normal)
+        } else if matchButton.currentTitle! == "Red" { // set lamp to red
+            redColor = 0.9
+            greenColor = 0.0
+            blueColor = 0.0
+            alpha = 0.9
+            setSliders(redValue: redColor, greenValue: greenColor, blueValue: blueColor, alphaValue: alpha)
+                
+            matchButton.setTitleColor(UIColor.green, for: .normal)
+            matchButton.setTitle("Green", for: .normal)
             
-            pictureMatched = true
+        } else if matchButton.currentTitle! == "Green" { // set lamp to green
+            redColor = 0.0
+            greenColor = 0.9
+            blueColor = 0.0
+            alpha = 0.9
+            setSliders(redValue: redColor, greenValue: greenColor, blueValue: blueColor, alphaValue: alpha)
+                
+            matchButton.setTitleColor(UIColor.blue, for: .normal)
+            matchButton.setTitle("Blue", for: .normal)
+        
+        } else if matchButton.currentTitle! == "Blue" { // set lamp to blue
+            redColor = 0.0
+            greenColor = 0.0
+            blueColor = 0.9
+            alpha = 0.9
+            setSliders(redValue: redColor, greenValue: greenColor, blueValue: blueColor, alphaValue: alpha)
+                
+            matchButton.setTitleColor(UIColor.white, for: .normal)
+            matchButton.setTitle("Normal", for: .normal)
         } else { // return LEDs to original state
             redColor = tempPicRed
             greenColor = tempPicGreen
             blueColor = tempPicBlue
             alpha = tempPicAlpha
-        
-            setRedSlider.value = redColor
-            setGreenSlider.value = greenColor
-            setBlueSlider.value = blueColor
-            setAlphaSlider.value = alpha
-            
-            matchButton.setTitleColor(UIColor.white, for: .normal)
-            
-            pictureMatched = false
+            setSliders(redValue: redColor, greenValue: greenColor, blueValue: blueColor, alphaValue: alpha)
+            matchButton.setTitle("Match", for: .normal)
         }
-        
-        setLabels()
-        setLEDs()
     }
     
     // Saves the current hue (RGB combination)
@@ -239,6 +256,16 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate & 
         
         colorMode = true
         loadDefaults()
+        setLabels()
+        setLEDs()
+    }
+    
+    func setSliders(redValue: Float, greenValue: Float, blueValue: Float, alphaValue: Float) {
+        setRedSlider.value = redValue
+        setGreenSlider.value = greenValue
+        setBlueSlider.value = blueValue
+        setAlphaSlider.value = alphaValue
+        
         setLabels()
         setLEDs()
     }
