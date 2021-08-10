@@ -166,6 +166,7 @@ func saveValues(for redColor: Float, for greenColor: Float, for blueColor: Float
      UserDefaults.standard.set(greenColor, forKey: "green")
      UserDefaults.standard.set(blueColor, forKey: "blue")
      UserDefaults.standard.set(alpha, forKey: "alpha")
+     print("Defaults saved")
 }
 
 // find the output of each string, consistent with the value of alpha and the maximum lamp output

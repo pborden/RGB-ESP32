@@ -350,6 +350,7 @@ O H V K C</string>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vYV-l6-ATg">
                                         <rect key="frame" x="249.33333333333329" y="0.0" width="124.66666666666666" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Turn Off" backgroundImage="Default.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -817,19 +818,22 @@ Saved
                                 <rect key="frame" x="20" y="607" width="374" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6j-BM-JZd">
-                                        <rect key="frame" x="0.0" y="0.0" width="90" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="57" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="Take PIcture">
+                                        <state key="normal" title="Camera">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="snapPicture:" destination="O4U-va-4Vl" eventType="touchUpInside" id="UZU-q1-5ch"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wdt-Mh-S61">
-                                        <rect key="frame" x="90" y="0.0" width="70" height="40"/>
+                                        <rect key="frame" x="57" y="0.0" width="100" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="hXo-is-3ZY"/>
+                                            <constraint firstAttribute="width" constant="100" id="hXo-is-3ZY"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="White">
+                                        <state key="normal" title="    White">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -837,13 +841,13 @@ Saved
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tQz-aC-J7r">
-                                        <rect key="frame" x="160" y="0.0" width="144" height="40"/>
+                                        <rect key="frame" x="157" y="0.0" width="147" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <state key="normal" title="Save Setting">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="saveColor:" destination="O4U-va-4Vl" eventType="touchUpInside" id="aVR-4D-4t0"/>
+                                            <action selector="saveHue:" destination="O4U-va-4Vl" eventType="touchUpInside" id="D6b-uo-pUI"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfK-DR-JiY">
@@ -856,6 +860,9 @@ Saved
                                         <state key="normal" title="Match" backgroundImage="Default.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="matchPictureColor:" destination="O4U-va-4Vl" eventType="touchUpInside" id="4Nh-Pz-T9e"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -873,6 +880,7 @@ Saved
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wJL-Df-sh6">
                                 <rect key="frame" x="20" y="50" width="374" height="320"/>
+                                <color key="backgroundColor" systemColor="systemGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="320" id="BkR-Vy-p6u"/>
                                 </constraints>
@@ -904,11 +912,13 @@ Saved
                         <outlet property="blueValue" destination="qfb-5I-b2N" id="8gH-cr-lfa"/>
                         <outlet property="colorWhiteSwitch" destination="wdt-Mh-S61" id="4nk-rV-Owp"/>
                         <outlet property="greenValue" destination="Lhp-FE-jB1" id="bMY-Qe-uip"/>
+                        <outlet property="matchButton" destination="dfK-DR-JiY" id="bQj-GV-Fcx"/>
                         <outlet property="redValue" destination="0Uj-XX-EhL" id="I3x-2l-NDO"/>
                         <outlet property="setAlphaSlider" destination="fT9-hB-eoB" id="bQe-yd-dmP"/>
                         <outlet property="setBlueSlider" destination="NVR-NF-vWE" id="0P4-bl-Y3r"/>
                         <outlet property="setGreenSlider" destination="ZVu-jw-lPs" id="oaq-7l-QWd"/>
                         <outlet property="setRedSlider" destination="nII-JS-yXP" id="5WU-jj-0za"/>
+                        <outlet property="userImage" destination="wJL-Df-sh6" id="UWS-Oj-dhY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="snA-Dk-7pm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1019,6 +1029,9 @@ Saved
         </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

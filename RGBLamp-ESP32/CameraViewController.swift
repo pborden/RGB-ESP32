@@ -11,19 +11,17 @@ import AVFoundation
 import CoreGraphics
 
 // this is the home view controller
-class CameraViewController: UIViewController {
+class CameraViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     // Define the colors and initialize them using saved user defaults. White is not used; set to fixed value now.
     var redColor: Float = UserDefaults.standard.float(forKey: "red")
     var greenColor: Float = UserDefaults.standard.float(forKey: "green")
     var blueColor: Float = UserDefaults.standard.float(forKey: "blue")
     var whiteColor: Float = 0.9
-    let minTextBackground: Float = 0.0  // sets minimum brightness in text field. Set to zero with borders added
     let thumbAlpha: Float = 0.3 // minimum value of alpha for slider thumb color
     var alpha: Float = UserDefaults.standard.float(forKey: "alpha") // alpha is the intensity
     var colorMode: Bool = true // color mode allows changes to each color; white mode toggled with color/white button
     var alertPresented: Bool = false // can be used with start-up alert (not implemented)
-    var minFontSize: Float = 4.0 // minimum sizes of the fonts in the reading chart text blocks
     
     // temporary values used to toggle white/color modes
     var tempRed: Float = 0.0
@@ -32,8 +30,17 @@ class CameraViewController: UIViewController {
     var tempAlpha: Float = 0.0
     var tempWhite: Float = 0.0
     
-    var upperTextLocked = false
-    var lowerTextLocked = false
+    // temporary values used to toggle picture match
+    var tempPicRed: Float = 0.0
+    var tempPicGreen: Float = 0.0
+    var tempPicBlue: Float = 0.0
+    var tempPicAlpha: Float = 0.0
+    
+    var pictureRed: Float = 0.9         // rgba values of picture
+    var pictureGreen: Float = 0.9
+    var pictureBlue: Float = 0.9
+    var pictureAlpha: Float = 1.0
+    var pictureMatched: Bool = false
     
     var onState: Bool = true  // used to toggle on/off switch
     var alphaInOnState: Float = 1.0
@@ -46,10 +53,6 @@ class CameraViewController: UIViewController {
     var userBlue: [Float] = []
     var userAlpha: [Float] = []
     
-    // Set the font size for the vision chart text blocks. Top block is large font; bottom block is small font
-    var largeFontSize = UserDefaults.standard.float(forKey: "largeFont")
-    var smallFontSize = UserDefaults.standard.float(forKey: "smallFont")
-    
     // Control outlets
 
     @IBOutlet weak var redValue: UILabel!
@@ -61,7 +64,57 @@ class CameraViewController: UIViewController {
     @IBOutlet weak var setBlueSlider: UISlider!
     @IBOutlet weak var setAlphaSlider: UISlider!
     @IBOutlet weak var colorWhiteSwitch: UIButton!
-
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var matchButton: UIButton!
+    
+    @IBAction func snapPicture(_ button: UIButton) {
+        let vc = UIImagePickerController()
+        vc.sourceType = .camera
+        vc.allowsEditing = true
+        vc.delegate = self
+        present(vc, animated: true)
+    }
+    
+    @IBAction func matchPictureColor(_ button: UIButton) {
+        
+        if !pictureMatched {  // match LEDs to color mix in picture
+            tempPicRed = redColor
+            tempPicGreen = greenColor
+            tempPicBlue = blueColor
+            tempPicAlpha = alpha
+            
+            redColor = pictureRed
+            greenColor = pictureGreen
+            blueColor = pictureBlue
+            alpha = pictureAlpha
+        
+            setRedSlider.value = redColor
+            setGreenSlider.value = greenColor
+            setBlueSlider.value = blueColor
+            setAlphaSlider.value = alpha
+            
+            matchButton.setTitleColor(UIColor.red, for: .normal)
+            
+            pictureMatched = true
+        } else { // return LEDs to original state
+            redColor = tempPicRed
+            greenColor = tempPicGreen
+            blueColor = tempPicBlue
+            alpha = tempPicAlpha
+        
+            setRedSlider.value = redColor
+            setGreenSlider.value = greenColor
+            setBlueSlider.value = blueColor
+            setAlphaSlider.value = alpha
+            
+            matchButton.setTitleColor(UIColor.white, for: .normal)
+            
+            pictureMatched = false
+        }
+        
+        setLabels()
+        setLEDs()
+    }
     
     // Saves the current hue (RGB combination)
     @IBAction func saveHue(_ button: UIButton) {
@@ -183,21 +236,9 @@ class CameraViewController: UIViewController {
     func setBackgroundColor() {
         // set background color of both text blocks
         // make sure background not zero, or blocks become invisible
-        var tempRed = redColor
-        var tempGreen = greenColor
-        var tempBlue = blueColor
-        var tempAlpha = alpha
-        if (tempRed + tempGreen + tempBlue) < minTextBackground {
-            tempRed = minTextBackground
-            tempGreen = minTextBackground
-            tempBlue = minTextBackground
-        }
-        if tempAlpha < minTextBackground {
-            tempAlpha = minTextBackground
-        }
         
         colorMode = true
-        
+        loadDefaults()
         setLabels()
         setLEDs()
     }
@@ -259,8 +300,6 @@ class CameraViewController: UIViewController {
         print("Green = \(greenColor)")
         print("Blue = \(blueColor)")
         print("Alpha = \(alpha)")
-        print("Large font size = \(largeFontSize)")
-        print("Small font size = \(smallFontSize)")
         
         // set a low background level if all three colors are zero.
         // otherwise, the text blocks will be invisible
@@ -294,12 +333,6 @@ class CameraViewController: UIViewController {
         }
         
         setBackgroundColor()
-        // make sure fonts in the two text blocks are at least the minimum font size
-        if largeFontSize < minFontSize {
-            largeFontSize = minFontSize
-        }
-        
-        
         
         // this alert is not used. Presents on start-up to tell user how to find help in using app.
        /* if !alertPresented {
@@ -335,4 +368,92 @@ class CameraViewController: UIViewController {
         setBlueSlider.value = blueColor
         setAlphaSlider.value = alpha
     }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        
+        guard let yourUIImage = info[.editedImage] as? UIImage else {
+            print("No image found")
+            return
+        }
+        
+        guard let currentCGImage = yourUIImage.cgImage else { return }
+        let currentCIImage = CIImage(cgImage: currentCGImage)
+        
+        // for filters see https://developer.apple.com/library/archive/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html#//apple_ref/doc/filter/ci/CILinearToSRGBToneCurve
+        
+        let context = CIContext()
+        
+        if let cgimg = context.createCGImage(currentCIImage, from: currentCIImage.extent) {
+        //if let cgimg = context.createCGImage(currentCIImage, from: currentCIImage.extent){
+           // show image
+            let processedImage = UIImage(cgImage: cgimg)
+            userImage.image = processedImage
+            
+            let height = cgimg.height
+            let width = cgimg.width
+            print("Picture width = \(cgimg.width)")
+            print("Picture height = \(cgimg.height)")
+            //let imageValues: [UInt8] = pixelValues(fromCGImage: cgimg)!
+            let imageValues: [UInt8]? = UIImage.pixelData(processedImage)()
+
+            var pixelCount = 0      // number of pixels counted
+            var redSum: Int = 0
+            var greenSum: Int = 0
+            var blueSum: Int = 0
+            var alphaSum: Int = 0
+            let printInterval = 10000
+            
+            for column in 0..<width {
+                for row in 0..<height {
+                    let pixel = column * height + row
+                    let redValue = Int((imageValues![4 * pixel]))
+                    let greenValue = Int((imageValues![4 * pixel + 1]))
+                    let blueValue = Int((imageValues![4 * pixel + 2]))
+                    let alphaValue = Int((imageValues![4 * pixel + 3]))
+                    redSum = redValue + redSum
+                    greenSum = greenValue + greenSum
+                    blueSum = blueValue + blueSum
+                    alphaSum = alphaValue + alphaSum
+                    pixelCount = pixelCount + 1
+                    if Int(printInterval) == Int(Double(pixelCount) / Double(printInterval)) {
+                        print("Red = \(redValue); Green = \(greenValue); Blue = \(blueValue)")
+                    }// if
+                } // row <= endRow
+            } // column <= endColumn
+            
+            let redCount = Double(redSum) / Double(pixelCount)
+            let greenCount = Double(greenSum) / Double(pixelCount)
+            let blueCount = Double(blueSum) / Double(pixelCount)
+            
+            print("\(pixelCount) pixels; red = \(redCount), green = \(greenCount), blue = \(blueCount)")
+            
+            pictureRed = Float(redCount) / Float(ADCMaximumValue)
+            pictureGreen = Float(greenCount) / Float(ADCMaximumValue)
+            pictureBlue = Float(blueCount) / Float(ADCMaximumValue)
+            
+            print("Picture red = \(pictureRed), green = \(pictureGreen), blue = \(pictureBlue)")
+        }
+        
+    } // imagePickerController
 }
+
+extension UIImage {
+    func pixelData() -> [UInt8]? {
+        let size = self.size
+        let dataSize = size.width * size.height * 4
+        var pixelData = [UInt8](repeating: 0, count: Int(dataSize))
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let context = CGContext(data: &pixelData,
+                                width: Int(size.width),
+                                height: Int(size.height),
+                                bitsPerComponent: 8,
+                                bytesPerRow: 4 * Int(size.width),
+                                space: colorSpace,
+                                bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue)
+        guard let cgImage = self.cgImage else { return nil }
+        context?.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+
+        return pixelData
+    }
+ } // UIImage extension
