@@ -27,6 +27,7 @@ class UserPresetViewController: UITableViewController {
     var userRed: [Float] = []
     var userBlue: [Float] = []
     var userAlpha: [Float] = []
+    var selectedElement: IndexPath = [4, 0] // set to non-existent section so no check appears at start
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +60,13 @@ class UserPresetViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserPreset", for: indexPath)
         
         let label = cell.viewWithTag(1000) as! UILabel
+        
+        if ((selectedElement.section == 0) && (selectedElement.row == indexPath.row)){
+            cell.accessoryType = .checkmark
+            print("section 0 row \(indexPath.row) has check")
+        } else {
+            cell.accessoryType = .none
+        }
         
         // set background color of cell same as associated lamp hue RGB, alpha values
         let redBack = CGFloat(userRed[indexPath.row])

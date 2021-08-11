@@ -42,6 +42,8 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate & 
     var pictureAlpha: Float = 1.0
     var pictureMatched: Bool = false
     
+    var filteredImage: UIImage? = nil
+    
     var onState: Bool = true  // used to toggle on/off switch
     var alphaInOnState: Float = 1.0
     
@@ -219,30 +221,19 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate & 
             redColor = whiteColor
             greenColor = whiteColor
             blueColor = whiteColor
+            colorMode = false
             
-            redValue.text = "\(whiteColor)"
-            greenValue.text = "\(whiteColor)"
-            blueValue.text = "\(whiteColor)"
-            setRedSlider.value = whiteColor
-            setGreenSlider.value = whiteColor
-            setBlueSlider.value = whiteColor
-            
+            setSliders(redValue: redColor, greenValue: blueColor, blueValue: greenColor, alphaValue: alpha)
             colorWhiteSwitch.setTitle("Color", for: .normal)
-            
-            setBackgroundWhite()
             
         } else {  // return to color mode
             redColor = tempRed  // recover color settings
             greenColor = tempGreen
             blueColor = tempBlue
+            alpha = tempAlpha
             
-            redValue.text = "\(redColor)"
-            greenValue.text = "\(greenColor)"
-            blueValue.text = "\(blueColor)"
-            setRedSlider.value = redColor
-            setGreenSlider.value = greenColor
-            setBlueSlider.value = blueColor
-            
+            setSliders(redValue: redColor, greenValue: blueColor, blueValue: greenColor, alphaValue: alpha)
+            colorMode = true
             colorWhiteSwitch.setTitle("White", for: .normal)
             
             setBackgroundColor()
@@ -254,8 +245,12 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate & 
         // set background color of both text blocks
         // make sure background not zero, or blocks become invisible
         
-        colorMode = true
-        loadDefaults()
+        // filter image from https://stackoverflow.com/questions/29997985/using-cicolormatrix-filter-in-swift
+            
+        let pictureColor: UIColor = UIColor(red: CGFloat(redColor), green: CGFloat(greenColor), blue: CGFloat(blueColor), alpha: CGFloat(1.0))  // alpha set to 1.0 to make crispest picture
+        let presentImage = filteredImage?.colorized(with: pictureColor)
+        userImage.image = presentImage
+        
         setLabels()
         setLEDs()
     }
@@ -266,19 +261,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate & 
         setBlueSlider.value = blueValue
         setAlphaSlider.value = alphaValue
         
-        setLabels()
-        setLEDs()
-    }
-    
-    // sets a white background for the two text blocks. Used with colored/white button
-    func setBackgroundWhite() {
-        // set background color to white for both text blocks, with intensity same as colored light
-        
-        colorMode = false
-        
-        setLabels()
-        setLEDs()
-        
+        setBackgroundColor()
     }
     
     // sets the labels at the ends of the sliders to read out a numeric value between 0 and 100
@@ -359,6 +342,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate & 
             loadUserDefaultArrays()
         }
         
+        loadDefaults()
         setBackgroundColor()
         
         // this alert is not used. Presents on start-up to tell user how to find help in using app.
@@ -417,6 +401,8 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate & 
             let processedImage = UIImage(cgImage: cgimg)
             userImage.image = processedImage
             
+            filteredImage = processedImage  // image on which filter is applied
+            
             let height = cgimg.height
             let width = cgimg.width
             print("Picture width = \(cgimg.width)")
@@ -461,7 +447,6 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate & 
             
             print("Picture red = \(pictureRed), green = \(pictureGreen), blue = \(pictureBlue)")
         }
-        
     } // imagePickerController
 }
 
@@ -484,3 +469,40 @@ extension UIImage {
         return pixelData
     }
  } // UIImage extension
+
+extension UIImage {
+    var coreImage: CIImage? { CIImage(image: self) }
+    func colorized(with color: UIColor) -> UIImage? {
+        coreImage?.colorized(with: color)?.image
+    }
+}
+
+extension CIImage {
+    var image: UIImage { .init(ciImage: self) }
+    func colorized(with color: UIColor) -> CIImage? {
+        //guard
+            let (r,g,b,a) = color.rgba
+            let colorMatrix = CIFilter(name: "CIColorMatrix",
+                parameters: ["inputImage":  self,
+                             "inputRVector": CIVector(x: r, y: 0, z: 0, w: 0),
+                             "inputGVector": CIVector(x: 0, y: g, z: 0, w: 0),
+                             "inputBVector": CIVector(x: 0, y: 0, z: b, w: 0),
+                             "inputAVector": CIVector(x: 0, y: 0, z: 0, w: a)])
+        //else { return nil }
+        return colorMatrix?.outputImage
+    }
+}
+
+extension UIColor {
+    var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+        return (red, green, blue, alpha)
+    }
+}
+
+
