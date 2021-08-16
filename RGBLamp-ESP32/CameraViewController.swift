@@ -223,7 +223,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate & 
             blueColor = whiteColor
             colorMode = false
             
-            setSliders(redValue: redColor, greenValue: blueColor, blueValue: greenColor, alphaValue: alpha)
+            setSliders(redValue: redColor, greenValue: greenColor, blueValue: blueColor, alphaValue: alpha)
             colorWhiteSwitch.setTitle("Color", for: .normal)
             
         } else {  // return to color mode
@@ -232,7 +232,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate & 
             blueColor = tempBlue
             alpha = tempAlpha
             
-            setSliders(redValue: redColor, greenValue: blueColor, blueValue: greenColor, alphaValue: alpha)
+            setSliders(redValue: redColor, greenValue: greenColor, blueValue: blueColor, alphaValue: alpha)
             colorMode = true
             colorWhiteSwitch.setTitle("White", for: .normal)
             

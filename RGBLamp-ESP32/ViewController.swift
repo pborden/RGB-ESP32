@@ -35,6 +35,7 @@ class ViewController: UIViewController {
     
     var onState: Bool = true  // used to toggle on/off switch
     var alphaInOnState: Float = 1.0
+    var connectionState: Bool = BTComm.shared().connected
     
     // arrays of user saved hues, used in PresetViewController
     // needs to be separate arrays vs. using a Hue object for saving as user defaults
@@ -65,6 +66,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var colorWhiteSwitch: UIButton!
     @IBOutlet weak var upperTextLock: UIButton!
     @IBOutlet weak var lowerTextLock: UIButton!
+    @IBOutlet weak var connectedLabel: UILabel!
     
     @IBAction func lockUpperText(_ button: UIButton) {
         if upperTextLocked {
@@ -357,6 +359,7 @@ class ViewController: UIViewController {
     
     // send the LED string intensities to the lamp
     func setLEDs() {
+        checkConnectionState()
         
         // find the led output values (the ledValue() routine is in ADCMaxValue.swift)
         let redLED = ledValue(color: "red", for: redColor, for: greenColor, for: blueColor, for: alpha)
@@ -461,7 +464,7 @@ class ViewController: UIViewController {
         lowerTextLock.setImage(UIImage(named: "unlocked"), for: .normal)
         lowerTextLock.setImage(UIImage(named: "unlocked"), for: .highlighted)
         
-        
+        checkConnectionState()
         
         // this alert is not used. Presents on start-up to tell user how to find help in using app.
        /* if !alertPresented {
@@ -473,6 +476,16 @@ class ViewController: UIViewController {
             
             alertPresented = true
         } */
+    }
+    
+    func checkConnectionState() {
+        connectionState = BTComm.shared().connected
+        print("Connection state = \(connectionState)")
+        if connectionState {
+            connectedLabel.text = ""
+        } else {
+            connectedLabel.text = ""
+        }
     }
     
     // load arrays containing name, RGB and alpha values for each user saved setting

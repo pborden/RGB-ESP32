@@ -27,6 +27,7 @@ class BTComm: NSObject {
         
         var transmittedData: String = ""
         var receivedData: String = ""
+        var connected: Bool = false
         
         // initialize global variables. Colors are global
         private init(transmittedData: String) {
@@ -83,7 +84,6 @@ class BTComm: NSObject {
         
         // found the peripheral. stop scanning and connect
         func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi: NSNumber) {
-            
             print(peripheral)
             let peripheralName = peripheral.name
             let peripheralID = peripheral.identifier
@@ -101,6 +101,7 @@ class BTComm: NSObject {
         // after connected, find the services offered
         func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
             print("Connected!")
+            connected = true
             blePeripheral.discoverServices([BLEService_UUID])
         }
     }
@@ -109,7 +110,6 @@ class BTComm: NSObject {
     extension BTComm: CBPeripheralDelegate {
         func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
             guard let services = peripheral.services else { return }
-            
             for service in services {
                 print(service)
                 peripheral.discoverCharacteristics(nil, for: service)
@@ -195,5 +195,13 @@ class BTComm: NSObject {
                 }
             }
         }
+        
+       /* func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+            if error != nil {
+                connected = false
+                return
+            }
+            // Successfully wrote value to characteristic
+        } */
 
 }
