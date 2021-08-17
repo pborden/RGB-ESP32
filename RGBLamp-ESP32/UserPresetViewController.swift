@@ -23,11 +23,13 @@ class UserPresetViewController: UITableViewController {
     
     //Mark: Presets.
     var userName: [String] = []
-    var userGreen: [Float] = []
     var userRed: [Float] = []
+    var userGreen: [Float] = []
     var userBlue: [Float] = []
     var userAlpha: [Float] = []
     var selectedElement: IndexPath = [4, 0] // set to non-existent section so no check appears at start
+    let numberOfSettingsToLoad = 5  //when changing, also change line below in name
+    var firstElement: Preset = Preset(name: "Touch to upload 5 most recent to lamp", red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0, editable: false, check: false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,11 +49,18 @@ class UserPresetViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     
     // Number of rows in table
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        if section == 0 {
+            return 1
+        } else {
         return userName.count
+        }
     }
 
     
@@ -61,25 +70,39 @@ class UserPresetViewController: UITableViewController {
         
         let label = cell.viewWithTag(1000) as! UILabel
         
-        if ((selectedElement.section == 0) && (selectedElement.row == indexPath.row)){
+        if ((selectedElement.section == 1) && (selectedElement.row == indexPath.row)){
             cell.accessoryType = .checkmark
             print("section 0 row \(indexPath.row) has check")
         } else {
             cell.accessoryType = .none
         }
-        
-        // set background color of cell same as associated lamp hue RGB, alpha values
-        let redBack = CGFloat(userRed[indexPath.row])
-        let greenBack = CGFloat(userGreen[indexPath.row])
-        let blueBack = CGFloat(userBlue[indexPath.row])
-        let alphaBack = CGFloat(userAlpha[indexPath.row])
-        print("IndexPath \(indexPath.row), red \(redBack), green \(greenBack), blue \(blueBack)")
-        cell.backgroundColor = UIColor(red: redBack, green: greenBack, blue: blueBack, alpha: alphaBack)
-        
-        // text in cell and checkmark is black; put name of saved preset in cell
-        label.textColor = UIColor.black
-        cell.tintColor = UIColor.black
-        label.text = userName[indexPath.row]
+        if indexPath.section == 0 {
+            let redBack = CGFloat(firstElement.red)
+            let greenBack = CGFloat(firstElement.green)
+            let blueBack = CGFloat(firstElement.blue)
+            let alphaBack = CGFloat(firstElement.alpha)
+            print("IndexPath \(indexPath.row), red \(redBack), green \(greenBack), blue \(blueBack)")
+            cell.backgroundColor = UIColor(red: redBack, green: greenBack, blue: blueBack, alpha: alphaBack)
+            
+            // text in cell and checkmark is black; put name of saved preset in cell
+            label.textColor = UIColor.systemBlue
+            cell.tintColor = UIColor.black
+            label.text = firstElement.name
+            
+        } else {
+            // set background color of cell same as associated lamp hue RGB, alpha values
+            let redBack = CGFloat(userRed[indexPath.row])
+            let greenBack = CGFloat(userGreen[indexPath.row])
+            let blueBack = CGFloat(userBlue[indexPath.row])
+            let alphaBack = CGFloat(userAlpha[indexPath.row])
+            print("IndexPath \(indexPath.row), red \(redBack), green \(greenBack), blue \(blueBack)")
+            cell.backgroundColor = UIColor(red: redBack, green: greenBack, blue: blueBack, alpha: alphaBack)
+            
+            // text in cell and checkmark is black; put name of saved preset in cell
+            label.textColor = UIColor.black
+            cell.tintColor = UIColor.black
+            label.text = userName[indexPath.row]
+        } // else
         
         return cell
     }
@@ -95,8 +118,11 @@ class UserPresetViewController: UITableViewController {
         if let cell = tableView.cellForRow(at: indexPath) {
                 cell.accessoryType = .checkmark
             }
-        
-        setLEDs(presetIndex: indexPath.row)
+        if indexPath.section == 0 {  // upload presets to lamp
+            loadSettingsToLamp()
+        } else {
+            setLEDs(presetIndex: indexPath.row)
+        }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -137,6 +163,37 @@ class UserPresetViewController: UITableViewController {
         
         valueToString(white: whiteLED, red: redLED, green: greenLED, blue: blueLED)
     }
+    
+    func loadSettingsToLamp() {
+        // upload last six settings; put in delay so lamp will rapidly flash through them
+        let numberOfSettings = userName.count
+        var uploadCount = numberOfSettingsToLoad
+        if uploadCount > numberOfSettings {
+            uploadCount = numberOfSettings
+        }
+        var firstIndex = numberOfSettings - uploadCount
+        if firstIndex < 0 {
+            firstIndex = 0
+        }
+        /*let seconds = 5.0
+        for presetIndex in firstIndex..<numberOfSettings {
+            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                self.setLEDs(presetIndex: presetIndex)
+            }
+        } */
+            var i = firstIndex
+
+            func nextIteration() {
+                if i < numberOfSettings {
+                    setLEDs(presetIndex: i)
+                    i+=1
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                        nextIteration()
+                    }
+                }
+            }
+            nextIteration()
+    } // loadSettingsToLamp
     
     func loadUserDefaults() {
         userName = UserDefaults.standard.stringArray(forKey: "userName") ?? [String]()

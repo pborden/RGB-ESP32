@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     
     // arrays of user saved hues, used in PresetViewController
     // needs to be separate arrays vs. using a Hue object for saving as user defaults
-    var userName: [String] = []
+    var userName: [String] = []  // initial values for first cell on white bkgnd
     var userRed: [Float] = []
     var userGreen: [Float] = []
     var userBlue: [Float] = []
