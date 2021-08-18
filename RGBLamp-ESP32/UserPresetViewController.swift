@@ -121,7 +121,11 @@ class UserPresetViewController: UITableViewController {
         if indexPath.section == 0 {  // upload presets to lamp
             loadSettingsToLamp()
         } else {
-            setLEDs(presetIndex: indexPath.row)
+            let redColor = userRed[indexPath.row]
+            let greenColor = userGreen[indexPath.row]
+            let blueColor = userBlue[indexPath.row]
+            let alpha = userAlpha[indexPath.row]
+            setLEDs(redColor: redColor, greenColor: greenColor, blueColor: blueColor, alpha: alpha)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -143,14 +147,8 @@ class UserPresetViewController: UITableViewController {
         tableView.deleteRows(at: indexPaths, with: .automatic)
     }
     
-    func setLEDs(presetIndex: Int) {
+    func setLEDs(redColor: Float, greenColor: Float, blueColor: Float, alpha: Float) {
         // normalize so output independent of mix of colors, only dependent on alpha
-        
-        // read associated RGB values and alpha
-        let redColor = userRed[presetIndex]
-        let greenColor = userGreen[presetIndex]
-        let blueColor = userBlue[presetIndex]
-        let alpha = userAlpha[presetIndex]
         
         // convert to LED values using routine in ADCMaxValue.swift
         let redLED = ledValue(color: "red", for: redColor, for: greenColor, for: blueColor, for: alpha)
@@ -165,7 +163,15 @@ class UserPresetViewController: UITableViewController {
     }
     
     func loadSettingsToLamp() {
-        // upload last six settings; put in delay so lamp will rapidly flash through them
+        // upload last five settings; put in delay so lamp will rapidly flash through them
+        // first, upload a zero output setting (provides way to turn lamp off)
+        let redOff: Float = 0.9
+        let greenOff: Float = 0.9
+        let blueOff: Float = 0.9
+        let alphaOff: Float = 0.0
+        
+        setLEDs(redColor: redOff, greenColor: greenOff, blueColor: blueOff, alpha: alphaOff)
+        
         let numberOfSettings = userName.count
         var uploadCount = numberOfSettingsToLoad
         if uploadCount > numberOfSettings {
@@ -175,17 +181,16 @@ class UserPresetViewController: UITableViewController {
         if firstIndex < 0 {
             firstIndex = 0
         }
-        /*let seconds = 5.0
-        for presetIndex in firstIndex..<numberOfSettings {
-            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                self.setLEDs(presetIndex: presetIndex)
-            }
-        } */
+        
             var i = firstIndex
 
             func nextIteration() {
                 if i < numberOfSettings {
-                    setLEDs(presetIndex: i)
+                    let redColor = userRed[i]
+                    let greenColor = userGreen[i]
+                    let blueColor = userBlue[i]
+                    let alpha = userAlpha[i]
+                    setLEDs(redColor: redColor, greenColor: greenColor, blueColor: blueColor, alpha: alpha)
                     i+=1
                     DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                         nextIteration()
