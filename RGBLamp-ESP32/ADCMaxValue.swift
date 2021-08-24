@@ -42,9 +42,9 @@ let blueTurnOn: Float = 2.0
 // based on spreadsheet RGB lamp - filter matching. Calculates x,y,z based on spectra
 // and normalizes power spectra to measured power at 255 A/D counts.
 // rgb scale factors of 0.52, 1.0, 0.27 give best fit to white 6000K.
-let redScaleFactor: Float = 0.48  // 0.52
+let redScaleFactor: Float = 0.5940  // 0.48 8-24-21 .5940
 let greenScaleFactor: Float = 1.0 // 1.0
-let blueScaleFactor: Float = 0.42// 0.27
+let blueScaleFactor: Float = 0.2993// 0.42 8-24-21 .2993
 let alphaScaleFactor: Float = 1.2 // Raised from 1.2 6.22.21
 // more slider range. Scales all three colors equally
 

@@ -20,9 +20,9 @@ class FixedPresetViewController: UITableViewController {
      ]
     
     var section0Array = [
-        Preset(name: "Cold white", red: 0.9, green: 0.9, blue: 1.0, alpha: 0.9, editable: false, check: false),
-        Preset(name: "Neutral white", red: 0.9, green: 0.9, blue: 0.8, alpha: 0.9, editable: false, check: false),
-        Preset(name: "Warm white", red: 0.9, green: 0.9, blue: 0.6, alpha: 0.9, editable: false, check: false),
+        Preset(name: "Cold white", red: 0.86, green: 0.90, blue: 0.97, alpha: 0.9, editable: false, check: false),
+        Preset(name: "Neutral white", red: 0.91, green: 0.80, blue: 0.58, alpha: 0.9, editable: false, check: false),
+        Preset(name: "Warm white", red: 0.96, green: 0.68, blue: 0.28, alpha: 0.9, editable: false, check: false),
         Preset(name: "Light green", red: 0.15, green: 0.92, blue: 0.7, alpha: 0.9, editable: false, check: false)
                               ]
     
