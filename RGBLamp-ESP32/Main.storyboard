@@ -316,16 +316,16 @@ O H V K C</string>
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="©2021 Jasper Ridge Inc. patents pending." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2uQ-x5-N1v">
-                                <rect key="frame" x="20" y="673.66666666666663" width="221" height="13.333333333333371"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <rect key="frame" x="20" y="675" width="203.33333333333334" height="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gX4-DM-VaC">
-                                <rect key="frame" x="20" y="632.66666666666663" width="374" height="40"/>
+                                <rect key="frame" x="20" y="642" width="374" height="32"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bh4-OF-f3p">
-                                        <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="32"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <state key="normal" title="White">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -335,7 +335,7 @@ O H V K C</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rsc-TS-fqI">
-                                        <rect key="frame" x="124.66666666666666" y="0.0" width="124.66666666666666" height="40"/>
+                                        <rect key="frame" x="124.66666666666666" y="0.0" width="124.66666666666666" height="32"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <state key="normal" title="Save">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -345,7 +345,7 @@ O H V K C</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vYV-l6-ATg">
-                                        <rect key="frame" x="249.33333333333329" y="0.0" width="124.66666666666666" height="40"/>
+                                        <rect key="frame" x="249.33333333333329" y="0.0" width="124.66666666666666" height="32"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Turn Off" backgroundImage="Default.png">
@@ -358,7 +358,7 @@ O H V K C</string>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="vYV-l6-ATg" firstAttribute="width" secondItem="Bh4-OF-f3p" secondAttribute="width" id="6JM-aL-zNI"/>
-                                    <constraint firstAttribute="height" constant="40" id="Bfy-Cz-Cyy"/>
+                                    <constraint firstAttribute="height" constant="32" id="Bfy-Cz-Cyy"/>
                                     <constraint firstItem="Rsc-TS-fqI" firstAttribute="width" secondItem="Bh4-OF-f3p" secondAttribute="width" id="dNL-O9-CgM"/>
                                 </constraints>
                             </stackView>
