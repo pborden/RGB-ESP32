@@ -45,7 +45,7 @@ let blueTurnOn: Float = 2.0
 let redScaleFactor: Float = 0.5940  // 0.48 8-24-21 .5940
 let greenScaleFactor: Float = 1.0 // 1.0
 let blueScaleFactor: Float = 0.2993// 0.42 8-24-21 .2993
-let alphaScaleFactor: Float = 1.2 // Raised from 1.2 6.22.21
+let alphaScaleFactor: Float = 0.9 // Raised from 1.2 6.22.21 reduced from 1.2 to 0.9 9.28.21
 // more slider range. Scales all three colors equally
 
 // colors need to exceed these lux levels individually or they won't turn on.
