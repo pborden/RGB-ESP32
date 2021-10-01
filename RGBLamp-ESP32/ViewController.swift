@@ -9,7 +9,19 @@
 import UIKit
 
 // this is the home view controller
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return fontSizes.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+            return fontSizes[row]
+    }
+    
     
     // Define the colors and initialize them using saved user defaults. White is not used; set to fixed value now.
     var redColor: Float = UserDefaults.standard.float(forKey: "red")
@@ -22,6 +34,10 @@ class ViewController: UIViewController {
     var colorMode: Bool = true // color mode allows changes to each color; white mode toggled with color/white button
     var alertPresented: Bool = false // can be used with start-up alert (not implemented)
     var minFontSize: Float = 4.0 // minimum sizes of the fonts in the reading chart text blocks
+    var fontSizes = ["4","6","8","10","12","14","16","18","20","24","28","32","36","40","44"]
+    var textBlock: String = "large"
+    var largeTextSize: Int = 14
+    var smallTextSize: Int = 14
     
     // temporary values used to toggle white/color modes
     var tempRed: Float = 0.0
@@ -67,6 +83,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var upperTextLock: UIButton!
     @IBOutlet weak var lowerTextLock: UIButton!
     @IBOutlet weak var connectedLabel: UILabel!
+    @IBOutlet weak var fontPicker: UIPickerView!
     
     @IBAction func lockUpperText(_ button: UIButton) {
         if upperTextLocked {
@@ -137,10 +154,13 @@ class ViewController: UIViewController {
     
     // Increase the font size in the top box
     @IBAction func largeTextBigger(_ button: UIButton) {
-        largeFontSize = largeFontSize + 1.0 // Increment size
-        textLarge.font = .systemFont(ofSize: CGFloat(largeFontSize))
-        largeFont.text = "\(Int(largeFontSize))" // Update text showing current font size
-        UserDefaults.standard.set(largeFontSize, forKey: "largeFont") // Save current font size
+        textBlock = "large"
+        fontPicker.isHidden = false
+        //largeFontSize = largeFontSize + 1.0 // Increment size
+        //largeFontSize = Float(largeTextSize)
+        //textLarge.font = .systemFont(ofSize: CGFloat(largeFontSize))
+        //largeFont.text = "\(Int(largeFontSize))" // Update text showing current font size
+        //UserDefaults.standard.set(largeFontSize, forKey: "largeFont") // Save current font size
     }
     
     // Decrease the font size in the top box
@@ -155,10 +175,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func smallTextBigger(_ button: UIButton) {
-        smallFontSize = smallFontSize + 1.0 // Increment size
-        textSmall.font = .systemFont(ofSize: CGFloat(smallFontSize))
-        smallFont.text = "\(Int(smallFontSize))"  // Update text showing current font size
-        UserDefaults.standard.set(smallFontSize, forKey: "smallFont") // Save current font size
+        textBlock = "small"
+        fontPicker.isHidden = false
+        //smallFontSize = smallFontSize + 1.0 // Increment size
+        //smallFontSize = Float(smallTextSize)
+        //textSmall.font = .systemFont(ofSize: CGFloat(smallFontSize))
+        //smallFont.text = "\(Int(smallFontSize))"  // Update text showing current font size
+        //UserDefaults.standard.set(smallFontSize, forKey: "smallFont") // Save current font size
     }
     
     @IBAction func smallTextSmaller(_ button: UIButton) {
@@ -382,9 +405,18 @@ class ViewController: UIViewController {
         print("View controller appearing")
     }
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fontPicker.delegate = self
+        fontPicker.dataSource = self
+        
+        fontPicker.backgroundColor = UIColor.darkGray
+        fontPicker.setValue(UIColor.white, forKey: "textColor")
+        
+        fontPicker.isHidden = true
+        
+        
         // print current values for diagnostic purposes
         print("Red = \(redColor)")
         print("Green = \(greenColor)")
@@ -476,6 +508,22 @@ class ViewController: UIViewController {
             
             alertPresented = true
         } */
+    }
+    
+    // Capture the picker view selection
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        fontPicker.isHidden = true
+        if textBlock == "large" {
+            largeFont.text = fontSizes[row]
+            largeFontSize = Float(fontSizes[row]) ?? 14.0
+            textLarge.font = .systemFont(ofSize: CGFloat(largeFontSize))
+            UserDefaults.standard.set(largeFontSize, forKey: "largeFont") // Save current font size
+        } else {
+            smallFont.text = fontSizes[row]
+            smallFontSize = Float(fontSizes[row]) ?? 14.0
+            textSmall.font = .systemFont(ofSize: CGFloat(smallFontSize))
+            UserDefaults.standard.set(smallFontSize, forKey: "smallFont)") // Save current small font size
+        }
     }
     
     func checkConnectionState() {
