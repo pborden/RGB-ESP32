@@ -70,8 +70,10 @@ class EditViewController: UITableViewController, UITextFieldDelegate {
         if userName.count > 0 {
             for row in 0 ... userName.count - 1 {
                 let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0))
-                let label = cell?.viewWithTag(2000) as! UITextField
-                userName[row] = label.text ?? ""
+                if cell?.viewWithTag(2000) != nil {
+                    let label = cell?.viewWithTag(2000) as! UITextField
+                    userName[row] = label.text ?? ""
+                }
             }
         }
         
