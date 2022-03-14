@@ -28,7 +28,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var greenColor: Float = UserDefaults.standard.float(forKey: "green")
     var blueColor: Float = UserDefaults.standard.float(forKey: "blue")
     var whiteColor: Float = 0.9
-    let minTextBackground: Float = 0.0  // sets minimum brightness in text field. Set to zero with borders added
+    let minTextBackground: Float = 0.17  // sets minimum brightness in text field. Set to zero with borders added
     let thumbAlpha: Float = 0.3 // minimum value of alpha for slider thumb color
     var alpha: Float = UserDefaults.standard.float(forKey: "alpha") // alpha is the intensity
     var colorMode: Bool = true // color mode allows changes to each color; white mode toggled with color/white button
