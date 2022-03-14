@@ -46,6 +46,16 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var tempAlpha: Float = 0.0
     var tempWhite: Float = 0.0
     
+    // these store the upper and lower colors when the reading section is locked
+    var lowerRed: Float = 0.0
+    var lowerGreen: Float = 0.0
+    var lowerBlue: Float = 0.0
+    var lowerAlpha: Float = 0.0
+    var upperRed: Float = 0.0
+    var upperGreen: Float = 0.0
+    var upperBlue: Float = 0.0
+    var upperAlpha: Float = 0.0
+    
     var upperTextLocked = false
     var lowerTextLocked = false
     
@@ -85,6 +95,30 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var connectedLabel: UILabel!
     @IBOutlet weak var fontPicker: UIPickerView!
     
+    @IBAction func setColorUpperText(_ button: UIButton) {
+        if upperTextLocked {
+            redColor = upperRed
+            greenColor = upperGreen
+            blueColor = upperBlue
+            alpha = upperAlpha
+            setBackgroundColor()
+        } else {
+            return
+        }
+    }
+    
+    @IBAction func setColorLowerText(_ button: UIButton) {
+        if lowerTextLocked {
+            redColor = lowerRed
+            greenColor = lowerGreen
+            blueColor = lowerBlue
+            alpha = lowerAlpha
+            setBackgroundColor()
+        } else {
+            return
+        }
+    }
+    
     @IBAction func lockUpperText(_ button: UIButton) {
         if upperTextLocked {
             upperTextLocked = false
@@ -95,6 +129,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             upperTextLocked = true
             upperTextLock.setImage(UIImage(named: "locked"), for: .normal)
             upperTextLock.setImage(UIImage(named: "locked"), for: .highlighted)
+            upperRed = redColor
+            upperGreen = greenColor
+            upperBlue = blueColor
+            upperAlpha = alpha
         }
     }
     
@@ -108,6 +146,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             lowerTextLocked = true
             lowerTextLock.setImage(UIImage(named: "locked"), for: .normal)
             lowerTextLock.setImage(UIImage(named: "locked"), for: .highlighted)
+            lowerRed = redColor
+            lowerGreen = greenColor
+            lowerBlue = blueColor
+            lowerAlpha = alpha
         }
     }
 
